@@ -16,7 +16,9 @@ Como complemento a esta plantilla también tengo un manual express de Latex (rev
 
 # Uso
 
-Basta con abrir tesis-rmarkdown.Rmd, los nuevos capítulos se pueden ir agregando en capitulos/ siguiendo el ejemplo de los dos capítulos de demostración que incluí.
+* Basta con abrir tesis-rmarkdown.Rmd en RStudio y compilar el pdf con todos los capítulos, apéndices y bibliografía clikeando el botón "knit". 
+* Los nuevos capítulos y apéndices se pueden ir agregando en capitulos/ siguiendo el ejemplo de los dos capítulos de demostración que incluí.
+* Para incluir bibliografía hay que insertarla en el archivo bibliografía.bib
 
 # Desventajas
 
