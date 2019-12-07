@@ -1,0 +1,94 @@
+puctesis Package v. 1.4 2012.06.20 MTT
+
+Esta distribución de puctesis incluye:
+
+--- Paquetes Auxiliares ---
+algorithm2e.sty
+fancybox.sty
+setspace.sty
+
+--- Archivos de la Clase de Documento puctesis ---
+puctesis.cls
+puctesis.sty % * obsolete *
+logouc_23x30p38mm.ps
+logouc_23x30p38mm.pdf
+
+--- Archivos de la Plantilla puctesis ---
+puctesis_plantilla.tex
+puctesis_plantilla.pdf
+
+--- Archivos del Ejemplo puctesis ---
+puctesis_ejemplo.tex
+puctesis_ejemplo.pdf
+/figs/bsr3b2c_eig.ps
+/figs/bsr3b2cfan.ps
+/figs/bsr3x.ps
+/figs/vitruvian.ps
+LEEME.txt
+
+--- Archivos de Proyecto para TeXnic Center ---
+puctesis_plantilla.tcp
+puctesis_plantilla.tps
+puctesis_ejemplo.tcp
+puctesis_ejemplo.tps
+
+
+------------------------------
+1. Introducción
+El estilo de documento PUC Tesis para LaTeX requiere
+los siguientes archivos:
+
+- puctesis.cls (incluido con esta distribución)
+- apacite.sty (debe ser instalado como parte de su sistema TeX)
+
+Adicionalmente, si usted necesita incluir algoritmos y
+encuadres (boxes) o marcos (frames) en su manuscrito, se
+sugiere que use los paquetes:
+- algorithm2e.sty
+- fancybox.sty
+
+El uso de estos paquetes no es obligatorio, pero pueden resultar útiles.
+Estos paquetes se incluyen con la distribución de puctesis porque son
+empleados por los ejemplos.
+ 
+2. Instalación:
+Se asume que usted tiene una instalación estándar funcionando de:
+- El sistema TeX/LaTeX
+- Ghostscipt/Ghostview
+- Algún editor como Emacs+AUCTeX, WinEdit, etc.
+
+El sistema TeX/LaTeX instalado debe incluir los siguientes paquetes
+además de aquellos que se incluyen con esta distribución:
+ 
+ Pre-requisitos mínimos de la clase puctesis:
+ ===========================================
+ - clase:    amsbook
+ - paquetes: setspace.sty, graphicx.sty, apacite.sty
+ 
+ Pre-requisitos de paquetes para puctesis_plantilla:
+ ==================================================
+ - amsmath, amsfonts, amssymb, times
+
+  Pre-requisitos de paquetes para puctesis_ejemplo:
+ =================================================
+ - amsmath, amsfonts, amssymb, times
+ - algorithm2e, fancybox
+ - float, xspace (required by algorithm2e)
+
+* Aquellos paquetes requeridos que no se incluyen con
+  esta distribución normalmente son parte de la instalación
+  estándar de TeX/LaTeX.
+  Si su sistema no los incluye, asegurese de instalarlos
+  antes de compilar esta distribución.
+
+Descomprima la distribución a cualquier directorio.  No se requieren
+pasos adicionales.
+
+3. Compilación de los Ejemplos:
+Cambie al directorio donde se encuentran los archivos fuente.
+
+Desde una ventana de comando DOS ejecute:
+   make.bat
+Desde una ventana shell de Unix ejecute:
+   make
+------------------------------

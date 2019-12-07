@@ -1,0 +1,331 @@
+%\documentclass[12pt,reqno,oneside]{puctesis}         % For dvips
+\documentclass[12pt,reqno,oneside,pdftex]{puctesis} % For pdflatex
+%\documentclass[10pt,reqno,twoside]{puctesis}
+%\draft
+%\doublespacing
+%\usepackage{verbatim}
+%\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[spanish]{algorithm2e}
+\usepackage{fancybox}
+\usepackage{float}
+\usepackage{times}
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+
+% --- START: Babel ---
+% Esta seccion es necesaria para quienes desean usar Babel y acentos
+% en castellano en vez de acentos LaTeX tradicionales, e.j. \'a, \'e, etc.
+% Como Babel tiene un manejo distinto al normal para definir los nombres
+% de las partes del documento no basta con usar \renewcommand{\...name}
+% sino que es necesario usar tambi\'en \addto\captionspanish.
+% MTT 2011.11.30
+\usepackage[spanish]{babel}    % Estos paquetes alteran las definiciones
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}  % estandar de los titulos y requieren 
+                               % redefiniciones adicionales
+\addto\captionsspanish{%
+  \renewcommand{\contentsname}{INDICE GENERAL}%
+}
+\addto\captionsspanish{
+ \renewcommand{\listfigurename}{INDICE DE FIGURAS}%
+}
+\addto\captionsspanish{
+ \renewcommand{\listtablename}{INDICE DE TABLAS}%
+}
+\addto\captionsspanish{
+ \renewcommand{\chaptername}{}%CAPITULO}
+}
+\addto\captionsspanish{
+ \renewcommand{\figurename}{Figura}%
+}
+\addto\captionsspanish{
+ \renewcommand{\tablename}{Tabla}%
+}
+\addto\captionsspanish{
+ \renewcommand{\refname}{BIBLIOGRAFIA}%
+}
+\addto\captionsspanish{
+ \renewcommand{\bibname}{}%
+}
+\addto\captionsspanish{
+ \renewcommand{\BOthers}[1]{et al.\hbox{}}%
+}
+% --- END: Babel ---
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %   Preambulo                                      %
+           %------------------------------------------------- %
+           %        \newcommand\...{...}                      %
+           %        \newtheorem{}{}[]                         %
+           %        \numberwithin{}{}                         %
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%--------- NUEVOS ENTORNOS ---------
+\newtheorem{definicion}{\bf Definici\'on}[chapter]
+\newtheorem{propiedad}{Propiedad}[chapter]
+\newtheorem{afirmacion}{Afirmaci\'on}[chapter]
+\newtheorem{lema}{\bf Lema}[chapter]
+\newtheorem{proposicion}{Proposici\'on}[chapter]
+\newtheorem{teorema}{\noindent \bf Teorema}[chapter]
+\newtheorem{corolario}{\bf Corolario}[chapter]
+\newtheorem{pf}{Demostraci\'on}[chapter]
+\newtheorem{ejemplo}{\bf Ejemplo}[chapter]
+\newtheorem{comentario}{Comentario}[chapter]
+
+%--------- COLOQUE ENTORNOS/DEFINICIONES ADICIONALES AQUI ---------
+
+\newcommand\opgrad{\operatorname{grad}}        
+% ...
+
+
+%----------------------------------------------------------------------%
+\begin{document}
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %                                                  %
+           %  INICIALIZACIONES : PORTADA                      %
+           %                                                  %
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\draft                        %a?ade nota al pie con fecha del borrador
+\mdate{April 17, 2007}         %fecha de modificacion del manuscrito
+\version{1}                    %numero de version del manuscrito
+
+
+$if(titulo)$
+\title{$titulo$}
+$endif$
+$if(autor)$
+\author{$autor$}
+$endif$
+
+$if(escuelaodepartamento)$
+\facultyto    {$escuelaodepartamento$}
+$endif$
+$if(facultad)$
+\faculty      {$facultad$}
+\address{$facultad$\\
+         Pontificia Universidad Cat\'olica de Chile\\ 
+         Vicu\~na Mackenna 4860\\
+         Santiago, Chile\\
+         {\it Tel.\/} : 56 (2) 354-2000}
+$endif$
+$if(tituloogrado)$
+\degree       {$tituloogrado$} 
+$endif$
+$if(profesorguia)$
+\advisor      {$profesorguia$}
+$endif$
+$if(miembrocomite1)$
+\committeememberA {$miembrocomite1$}
+$endif$
+$if(miembrocomite2)$
+\committeememberB {$miembrocomite2$}
+$endif$
+$if(miembroinvitadocomite1)$
+\guestmemberA {$miembroinvitadocomite1$}
+$endif$
+$if(miembroinvitadocomite2)$
+\guestmemberB {$miembroinvitadocomite2$}
+$endif$
+$if(representantedipei)$
+\ogrsmember   {$representantedipei$}
+$endif$
+$if(materia)$
+\subject      {$materia$}
+$endif$
+$if(fecha)$
+\date         {$fecha$}
+$endif$
+$if(nombrecompleto)$
+\copyrightname{$nombrecompleto$}
+$endif$
+$if(anioromano)$
+\copyrightyear{$anioromano$}
+$endif$
+$if(dedicatoria)$
+\dedication   {$dedicatoria$}
+$endif$
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %   PRELIMINARIDADES                               %
+           %--------------------------------------------------%
+           %      pags. i & ii: segunda pagina                %
+           %      pags. iii: dedicatoria                      %
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\PageNumbersFootCentered       % numeros de pagina centrados en el pie															
+\pagenumbering{roman}
+\maketitle
+
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %   PAGINAS EXTRA                                  %
+           %--------------------------------------------------%
+           %      pags. --: not used                          %
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\newpage
+%\thispagestyle{empty}
+
+%----------------------------------------------------------------------%
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %      pags. iv: AGRADECIMIENTOS                   %
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter*{AGRADECIMIENTOS}
+Esta plantilla de R Markdown se base en la plantilla Latex hecha por
+Miguel Torres Torriti. Los agradecimientos se editan directamente en formato-puc.tex.
+\par
+%\bigskip
+
+%................................
+
+\cleardoublepage % En la impresion en doble cara, este comando hace que
+                 % la siguiente pagina sea una pagina derecha
+                 % (es decir, un pagina con numero impar con respecto
+                 % a la cuenta absoluta), produciendo una pagina en blanco
+                 % si es necesario.  Agregado por MTT 20.AUG.2002
+
+%----------------------------------------------------------------------%
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %      pags. v & up ---                            %
+           %            Indice General                        %
+           %            Lista de Figuras                      %
+           %            Lista de Tablas                       %
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+\listoffigures          
+\listoftables           
+\cleardoublepage % En la impresion en doble cara, este comando hace que
+                 % la siguiente pagina sea una pagina derecha
+                 % (es decir, un pagina con numero impar con respecto
+                 % a la cuenta absoluta), produciendo una pagina en blanco
+                 % si es necesario.  Agregado por MTT 20.AUG.2002
+
+%----------------------------------------------------------------------%
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %      pags. x & xi: RESUMEN - ABSTRACT
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\chapter*{RESUMEN}
+
+El resumen del trabajo se edita directamente en formato-puc.tex.
+
+\chapter*{ABSTRACT}
+
+\cleardoublepage % In double-sided printing style makes the next page 
+                 % a right-hand page, (i.e. a truly odd-numbered page 
+                 % with respect to absolut counting), producing a blank
+                 % page if necessary. Added by MTT 20.AUG.2002 
+
+%======================================================================%
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %   TEXTO DE LA TESIS
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NoChapterPageNumber           % elimina encabezado - pie de pagina de la
+                               % primera pagina de cada capitulo
+\pagenumbering{arabic}
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %   TEXTO DE LA TESIS
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+$body$
+
+%----------------------------------------------------------------------%
+
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %   REFERENCIAS 
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+$if(formatearbibliografia)$
+\cleardoublepage
+\nocite{*} % To make all the uncited references to appear in the bibliography.
+\bibliographystyle{apacite} 
+\bibliography{$bibliografia$}
+$endif$
+
+%----------------------------------------------------------------------%
+
+
+%----------------------------------------------------------------------%
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %   INDEX 
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Uncomment the following lines to include an index.
+
+%% INSERT INDEX PAGE # IN TOC
+%%%\addtocounter{chapter}{1}
+%%%\addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}{Index}}
+%%\addcontentsline{toc}{chapter}{\protect\numberline{}{Index}}
+%% NOTE: Insert "\label{IDX}" in '.ind' file after compiling the index
+%% with makeindex.
+%%\index{ @\label{IDX}}
+%% The above NOTE is not really needed as can be achieved by the trick below.
+%\addtocounter{page}{1}
+%\label{IDX}
+%\addtocounter{page}{-1}
+%\printindex
+
+%----------------------------------------------------------------------%
+
+
+\end{document}
+%======================================================================%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Local Variables:
+%% TeX-command-default: "LaTeX"
+%% End:

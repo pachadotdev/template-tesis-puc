@@ -1,0 +1,382 @@
+%======================================================================%
+%        puctesis_plantilla.tex        04-Apr-2007, modif. 04-Apr-2007
+%______________________________________________________________________%
+%.......10........20........30........40........50........60........70.%
+%________|_________|_________|_________|_________|_________|_________|_%
+%======================================================================%
+% $Id: puctesis_plantilla.tex,v 1.3 2017/12/19 10:46:03 mtorrest Exp $
+%\documentclass[12pt,reqno,oneside]{puctesis}          % For dvips
+\documentclass[12pt,reqno,oneside,pdftex]{puctesis}  % For pdflatex
+%\documentclass[10pt,reqno,twoside]{puctesis}
+%\draft
+%\doublespacing
+%\usepackage{verbatim}
+%\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[spanish]{algorithm2e}
+\usepackage{fancybox}
+\usepackage{float}
+\usepackage{times}
+
+% --- START: Babel ---
+% Esta seccion es necesaria para quienes desean usar Babel y acentos
+% en castellano en vez de acentos LaTeX tradicionales, e.j. \'a, \'e, etc.
+% Como Babel tiene un manejo distinto al normal para definir los nombres
+% de las partes del documento no basta con usar \renewcommand{\...name}
+% sino que es necesario usar tambi\'en \addto\captionspanish.
+% MTT 2011.11.30
+\usepackage[spanish]{babel}    % Estos paquetes alteran las definiciones
+\usepackage[latin1]{inputenc}  % estandar de los titulos y requieren 
+                               % redefiniciones adicionales
+\addto\captionsspanish{%
+  \renewcommand{\contentsname}{INDICE GENERAL}%
+}
+\addto\captionsspanish{
+ \renewcommand{\listfigurename}{INDICE DE FIGURAS}%
+}
+\addto\captionsspanish{
+ \renewcommand{\listtablename}{INDICE DE TABLAS}%
+}
+\addto\captionsspanish{
+ \renewcommand{\chaptername}{}%CAPITULO}
+}
+\addto\captionsspanish{
+ \renewcommand{\figurename}{Figura}%
+}
+\addto\captionsspanish{
+ \renewcommand{\tablename}{Tabla}%
+}
+\addto\captionsspanish{
+ \renewcommand{\refname}{BIBLIOGRAFIA}%
+}
+\addto\captionsspanish{
+ \renewcommand{\bibname}{}%
+}
+\addto\captionsspanish{
+ \renewcommand{\BOthers}[1]{et al.\hbox{}}%
+}
+% --- END: Babel ---
+
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %   Preambulo                                      %
+           %------------------------------------------------- %
+           %        \newcommand\...{...}                      %
+           %        \newtheorem{}{}[]                         %
+           %        \numberwithin{}{}                         %
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%--------- NUEVOS ENTORNOS ---------
+\newtheorem{definicion}{\bf Definici\'on}[chapter]
+\newtheorem{propiedad}{Propiedad}[chapter]
+\newtheorem{afirmacion}{Afirmaci\'on}[chapter]
+\newtheorem{lema}{\bf Lema}[chapter]
+\newtheorem{proposicion}{Proposici\'on}[chapter]
+\newtheorem{teorema}{\noindent \bf Teorema}[chapter]
+\newtheorem{corolario}{\bf Corolario}[chapter]
+\newtheorem{pf}{Demostraci\'on}[chapter]
+\newtheorem{ejemplo}{\bf Ejemplo}[chapter]
+\newtheorem{comentario}{Comentario}[chapter]
+
+%--------- COLOQUE ENTORNOS/DEFINICIONES ADICIONALES AQUI ---------
+
+% ...
+
+%----------------------------------------------------------------------%
+\begin{document}
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %                                                  %
+           %  INICIALIZACIONES : PORTADA                      %
+           %                                                  %
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\draft                        %añade nota al pie con fecha del borrador
+\mdate{April 17, 2007}         %fecha de modificacion del manuscrito
+\version{1}                    %numero de version del manuscrito
+
+
+\title[T\'itulo Corto]{Titulo largo de la tesis}
+\author{Nombre Completo del Autor}           
+%
+\address{Escuela de Ingenier\'ia\\
+         Pontificia Universidad Cat\'olica de Chile\\ 
+         Vicu\~na Mackenna 4860\\
+         Santiago, Chile\\
+         {\it Tel.\/} : 56 (2) 354-2000}
+\email{autor@direccion}
+%
+\facultyto    {la Escuela de Ingenier\'ia}
+%\department   {Departamento de ...}
+\faculty      {Facultad de Ingenier\'ia}
+\degree       {Magister en Ciencias de la Ingenier\'ia} 
+              % or {Doctor en Ciencias de la Ingenier\'ia}
+\advisor      {Nombre del Supervisor}
+\committeememberA {Miembro A del Comit\'e}
+\committeememberB {Miembro B del Comit\'e (Opcional)}
+\guestmemberA {Miembro Invitado A del Comit\'e}
+\guestmemberB {Miembro Invitado B del Comit\'e (Opcional)}
+\ogrsmember   {Representante de la DIPEI}
+\subject      {Ingenier\'ia}
+\date         {Abril 2007}
+\copyrightname{Nombre Completo del Autor}
+\copyrightyear{MMVII}
+\dedication   {A mi familia}
+
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %   PRELIMINARIDADES                               %
+           %--------------------------------------------------%
+           %      pags. i & ii: segunda pagina                %
+           %      pags. iii: dedicatoria                      %
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\PageNumbersFootCentered       % numeros de pagina centrados en el pie															
+\pagenumbering{roman}
+\maketitle
+
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %   PAGINAS EXTRA                                  %
+           %--------------------------------------------------%
+           %      pags. --: not used                          %
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\newpage
+%\thispagestyle{empty}
+
+%----------------------------------------------------------------------%
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %      pags. iv: AGRADECIMIENTOS                   %
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter*{AGRADECIMIENTOS}
+%................................
+%................................
+Escriba en un estilo sobrio sus agradecimientos a quienes contribuyeron en el desarrollo y preparaci\'on de su tesis.
+
+% No use las siguientes lineas.
+% Estas no cumplen con las indicaciones para la preparacion 
+% de tesis PUC.
+%~\vspace{1cm}
+%\hfill\parbox[t]{6cm}{\raggedleft
+%                      \em Nombre Completo del Autor\\[1ex]
+%                          Santiago, Chile, dd mmmm yyyy}
+       
+\cleardoublepage % En la impresion en doble cara, este comando hace que
+                 % la siguiente pagina sea una pagina derecha
+                 % (es decir, un pagina con numero impar con respecto
+                 % a la cuenta absoluta), produciendo una pagina en blanco
+                 % si es necesario.  Agregado por MTT 20.AUG.2002
+
+%----------------------------------------------------------------------%
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %      pags. v & up ---                            %
+           %            Indice General                        %
+           %            Lista de Figuras                      %
+           %            Lista de Tablas                       %
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+\listoffigures          
+\listoftables           
+\cleardoublepage % En la impresion en doble cara, este comando hace que
+                 % la siguiente pagina sea una pagina derecha
+                 % (es decir, un pagina con numero impar con respecto
+                 % a la cuenta absoluta), produciendo una pagina en blanco
+                 % si es necesario.  Agregado por MTT 20.AUG.2002
+
+%----------------------------------------------------------------------%
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %      pags. x & xi: RESUMEN - ABSTRACT
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\chapter*{RESUMEN}
+%................................
+%................................
+
+El resumen debe contener entre 100 y 300 palabras. El resumen debe ser escrito en ingl\'es y espa\~nol.  En el caso de tesis de doctorado, el formato de la p\'agina del resumen es distinta, por favor verifique la plantilla entregada por la Direcci\'on de Postrgrado.
+
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %   PALABRAS CLAVES                                %
+           %--------------------------------------------------%
+           %      al final de la pagina de resumen            %
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+~\vfill
+{\bf Palabras Claves:} \parbox[t]{.75\textwidth}{
+  plantilla de tesis, escritura de documentos, {\bf (Colocar aqu\'i las
+  palabras claves relevantes y estr\'ictamente relacionadas al tema de la tesis)}.}
+
+
+\chapter*{ABSTRACT}
+%................................
+%................................
+
+The abstract must contain between 100 and 300 words.  The abstract must be written in English and Spanish.  In the case of doctoral theses, the layout of the abstract page is different, so please check the template provided by the OGRS.
+
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %   KEYWORDS                                       %
+           %--------------------------------------------------%
+           %      at the end of the abstract page             %
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+~\vfill
+{\bf Keywords:} \parbox[t]{.8\textwidth}{
+  thesis template, document writing, {\bf (Write here the keywords
+  relevant and strictly related to the topic of the thesis)}.}
+
+
+\cleardoublepage % In double-sided printing style makes the next page 
+                 % a right-hand page, (i.e. a truly odd-numbered page 
+                 % with respect to absolut counting), producing a blank
+                 % page if necessary. Added by MTT 20.AUG.2002 
+
+%======================================================================%
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %   TEXTO DE LA TESIS
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NoChapterPageNumber           % elimina encabezado - pie de pagina de la
+                               % primera pagina de cada capitulo
+\pagenumbering{arabic}
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %   CAPITULO 1
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter[INTRODUCCION]{INTRODUCCION}
+%...........................
+%...........................
+\section{Definci\'on del Problema/Descripci\'on del Problema}
+\section{Motivaci\'on}
+\subsection{Algunos ejemplos}
+\subsection{Algunas caracter\'isticas}
+\section{T\'ecnicas/M\'etodos Existentes}
+\subsection{M\'etodos generales}
+\subsection{Desventajas de los enfoques existentes}
+\section{Resumen de Contribuciones/Contribuciones Originales}
+\section{Organizaci\'on de la Tesis/Documento}
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %   CAPITULO 2
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter[SUPUESTOS BASICOS Y RESULTADOS PRELIMINARES]{SUPUESTOS BASICOS Y RESULTADOS PRELIMINARES}
+%A\mbox{}\parbox{0.8\textwidth}{
+%BASIC ASSUMPTIONS, FACTS AND PRELIMINARY RESULTS}}
+%...........................
+%...........................
+Esta secci\'on introduce algunas nociones preliminares y antecedentes matem\'aticos.  La siguiente es una cita~\cite{CYB00,CYB12} a dos trabajos de A. Cyborg, el primero publicado en el a\~no 3000, el segundo es uno de sus trabajos pioneros que fue publicado hace casi un milenio antes.
+
+\section{Supuestos B\'asicos}
+\section{Antecedentes y Resultados Preliminares}
+\section{Modelos Matem\'aticos}
+
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %   CAPITULO 3
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter[ANALISIS Y SIMULACIONES]{ANALISIS Y SIMULACIONES}
+%...........................
+%...........................
+
+\section{An\'alisis}
+\section{Simulaciones}
+
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %   CAPITULO 4
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter[IMPLEMENTACION Y PRUEBAS]{IMPLEMENTACION Y METODOLOGIA DE PRUEBAS}
+%...........................
+%...........................
+
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %   CAPITULO 5
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter[RESULTADOS EXPERIMENTALES]{RESULTADOS EXPERIMENTALES}
+%...........................
+%...........................
+
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %   CAPITULO 6
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{CONCLUSIONES Y TRABAJO FUTURO}
+%...........................
+%...........................
+
+\section{Revisi\'on de los Resultados y Comentarios Generales}
+\section{Comparaci\'on de la Soluciones}
+\section{Temas de Investigaci\'on Futura}
+
+%----------------------------------------------------------------------%
+
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %   REFERENCIAS 
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\nocite{*} % Para hacer que todas la referencias no citadas aparezcan en la
+            % bibliography.  No debe utilizarse para la versi\'on final de la
+            % tesis.
+\bibliographystyle{apacite} 
+\bibliography{abbrev,puctesis_refs}
+
+%----------------------------------------------------------------------%
+
+
+%----------------------------------------------------------------------%
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %   ANEXOS
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\appendix
+\chapter[RECURSOS ADICIONALES]{RECURSOS ADICIONALES}
+%...........................
+%...........................
+
+
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           %   INDEX 
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Uncomment the following lines to include an index.
+
+%% INSERT INDEX PAGE # IN TOC
+%%%\addtocounter{chapter}{1}
+%%%\addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}{Index}}
+%%\addcontentsline{toc}{chapter}{\protect\numberline{}{Index}}
+%% NOTE: Insert "\label{IDX}" in '.ind' file after compiling the index
+%% with makeindex.
+%%\index{ @\label{IDX}}
+%% The above NOTE is not really needed as can be achieved by 
+%% the trick below.
+%\addtocounter{page}{1}
+%\label{IDX}
+%\addtocounter{page}{-1}
+%\printindex
+
+%----------------------------------------------------------------------%
+
+\end{document}
+%======================================================================%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
