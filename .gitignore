@@ -4,3 +4,7 @@
 .Ruserdata
 .log
 *_files
+*.log
+*.lof
+*.toc
+*_files

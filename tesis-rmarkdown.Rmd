@@ -1,26 +1,26 @@
 ---
-titulo: TESIS CON R MARKDOWN
+titulo: Fórmula de la media y la serie geométrica, tesis de ejemplo
 autor: PACHÁ
 nombrecompleto: SIMPLEMENTE PACHÁ
-escuelaodepartamento: Departamento de Química
+escuelaodepartamento: Departamento de Estadística
 facultad: Facultad de Derecho
-tituloogrado: Magíster en Agronomía
-profesorguia: Pedro Pablo Pérez Pereira, Pintor Portugués
-miembrocomite1: Persona 1
-miembrocomite2: Persona 2
-miembroinvitadocomite1: Persona 3
-miembroinvitadocomite2: Persona 4
-representantedipei: Persona 5
-materia: Música Barroca
+tituloogrado: Magíster en Estadística
+profesorguia: Nombre del profesor guía
+miembrocomite1: Nombre del miembro del comité 1
+miembrocomite2: Nombre del miembro del comité 2
+miembroinvitadocomite1: Nombre del miembro invitado del comité 1
+miembroinvitadocomite2: Nombre del miembro invitado del comité 2
+representantedipei: Nombre del representante DIPEI
+materia: Estimación de parámetros
 fecha: Diciembre 2019
 anioromano: MMXIX
-dedicatoria: A mi familia y a los amigos
+dedicatoria: A mi familia, amigos y personas valiosas de la universidad
 output: 
   pdf_document:
     latex_engine: pdflatex
     template: formato-puc.tex
     keep_tex: yes
-bibliografia: bibliografia.bib
+bibliography: bibliografia.bib
 formatearbibliografia: true
 link-references: true
 ---
