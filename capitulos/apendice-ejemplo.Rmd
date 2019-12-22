@@ -2,7 +2,7 @@
 
 El código R (se ejecuta sin necesidad de hacer copy paste del resultado a un archivo tex):
 
-```{r pressure}
+```{r pressure, fig.cap = "Gráfico de presión"}
 summary(cars)
 plot(pressure)
 ```

@@ -18,7 +18,7 @@ dedicatoria: A mi familia, amigos y personas valiosas de la universidad
 output: 
   pdf_document:
     latex_engine: pdflatex
-    template: formato-puc.tex
+    template: formato-puc/base.tex
     keep_tex: yes
 bibliography: bibliografia.bib
 formatearbibliografia: true

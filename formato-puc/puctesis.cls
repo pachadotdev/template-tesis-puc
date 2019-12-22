@@ -134,10 +134,10 @@
 %    pdfkeywords={keyword1} {key2} {key3}, % list of keywords
     pdfnewwindow=true,      % links in new window
     colorlinks=true,       % false: boxed links; true: colored links
-    linkcolor=red,          % color of internal links
-    citecolor=green,        % color of links to bibliography
-    filecolor=magenta,      % color of file links
-    urlcolor=cyan           % color of external links
+    linkcolor=blue,          % color of internal links
+    citecolor=blue,        % color of links to bibliography
+    filecolor=blue,      % color of file links
+    urlcolor=blue           % color of external links
 }
 
 %% APA-style REFERENCES 2007.06.22
@@ -692,9 +692,9 @@
         {\centering %\rule[0em]{80pt}{1ex}\\
             %%\psfig{file=logouc_23x30p38mm.ps,width=23mm,height=30.38mm}\\[.2\normalbaselineskip] %Obsolete
             \if \pdftex@true 1% Use PDF version if using pdflatex
-            \includegraphics*[height=30.38mm,width=23mm, viewport=0 0 24 31]{logouc_23x30p38mm.pdf}\\[.2\normalbaselineskip]
+            \includegraphics*[height=30.38mm,width=23mm, viewport=0 0 24 31]{formato-puc/logouc_23x30p38mm.pdf}\\[.2\normalbaselineskip]
             \else% Use PS version by default (dvips).
-            \includegraphics*[width=23mm,height=30.38mm]{logouc_23x30p38mm.ps}\\[.2\normalbaselineskip]
+            \includegraphics*[width=23mm,height=30.38mm]{formato-puc/logouc_23x30p38mm.ps}\\[.2\normalbaselineskip]
             \fi 
 %            \raisebox{29.38mm}[0em][0em]{%
 %                         \rule[-\textheight]{.5pt}{\textheight}}\\[2mm]
@@ -848,9 +848,9 @@
         {\centering %\rule[0em]{80pt}{1ex}\\
             %%\psfig{file=logouc_23x30p38mm.ps,width=23mm,height=30.38mm}\\[.2\normalbaselineskip] %Obsolete
             \if \pdftex@true 1% Use PDF version if using pdflatex
-            \includegraphics*[height=30.38mm,width=23mm, viewport=0 0 24 31]{logouc_23x30p38mm.pdf}\\[.2\normalbaselineskip]
+            \includegraphics*[height=30.38mm,width=23mm, viewport=0 0 24 31]{formato-puc/logouc_23x30p38mm.pdf}\\[.2\normalbaselineskip]
             \else% Use PS version by default (dvips).
-            \includegraphics*[width=23mm,height=30.38mm]{logouc_23x30p38mm.ps}\\[.2\normalbaselineskip]
+            \includegraphics*[width=23mm,height=30.38mm]{formato-puc/logouc_23x30p38mm.ps}\\[.2\normalbaselineskip]
             \fi 
 %            \raisebox{29.38mm}[0em][0em]{%
 %                         \rule[-\textheight]{.5pt}{\textheight}}\\[2mm]
@@ -914,39 +914,9 @@
   %%
   %% Members of the Committee
   %%
-  \prepresentedto
-  \vtop{%\centering
-      {%
-      \hspace{100pt}%
-      \parbox[t]{.75\textwidth}{%
-      \noindent
-      Miembros del Comit\'e:\\
-      {\normalsize
-      \ifx\@empty\@advisor {.........}\\\else{\uppercase\@advisor}\\\fi
-      \ifx\@empty\@committeememberA {.........}\\\else{\uppercase\@committeememberA}\\\fi
-      \ifx\@empty\@committeememberB {}\else{\uppercase\@committeememberB}\\\fi
-      \ifx\@empty\@guestmemberA {.........}\\\else{\uppercase\@guestmemberA}\\\fi
-      \ifx\@empty\@guestmemberB {}\else{\uppercase\@guestmemberB}\\\fi
-      \ifx\@empty\@ogrsmember {.........}\else{\uppercase\@ogrsmember}\fi}
-      }%end parbox
-      }%end centering
-    }
-  \vskip5\p@\@plus14\p@
   %%
   %% Blah, Blah...
   %%
-  \prepresentedto
-  \vtop{%\centering
-      {%
-      \hspace{100pt}%
-      \parbox[t]{.75\textwidth}{
-      \noindent
-      Tesis presentada a la Direcci\'on de Investigaci\'on y Postgrado\\
-      como parte de los requisitos para optar al grado de\\
-      \ifx\@empty\@degree {.........}\else\@degree\fi}%end parbox
-      }%end centering
-    }
-  \vskip10\p@\@plus14\p@
   %%
   %% The date
   %%
@@ -998,7 +968,7 @@
 \university{PONTIFICIA UNIVERSIDAD CATOLICA DE CHILE} % originally \large
 %
 \def\school#1{\def\@school{{\normalfont#1}}}
-\school{DEPARTAMENTO DE ESTADISTICA} % originally \large
+\school{EDITA LINEA 971 EN formato-puc/puctesis.cls PARA PONER EL DEPARTAMENTO} % originally \large
 %
 \def\facultyto#1{\def\@facultyto{{\normalfont\rm#1}}}
 \facultyto{{\rm Escuela de Ingenier\'ia}}

@@ -1,5 +1,5 @@
 %\documentclass[12pt,reqno,oneside]{puctesis}         % For dvips
-\documentclass[12pt,reqno,oneside,pdftex]{puctesis} % For pdflatex
+\documentclass[12pt,reqno,oneside,pdftex]{formato-puc/puctesis} % For pdflatex
 %\documentclass[10pt,reqno,twoside]{puctesis}
 %\draft
 %\doublespacing
@@ -158,21 +158,6 @@ $endif$
 $if(profesorguia)$
 \advisor      {$profesorguia$}
 $endif$
-$if(miembrocomite1)$
-\committeememberA {$miembrocomite1$}
-$endif$
-$if(miembrocomite2)$
-\committeememberB {$miembrocomite2$}
-$endif$
-$if(miembroinvitadocomite1)$
-\guestmemberA {$miembroinvitadocomite1$}
-$endif$
-$if(miembroinvitadocomite2)$
-\guestmemberB {$miembroinvitadocomite2$}
-$endif$
-$if(representantedipei)$
-\ogrsmember   {$representantedipei$}
-$endif$
 $if(materia)$
 \subject      {$materia$}
 $endif$
@@ -218,7 +203,7 @@ $endif$
 
 \chapter*{AGRADECIMIENTOS}
 Esta plantilla de R Markdown se base en la plantilla Latex hecha por
-Miguel Torres Torriti. Los agradecimientos se editan directamente en formato-puc.tex.
+Miguel Torres Torriti. Los agradecimientos se editan directamente en formato-puc/base.tex.
 \par
 %\bigskip
 
@@ -257,7 +242,7 @@ Miguel Torres Torriti. Los agradecimientos se editan directamente en formato-puc
 
 \chapter*{RESUMEN}
 
-El resumen del trabajo se edita directamente en formato-puc.tex.
+El resumen del trabajo se edita directamente en formato-puc/base.tex.
 
 \cleardoublepage % In double-sided printing style makes the next page 
                  % a right-hand page, (i.e. a truly odd-numbered page 

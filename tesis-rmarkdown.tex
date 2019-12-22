@@ -1,5 +1,5 @@
 %\documentclass[12pt,reqno,oneside]{puctesis}         % For dvips
-\documentclass[12pt,reqno,oneside,pdftex]{puctesis} % For pdflatex
+\documentclass[12pt,reqno,oneside,pdftex]{formato-puc/puctesis} % For pdflatex
 %\documentclass[10pt,reqno,twoside]{puctesis}
 %\draft
 %\doublespacing
@@ -146,11 +146,6 @@
          {\it Tel.\/} : 56 (2) 354-2000}
 \degree       {Magíster en Estadística} 
 \advisor      {Nombre del profesor guía}
-\committeememberA {Nombre del miembro del comité 1}
-\committeememberB {Nombre del miembro del comité 2}
-\guestmemberA {Nombre del miembro invitado del comité 1}
-\guestmemberB {Nombre del miembro invitado del comité 2}
-\ogrsmember   {Nombre del representante DIPEI}
 \subject      {Estimación de parámetros}
 \date         {Diciembre 2019}
 \copyrightname{SIMPLEMENTE PACHÁ}
@@ -186,7 +181,7 @@
 
 \chapter*{AGRADECIMIENTOS}
 Esta plantilla de R Markdown se base en la plantilla Latex hecha por
-Miguel Torres Torriti. Los agradecimientos se editan directamente en formato-puc.tex.
+Miguel Torres Torriti. Los agradecimientos se editan directamente en formato-puc/base.tex.
 \par
 %\bigskip
 
@@ -225,7 +220,7 @@ Miguel Torres Torriti. Los agradecimientos se editan directamente en formato-puc
 
 \chapter*{RESUMEN}
 
-El resumen del trabajo se edita directamente en formato-puc.tex.
+El resumen del trabajo se edita directamente en formato-puc/base.tex.
 
 \cleardoublepage % In double-sided printing style makes the next page 
                  % a right-hand page, (i.e. a truly odd-numbered page 
@@ -345,7 +340,11 @@ a un archivo tex):
 \end{Highlighting}
 \end{Shaded}
 
+\begin{figure}
+\centering
 \includegraphics{tesis-rmarkdown_files/figure-latex/pressure-1.pdf}
+\caption{Gráfico de presión}
+\end{figure}
 
 Tabla con comandos \LaTeX:
 
