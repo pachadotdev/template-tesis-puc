@@ -691,11 +691,7 @@
         \parbox{80pt}
         {\centering %\rule[0em]{80pt}{1ex}\\
             %%\psfig{file=logouc_23x30p38mm.ps,width=23mm,height=30.38mm}\\[.2\normalbaselineskip] %Obsolete
-            \if \pdftex@true 1% Use PDF version if using pdflatex
-            \includegraphics*[height=30.38mm,width=23mm, viewport=0 0 24 31]{formato-puc/logouc_23x30p38mm.pdf}\\[.2\normalbaselineskip]
-            \else% Use PS version by default (dvips).
-            \includegraphics*[width=23mm,height=30.38mm]{formato-puc/logouc_23x30p38mm.ps}\\[.2\normalbaselineskip]
-            \fi 
+            \includegraphics[width=23mm]{formato-puc/logouc.pdf}\\[.2\normalbaselineskip]
 %            \raisebox{29.38mm}[0em][0em]{%
 %                         \rule[-\textheight]{.5pt}{\textheight}}\\[2mm]
 %            \raisebox{17.38mm}[0em][0em]{%
@@ -847,11 +843,7 @@
         \parbox{80pt}
         {\centering %\rule[0em]{80pt}{1ex}\\
             %%\psfig{file=logouc_23x30p38mm.ps,width=23mm,height=30.38mm}\\[.2\normalbaselineskip] %Obsolete
-            \if \pdftex@true 1% Use PDF version if using pdflatex
-            \includegraphics*[height=30.38mm,width=23mm, viewport=0 0 24 31]{formato-puc/logouc_23x30p38mm.pdf}\\[.2\normalbaselineskip]
-            \else% Use PS version by default (dvips).
-            \includegraphics*[width=23mm,height=30.38mm]{formato-puc/logouc_23x30p38mm.ps}\\[.2\normalbaselineskip]
-            \fi 
+            \includegraphics[width=23mm]{formato-puc/logouc.pdf}\\[.2\normalbaselineskip]
 %            \raisebox{29.38mm}[0em][0em]{%
 %                         \rule[-\textheight]{.5pt}{\textheight}}\\[2mm]
 %            \raisebox{17.38mm}[0em][0em]{%
