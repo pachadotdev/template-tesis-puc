@@ -15,6 +15,7 @@ materia: Estimación de parámetros
 fecha: Diciembre 2019
 anioromano: MMXIX
 dedicatoria: A mi familia, amigos y personas valiosas de la universidad
+resumen: Un resumen breve
 output: 
   pdf_document:
     latex_engine: pdflatex
