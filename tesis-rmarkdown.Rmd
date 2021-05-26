@@ -3,7 +3,7 @@ titulo: Fórmula de la media y la serie geométrica, tesis de ejemplo
 autor: PACHÁ
 nombrecompleto: SIMPLEMENTE PACHÁ
 escuelaodepartamento: Departamento de Estadística
-facultad: Facultad de Derecho
+facultad: Facultad de Matemáticas
 tituloogrado: Magíster en Estadística
 profesorguia: Nombre del profesor guía
 miembrocomite1: Nombre del miembro del comité 1

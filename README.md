@@ -26,6 +26,14 @@ Como complemento a esta plantilla también tengo un manual express de Latex (rev
 * El resumen del trabajo se edita directamente en formato-puc.tex,  no en tesis-markdown.Rmd.
 * No he podido encontrar forma de desactivar el índice de figuras cuando no hay figuras.
 
+# Problemas
+
+Si tienes problemas para generar el pdf:
+
+1. Instala [TinyTex](https://yihui.org/tinytex/)
+2. Reinicia
+3. Genera el PDF desde RStudio
+
 # Licencia
 
 CC0 1.0 Universal.

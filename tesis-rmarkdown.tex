@@ -140,8 +140,8 @@
 \author{PACHÁ}
 
 \facultyto    {Departamento de Estadística}
-\faculty      {Facultad de Derecho}
-\address{Facultad de Derecho\\
+\faculty      {Facultad de Matemáticas}
+\address{Facultad de Matemáticas\\
          Pontificia Universidad Cat\'olica de Chile\\ 
          Vicu\~na Mackenna 4860\\
          Santiago, Chile\\
@@ -152,7 +152,15 @@
 \date         {Diciembre 2019}
 \copyrightname{SIMPLEMENTE PACHÁ}
 \copyrightyear{MMXIX}
-\dedication   {A mi familia, amigos y personas valiosas de la universidad}
+\dedication   {A mi familia, amigos y personas valiosas de la
+universidad}
+
+% para texlive 2020
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newenvironment{CSLReferences}%
+  {}%
+  {\par}
 
            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
            %   PRELIMINARIDADES                               %
@@ -287,7 +295,7 @@ Por completitud incluyo una cita en Bibtex: Bock, Velleman, and De Veaux
 (2010) contiene la ecuación de la media ponderada.
 
 También podríamos decir ``la definición de media ponderada es \ldots{}
-(Bock, Velleman, and De Veaux 2010)''.
+(Bock, Velleman, and De Veaux 2010).''
 
 \chapter{NOMBRE DEL CAPITULO 2}
 
@@ -323,7 +331,7 @@ a un archivo tex):
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{summary}\NormalTok{(cars)}
+\FunctionTok{summary}\NormalTok{(cars)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -339,7 +347,7 @@ a un archivo tex):
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{plot}\NormalTok{(pressure)}
+\FunctionTok{plot}\NormalTok{(pressure)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -365,9 +373,12 @@ V4     & 6 & 2 & 1 & 3 &  5 \\
 \end{table}
 
 \hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
 \leavevmode\hypertarget{ref-bock2010stats}{}%
 Bock, David E, Paul F Velleman, and Richard D De Veaux. 2010.
 \emph{Stats: Modeling the World}. Addison-Wesley.
+
+\end{CSLReferences}
 
 %----------------------------------------------------------------------%
 
