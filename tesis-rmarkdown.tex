@@ -1,10 +1,4 @@
-%\documentclass[12pt,reqno,oneside]{puctesis}         % For dvips
 \documentclass[12pt,reqno,oneside,pdftex]{formato-puc/puctesis} % For pdflatex
-%\documentclass[10pt,reqno,twoside]{puctesis}
-%\draft
-%\doublespacing
-%\usepackage{verbatim}
-%\usepackage{setspace}
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -12,9 +6,7 @@
 \usepackage[spanish]{algorithm2e}
 \usepackage{fancybox}
 \usepackage{float}
-
 \usepackage{times}
-\IfFileExists{lucida.map}{\let\digamma\relax \usepackage[lucidasmallscale, nofontinfo]{lucimatx}}
 
 \usepackage{color}
 \usepackage{fancyvrb}
@@ -56,56 +48,29 @@
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 
-% --- START: Babel ---
-% Esta seccion es necesaria para quienes desean usar Babel y acentos
-% en castellano en vez de acentos LaTeX tradicionales, e.j. \'a, \'e, etc.
-% Como Babel tiene un manejo distinto al normal para definir los nombres
-% de las partes del documento no basta con usar \renewcommand{\...name}
-% sino que es necesario usar tambi\'en \addto\captionspanish.
-% MTT 2011.11.30
-\usepackage[spanish]{babel}    % Estos paquetes alteran las definiciones
+\usepackage[spanish]{babel}
 \usepackage[utf8]{inputenc}
-%\usepackage[latin1]{inputenc}  % estandar de los titulos y requieren 
-                               % redefiniciones adicionales
-\addto\captionsspanish{%
-  \renewcommand{\contentsname}{INDICE GENERAL}%
+%\usepackage[latin1]{inputenc}
+                                
+\addto\captionsspanish{
+  \renewcommand{\contentsname}{INDICE GENERAL}
 }
 \addto\captionsspanish{
- \renewcommand{\listfigurename}{INDICE DE FIGURAS}%
+ \renewcommand{\listfigurename}{INDICE DE FIGURAS}
 }
 \addto\captionsspanish{
- \renewcommand{\listtablename}{INDICE DE TABLAS}%
+ \renewcommand{\listtablename}{INDICE DE TABLAS}
 }
 \addto\captionsspanish{
- \renewcommand{\chaptername}{}%CAPITULO}
+ \renewcommand{\chaptername}{CAPITULO}
 }
 \addto\captionsspanish{
- \renewcommand{\figurename}{Figura}%
+ \renewcommand{\figurename}{Figura}
 }
 \addto\captionsspanish{
- \renewcommand{\tablename}{Tabla}%
+ \renewcommand{\tablename}{Tabla}
 }
-\addto\captionsspanish{
- \renewcommand{\refname}{BIBLIOGRAFIA}%
-}
-\addto\captionsspanish{
- \renewcommand{\bibname}{}%
-}
-\addto\captionsspanish{
- \renewcommand{\BOthers}[1]{et al.\hbox{}}%
-}
-% --- END: Babel ---
 
-           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-           %   Preambulo                                      %
-           %------------------------------------------------- %
-           %        \newcommand\...{...}                      %
-           %        \newtheorem{}{}[]                         %
-           %        \numberwithin{}{}                         %
-           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-%--------- NUEVOS ENTORNOS ---------
 \newtheorem{definicion}{\bf Definici\'on}[chapter]
 \newtheorem{propiedad}{Propiedad}[chapter]
 \newtheorem{afirmacion}{Afirmaci\'on}[chapter]
@@ -117,119 +82,47 @@
 \newtheorem{ejemplo}{\bf Ejemplo}[chapter]
 \newtheorem{comentario}{Comentario}[chapter]
 
-%--------- COLOQUE ENTORNOS/DEFINICIONES ADICIONALES AQUI ---------
+\newcommand\opgrad{\operatorname{grad}}    
 
-\newcommand\opgrad{\operatorname{grad}}        
-% ...
+% para texlive 2020
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newenvironment{CSLReferences}
+  {}
+  {\par}
 
-
-%----------------------------------------------------------------------%
 \begin{document}
-
-           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-           %                                                  %
-           %  INICIALIZACIONES : PORTADA                      %
-           %                                                  %
-           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\draft                        %a?ade nota al pie con fecha del borrador
-\mdate{April 17, 2007}         %fecha de modificacion del manuscrito
-\version{1}                    %numero de version del manuscrito
-
 
 \title{Fórmula de la media y la serie geométrica, tesis de ejemplo}
 \author{PACHÁ}
 
-\facultyto    {Departamento de Estadística}
-\faculty      {Facultad de Matemáticas}
-\address{Facultad de Matemáticas\\
-         Pontificia Universidad Cat\'olica de Chile\\ 
-         Vicu\~na Mackenna 4860\\
-         Santiago, Chile\\
-         {\it Tel.\/} : 56 (2) 354-2000}
 \degree       {Magíster en Estadística} 
 \advisor      {Nombre del profesor guía}
-\subject      {Estimación de parámetros}
+\committeememberA      {Nombre del miembro del comité 1}
+\committeememberB      {Nombre del miembro del comité 2}
+\committeememberC      {Nombre del miembro del comité 3}
 \date         {Diciembre 2019}
 \copyrightname{SIMPLEMENTE PACHÁ}
 \copyrightyear{MMXIX}
 \dedication   {A mi familia, amigos y personas valiosas de la
 universidad}
 
-% para texlive 2020
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newenvironment{CSLReferences}%
-  {}%
-  {\par}
-
-           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-           %   PRELIMINARIDADES                               %
-           %--------------------------------------------------%
-           %      pags. i & ii: segunda pagina                %
-           %      pags. iii: dedicatoria                      %
-           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\PageNumbersFootCentered       % numeros de pagina centrados en el pie															
+\PageNumbersFootCentered
 \pagenumbering{roman}
 \maketitle
-
-
-           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-           %   PAGINAS EXTRA                                  %
-           %--------------------------------------------------%
-           %      pags. --: not used                          %
-           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%\newpage
-%\thispagestyle{empty}
-
-%----------------------------------------------------------------------%
-
-           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-           %      pags. iv: AGRADECIMIENTOS                   %
-           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter*{AGRADECIMIENTOS}
 Esta plantilla de R Markdown se base en la plantilla Latex hecha por
 Miguel Torres Torriti. Los agradecimientos se editan directamente en formato-puc/base.tex.
 \par
-%\bigskip
 
-%................................
-
-\cleardoublepage % En la impresion en doble cara, este comando hace que
-                 % la siguiente pagina sea una pagina derecha
-                 % (es decir, un pagina con numero impar con respecto
-                 % a la cuenta absoluta), produciendo una pagina en blanco
-                 % si es necesario.  Agregado por MTT 20.AUG.2002
-
-%----------------------------------------------------------------------%
-
-           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-           %      pags. v & up ---                            %
-           %            Indice General                        %
-           %            Lista de Figuras                      %
-           %            Lista de Tablas                       %
-           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\cleardoublepage
 \tableofcontents
 \listoffigures          
 \listoftables           
-\cleardoublepage % En la impresion en doble cara, este comando hace que
-                 % la siguiente pagina sea una pagina derecha
-                 % (es decir, un pagina con numero impar con respecto
-                 % a la cuenta absoluta), produciendo una pagina en blanco
-                 % si es necesario.  Agregado por MTT 20.AUG.2002
-
-%----------------------------------------------------------------------%
-
-           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-           %      pags. x & xi: RESUMEN - ABSTRACT
-           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\cleardoublepage
 
 \chapter*{RESUMEN}
-
 Un resumen breve
 
 \cleardoublepage % In double-sided printing style makes the next page 
@@ -237,25 +130,16 @@ Un resumen breve
                  % with respect to absolut counting), producing a blank
                  % page if necessary. Added by MTT 20.AUG.2002 
 
-%======================================================================%
-
-           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-           %   TEXTO DE LA TESIS
-           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \NoChapterPageNumber           % elimina encabezado - pie de pagina de la
                                % primera pagina de cada capitulo
 \pagenumbering{arabic}
 
-           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-           %   TEXTO DE LA TESIS
-           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mainmatter
 
-\hypertarget{nombre-del-capitulo-1}{%
-\section{NOMBRE DEL CAPITULO 1}\label{nombre-del-capitulo-1}}
+\chapter{NOMBRE DEL CAPITULO 1}
 
 \hypertarget{seccion-1}{%
-\subsection{SECCION 1}\label{seccion-1}}
+\section{SECCION 1}\label{seccion-1}}
 
 Texto de ejemplo: Sed ut perspiciatis unde omnis iste natus error sit
 voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque
@@ -272,7 +156,7 @@ voluptate velit esse quam nihil molestiae consequatur, vel illum qui
 dolorem eum fugiat quo voluptas nulla pariatur?
 
 \hypertarget{sub-seccion-1}{%
-\subsubsection{SUB-SECCION 1}\label{sub-seccion-1}}
+\subsection{SUB-SECCION 1}\label{sub-seccion-1}}
 
 Texto de ejemplo: At vero eos et accusamus et iusto odio dignissimos
 ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti
@@ -289,7 +173,7 @@ delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut
 perferendis doloribus asperiores repellat.
 
 \hypertarget{seccion-2}{%
-\subsection{SECCION 2}\label{seccion-2}}
+\section{SECCION 2}\label{seccion-2}}
 
 Por completitud incluyo una cita en Bibtex: Bock, Velleman, and De Veaux
 (2010) contiene la ecuación de la media ponderada.
@@ -299,9 +183,8 @@ También podríamos decir ``la definición de media ponderada es \ldots{}
 
 \chapter{NOMBRE DEL CAPITULO 2}
 
-\hypertarget{seccion-1-algunas-ecuaciones}{%
-\section{SECCION 1: ALGUNAS
-ECUACIONES}\label{seccion-1-algunas-ecuaciones}}
+\hypertarget{algunas-ecuaciones}{%
+\section{ALGUNAS ECUACIONES}\label{algunas-ecuaciones}}
 
 \hypertarget{serie-geomuxe9trica}{%
 \subsection{Serie geométrica}\label{serie-geomuxe9trica}}
@@ -372,6 +255,8 @@ V4     & 6 & 2 & 1 & 3 &  5 \\
     \caption{Tabla de ejemplo.}
 \end{table}
 
+\chapter*{BIBLIOGRAFIA}
+
 \hypertarget{refs}{}
 \begin{CSLReferences}{1}{0}
 \leavevmode\hypertarget{ref-bock2010stats}{}%
@@ -380,48 +265,4 @@ Bock, David E, Paul F Velleman, and Richard D De Veaux. 2010.
 
 \end{CSLReferences}
 
-%----------------------------------------------------------------------%
-
-
-           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-           %   REFERENCIAS 
-           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\cleardoublepage
-\nocite{*} % To make all the uncited references to appear in the bibliography.
-\bibliographystyle{apacite} 
-\bibliography{bibliografia.bib}
-
-%----------------------------------------------------------------------%
-
-
-%----------------------------------------------------------------------%
-
-           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-           %   INDEX 
-           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%% Uncomment the following lines to include an index.
-
-%% INSERT INDEX PAGE # IN TOC
-%%%\addtocounter{chapter}{1}
-%%%\addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}{Index}}
-%%\addcontentsline{toc}{chapter}{\protect\numberline{}{Index}}
-%% NOTE: Insert "\label{IDX}" in '.ind' file after compiling the index
-%% with makeindex.
-%%\index{ @\label{IDX}}
-%% The above NOTE is not really needed as can be achieved by the trick below.
-%\addtocounter{page}{1}
-%\label{IDX}
-%\addtocounter{page}{-1}
-%\printindex
-
-%----------------------------------------------------------------------%
-
-
 \end{document}
-%======================================================================%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Local Variables:
-%% TeX-command-default: "LaTeX"
-%% End:

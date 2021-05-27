@@ -2,16 +2,11 @@
 titulo: Fórmula de la media y la serie geométrica, tesis de ejemplo
 autor: PACHÁ
 nombrecompleto: SIMPLEMENTE PACHÁ
-escuelaodepartamento: Departamento de Estadística
-facultad: Facultad de Matemáticas
 tituloogrado: Magíster en Estadística
 profesorguia: Nombre del profesor guía
 miembrocomite1: Nombre del miembro del comité 1
 miembrocomite2: Nombre del miembro del comité 2
-miembroinvitadocomite1: Nombre del miembro invitado del comité 1
-miembroinvitadocomite2: Nombre del miembro invitado del comité 2
-representantedipei: Nombre del representante DIPEI
-materia: Estimación de parámetros
+miembrocomite3: Nombre del miembro del comité 3
 fecha: Diciembre 2019
 anioromano: MMXIX
 dedicatoria: A mi familia, amigos y personas valiosas de la universidad
@@ -22,13 +17,13 @@ output:
     template: formato-puc/base.tex
     keep_tex: yes
 bibliography: bibliografia.bib
-formatearbibliografia: true
-link-references: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+\mainmatter
 
 ```{r child = 'capitulos/cap1-ejemplo.Rmd', eval = T}
 ```
@@ -40,3 +35,5 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r child = 'capitulos/apendice-ejemplo.Rmd', eval = T}
 ```
+
+\chapter*{BIBLIOGRAFIA}

@@ -25,6 +25,7 @@ Como complemento a esta plantilla también tengo un manual express de Latex (rev
 * El encabezado del Departamento de Estadística se edita en puctesis.csl, no en tesis-markdown.Rmd
 * El resumen del trabajo se edita directamente en formato-puc.tex,  no en tesis-markdown.Rmd.
 * No he podido encontrar forma de desactivar el índice de figuras cuando no hay figuras.
+* La bibliografía parte con un número 10, se puede borrar desde el tex que genera RStudio y crear el pdf nuevamente
 
 # Problemas
 

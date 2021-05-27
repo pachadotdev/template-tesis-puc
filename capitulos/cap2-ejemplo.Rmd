@@ -1,6 +1,6 @@
 \chapter{NOMBRE DEL CAPITULO 2}
 
-# SECCION 1: ALGUNAS ECUACIONES
+# ALGUNAS ECUACIONES
 
 ## Serie geométrica
 
