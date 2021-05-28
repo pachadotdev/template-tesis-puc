@@ -1,0 +1,117 @@
+\chapter{Replication of `An Advanced Guide To Trade Policy Analysis'}
+
+# Gravity models review
+
+## Simple gravity model
+
+The main reference for this section is @Woelver2018 and the references therein. Gravity models in their traditional form are inspired by Newton law of gravitation
+\begin{equation}
+F_{ij}=G\frac{M_{i}M_{j}}{D^{2}_{ij}}.
+\end{equation}
+
+The force $F$ between two bodies $i$ and $j$ with $i \neq j$ is proportional to the masses $M$ of these bodies and inversely proportional to the square of their geographical distance $D$. $G$ is a constant and as such of no major concern. The underlying idea of a traditional gravity model, shown for international trade, is equally simple
+\begin{equation}
+X_{ij}=G\frac{Y_{i}^{\beta_{1}}Y_{j}^{\beta_{2}}}{D_{ij}^{\beta_{3}}}.
+\end{equation}
+
+The trade flow $X$ is explained by $Y_{i}$ and $Y_{j}$ that are the masses of the exporting and importing country (e.g. the GDP) and $D_{ij}$ that is the distance between the countries. This is also used to study urban policies and migration flows.
+
+Dummy variables such as common borders $contig$ or regional trade agreements $rta$ can be added to the model. Let $t_{ij}$ be the transaction cost defined as $t_{ij}= D_{ij} \exp(contig_{ij} + rta_{ij})$, therefore the model with frictions can be expressed as a log-linear model to use a standard estimation methods such as OLS
+\begin{align}
+X_{ij} =& G\frac{Y_{i}^{\beta_{1}}Y_{j}^{\beta_{2}}}{t_{ij}^{\beta_{3}}} \\
+\implies \log X_{ij} =& \beta_{0}\log G +\beta_{1}\log Y_{i}+\beta_{2}\log Y_{j}+\beta_{3}\log D_{ij}\\
+&+ \beta_{4}contig_{ij}+\beta_{5}rta_{ij}.
+\end{align}
+
+## Trade barriers model
+
+Basically the model proposes that the exports $X_{ij}$ from $i$ to $j$ are determined by the supply factors in $i$, $Y_{i}$, and the demand factors in $j$, $Y_{j}$, as well as the transaction costs $t_{ij}$.
+
+Next to information on bilateral partners $i$ and $j$, information on the rest of the world is included in the gravity model in the equation $Y=\sum_{i} Y_{i}= \sum_{j} Y_{j}$ that represents the worldwide sum of incomes (e.g. the world's GDP).
+
+A key assumption is to take a fixed value $\sigma > 1$ in order to account for the preference for a variation of goods (e.g. in this model goods can be replaced for other similar goods).
+
+The Multilateral Resistance terms are included via the terms $P$, Inward Multilateral Resistance, and $\Pi$, Outward Multilateral Resistance. The Inward Multilateral Resistance $P_i$ is a function of the transaction costs of $i$ to all trade partners $j$. The Outward Multilateral Resistance $\Pi_{j}$ is a function of the transaction costs of $j$ to all trade partners $i$ and their demand. 
+The Multilateral Resistance terms dependent on each other. Hence, the estimation of structural gravity models becomes complex.
+
+The econometric literature proposes the Multilateral Resistance model defined by the equations
+\begin{align}
+X_{ij} =& \frac{Y_{i}Y_{j}}{Y}\frac{t_{ij}^{1-\sigma}}{P_{j}^{1-\sigma}\Pi_{i}^{1-\sigma}}\\
+P_{i}^{1-\sigma} \text{ }& \sum_{j}\frac{t_{ij}^{1-\sigma}}{\Pi_{j}^{1-\sigma}}\frac{Y_{j}}{Y};\:\Pi_{j}^{1-\sigma}=\sum_{i}\frac{t_{ij}^{1-\sigma}}{P_{i}^{1-\sigma}}\frac{Y_{i}}{Y}
+\end{align}
+
+## Model estimation
+
+To estimate gravity equations you need a square dataset including bilateral flows defined by the argument `dependent_variable`, a distance measure defined by the argument `distance` that is the key regressor, and other potential influences (e.g. contiguity and common currency) given as a vector in `additional_regressors` are required.
+
+Some estimation methods require ISO codes or similar of type character variables to compute particular country effects, and the rule of thumb for independent variables consists in that all dummy variables should be of type numeric (0/1) and f an independent variable is defined as a ratio, it should be logged.
+
+# Models replication
+
+## Work organization
+
+The R package `tradepolicy` [@tradepolicy] allows easy summaries for partial and general equilibrium models. The detailed model replication is available from my ebook [Solutions Manual for An Advanced Guide to Trade Policy Analysis](https://r.tiid.org/R_structural_gravity/) published by UN ESCAP, and it's a material intended to provide a comprehensive explanation to reproduce the results from @yotov2016advanced in R. This ebook is not an attempt to give a thorough discussion of the theory behind gravity models, the references cited through the chapters shall fill those details.
+
+From the considerations from Chapter 1, I had two audiences in mind: People who know R and are interested in learning about gravity models and people with no R knowledge who know gravity models theory. This assumes that the readers are familiar with linear regression, and that they shall read @yotov2016advanced and @wickham2016r alongside this material.
+
+## Previous and side work
+
+A previous work, `gravity` [@Woelver2018], intented for general gravity models estimation in R, provides a wrapper of different standard estimation methods for gravity models. This facilitates estimation of both log-log and multiplicative models.
+
+In addition, `cepiigeodist` [@cepiigeodist] eases gravity modelling in R as it provides data on countries and their main city or agglomeration and the different distance measures and dummy variables indicating whether two countries are contiguous, share a common language or a colonial relationship. The reference article for these datasets is @CEPII201125.
+
+## Partial equilibrium estimation
+
+### Traditional gravity estimates
+
+The most simple model considered in `tradepolicy` is an OLS estimation ignoring multilateral resistance terms
+\begin{align}
+\log X_{ij,t} =& \:\beta_0 + \beta_1 DIST_{i,j} + \beta_2 CNTG_{i,j} + \beta_3 LANG_{i,j}\\ 
+\text{ }& + \beta_4 CLNY_{i,j} + \beta_5 \log Y_{i,t} + \beta_6 \log E_{j,t} + \varepsilon_{ij,t}.
+\end{align}
+
+The model can be summarised in the exact way as reported in @yotov2016advanced. The first challenge was to obtain country pair clustered standard errors for the estimated coefficients ($\hat{\beta}$), to provide an $R^2$ or pseudo-$R^2$ metric, alongside Ramsey Regression Equation Specification Error Test (RESET) test p-value. This mimics Stata regression output which is different from R results presentation. All of this is readily available in the `tp_summary_app1()` function.
+
+```{r c2_ols_1, eval = FALSE}
+tp_summary_app1(
+  formula = "log_trade ~ log_dist + cntg + lang + clny + log_y + log_e",
+  data = filter(ch1_application1, trade > 0),
+  method = "lm"
+)
+```
+
+```{r c2_ols_2, echo=FALSE, comment=NA}
+load("~/tesis-magister/data/01-chapter1-traditional-gravity.RData")
+ch1_app1_ols
+```
+
+The package documentation covers all the details on each of the function arguments and the output, but here it is important to mention that clustered standard errors are not econometricians's sophistication. Estimations are clustered by trading pair in order to account for any intra-cluster correlations at the trading pair level. While important bilateral time-varying effects are controlled for with explanatory variables, such as RTAs, and any bilateral time-invariant effects are taken into account with fixed effects, some correlation pattern between pairs of countries over time may still be present in the error term. This correlation pattern is captured by clustering the errors over country-pairs @yotov2016advanced.
+
+OLS estimation controlling with remote indexes and fixed effects are quite similar to this model, both don't pass the RESET test as the simple OLS model just shown. It is Pseudo-Poisson Maximum Likelihood (PPML) estimation the one that is interesting both statistically and economically. PPML proposes a multiplicative model that passes RESET test, and it requires to be estimated by using a Quasi-Poisson GLM.
+
+PPML is defined as
+\begin{align}
+X_{ij,t} =& \:\exp\left[\pi_{i,t} + \chi_{i,t} + \beta_1 \log(DIST)_{i,j} + \beta_2 CNTG_{i,j} +\right.\\
+\text{ }& \:\left.\beta_3 LANG_{i,j} + \beta_4 CLNY_{i,j}\right] \times \varepsilon_{ij,t}.
+\end{align}
+
+Where the added terms, with respect to the OLS model, are $\pi_{i,t}$ and $\chi_{i,t}$ that
+account for exporter-time and importer-time fixed effects respectively.
+
+The reason to compute this model even in spite of speed is that PPML is the only estimator that is perfectly consistent with the theoretical gravity model. By estimating with PPML the fixed effects correspond exactly to the corresponding theoretical terms.
+
+And starting with this model, `tradepolicy` starts to show some advantages over fitting the models from scratch by using the `glm()` function. The pseudo-$R^2$ for this model needs to be computed after estimating the model because there is no $R^2$ for these models in R. The pseudo-$R^2$ is obtained as a function of the Kendall correlation between the observed and predicted values [@silva2006log].
+
+The summary output is (with hidden fixed effects)
+
+```{r ch1_ppml_1, eval = FALSE}
+tp_summary_app1(
+  formula = "trade ~ log_dist + cntg + lang + clny + exp_year + imp_year",
+  data = ch1_application1,
+  method = "glm"
+)
+```
+
+```{r ch1_ppml_2, echo=FALSE, comment=NA}
+ch1_app1_ppml
+```

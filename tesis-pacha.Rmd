@@ -1,0 +1,34 @@
+---
+titulo: "Gravity Modelling Into R: Strengthening Analytical Capacity of ESCAP Members States"
+autor: Mauricio 'Pachá' Vargas Sepúlveda
+nombrecompleto: Mauricio 'Pachá' Vargas Sepúlveda
+tituloogrado: Master of Science in Statistics
+profesorguia: Constanza Prado Stuardo
+miembrocomite1: Alexey Kravchenko (United Nations)
+miembrocomite2: Yoto V Yotov (Drexel University)
+fecha: June 2021
+anioromano: MMXXI
+dedicatoria: To my family, friends, and all the valuable people from PUC.
+resumen: Un resumen breve
+output: 
+  pdf_document:
+    latex_engine: pdflatex
+    template: formato-puc/base.tex
+    keep_tex: yes
+bibliography: bibliografia.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r child = 'capitulos/cap1.Rmd', eval = T}
+```
+
+```{r child = 'capitulos/cap2.Rmd', eval = T}
+```
+
+```{r child = 'capitulos/cap3.Rmd', eval = T}
+```
+
+\chapter*{REFERENCES}

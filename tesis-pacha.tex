@@ -1,0 +1,603 @@
+\documentclass[12pt,reqno,oneside,pdftex]{formato-puc/puctesis} % For pdflatex
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{algorithm2e}
+\usepackage{fancybox}
+\usepackage{float}
+\usepackage{times}
+\usepackage{inconsolata}
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+                                
+\addto\captionsspanish{
+  \renewcommand{\contentsname}{INDICE GENERAL}
+}
+\addto\captionsspanish{
+ \renewcommand{\listfigurename}{INDICE DE FIGURAS}
+}
+\addto\captionsspanish{
+ \renewcommand{\listtablename}{INDICE DE TABLAS}
+}
+\addto\captionsspanish{
+ \renewcommand{\chaptername}{CAPITULO}
+}
+\addto\captionsspanish{
+ \renewcommand{\figurename}{Figura}
+}
+\addto\captionsspanish{
+ \renewcommand{\tablename}{Tabla}
+}
+
+\newtheorem{definicion}{\bf Definici\'on}[chapter]
+\newtheorem{propiedad}{Propiedad}[chapter]
+\newtheorem{afirmacion}{Afirmaci\'on}[chapter]
+\newtheorem{lema}{\bf Lema}[chapter]
+\newtheorem{proposicion}{Proposici\'on}[chapter]
+\newtheorem{teorema}{\noindent \bf Teorema}[chapter]
+\newtheorem{corolario}{\bf Corolario}[chapter]
+\newtheorem{pf}{Demostraci\'on}[chapter]
+\newtheorem{ejemplo}{\bf Ejemplo}[chapter]
+\newtheorem{comentario}{Comentario}[chapter]
+
+\newcommand\opgrad{\operatorname{grad}}    
+
+% para texlive 2020
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newenvironment{CSLReferences}
+  {}
+  {\par}
+
+\begin{document}
+
+\title{Gravity Modelling Into R: Strengthening Analytical Capacity of
+ESCAP Members States}
+\author{Mauricio `Pachá' Vargas Sepúlveda}
+
+\degree       {Master of Science in Statistics} 
+\advisor      {Constanza Prado Stuardo}
+\committeememberA      {Alexey Kravchenko (United Nations)}
+\committeememberB      {Yoto V Yotov (Drexel University)}
+\date         {June 2021}
+\copyrightname{Mauricio `Pachá' Vargas Sepúlveda}
+\copyrightyear{MMXXI}
+\dedication   {To my family, friends, and all the valuable people from
+PUC.}
+
+\PageNumbersFootCentered
+\pagenumbering{roman}
+\maketitle
+
+\chapter*{AGRADECIMIENTOS}
+Esta plantilla de R Markdown se base en la plantilla Latex hecha por
+Miguel Torres Torriti. Los agradecimientos se editan directamente en formato-puc/base.tex.
+\par
+
+\cleardoublepage
+\tableofcontents
+\listoffigures          
+\listoftables           
+\cleardoublepage
+
+\chapter*{RESUMEN}
+Un resumen breve
+
+\cleardoublepage % In double-sided printing style makes the next page 
+                 % a right-hand page, (i.e. a truly odd-numbered page 
+                 % with respect to absolut counting), producing a blank
+                 % page if necessary. Added by MTT 20.AUG.2002 
+
+\NoChapterPageNumber           % elimina encabezado - pie de pagina de la
+                               % primera pagina de cada capitulo
+\pagenumbering{arabic}
+
+\chapter{Duties and Responsibilities}
+
+\hypertarget{purpose}{%
+\section{Purpose}\label{purpose}}
+
+Over the past decades, trade-led growth in Asia-Pacific has been
+credited with lifting hundreds of millions above the poverty line. There
+is substantial room in the region to further reap benefits offered by
+international trade through regional integration and complementary trade
+policies. Exploiting this could support many developing countries in the
+region to get back on track to achieving the Sustainable Development
+Goals (SDGs).
+
+To take full advantage of this potential, requires concerted efforts by
+member States to enhance regional trade cooperation and direct it
+towards coordination and integration. This dynamics is further
+increasingly complicated by the recent rise of protectionism,
+uncertainty with the future of the World Trade Organization (WTO) and
+global trade regime, rising significance of digital trade, Least
+Developed Countries (LDC) graduations, increasing complexity of the
+regional trade agreements and non-tariff trade policies.
+
+However, ESCAP member States, particularly LDCs, often lack the required
+analytical capacity to formulate evidence-based policies and assess
+their impacts, and are continuously making requests for technical
+assistance for developing such capacity.
+
+The consultant work was conducted in support of the regular programme of
+technical cooperation project titled, ``Strengthening analytical
+capacity of ESCAP members States to conduct analysis of impact of trade
+policy towards sustainable development'' (project code RB23).
+
+\hypertarget{objective}{%
+\section{Objective}\label{objective}}
+
+The final goal of this consultancy project was to provided a set of open
+source tools that facilitates statistical modeling for better decision
+making in international trade and regional integration. This tool can be
+used by economists, lawyers, and different professionals who work for
+the RTAs (Regional Trade Agreements) negotiation teams or similar units
+in LDCs, so this was created with a specific user in mind, who tends to
+be more acquainted with Excel and SPSS than with a command line tools.
+
+The need to use open source is that there is an obvious saving in
+software licenses, but it also eases reproducing studies, as most open
+source tools run on different platforms, scale easily and perform well
+with limited hardware resources. My solution can be run with zero direct
+monetary cost in a Windows/Mac laptop for reporting, a Linux/Unix server
+for large scale models or a combination of both.
+
+Reproducibility is not just ethically desirable when tax payers money is
+being used to build models that support decisions that affect them, but
+it also fosters new research. Reproducibility is not just publishing
+your analysis code. The entire workflow of a research project --from
+formulating hypotheses to dissemination of your results-- has decisions
+and steps that ideally should be reproducible (Alexander 2019).
+
+A side consequence of open source solutions is that these rely on open
+source, well established open formats, which can be read with zero
+compatibility problems with both open source software (e.g.~Python) and
+closed source software (e.g.~Stata or SPSS). Closed source formats are
+not fully retro compatible or cross plaform compatible, a good example
+is the impossibility of importing Stata files created with recent
+versions with older Stata editions, and the same happens with well
+extended propietary software such as Microsoft Excel. Open source
+formats such as the brand new Apache Arrow or classic fully specified
+formats such as CSV, XML or JSON lack the retro compatibility problem.
+
+Any general open source programming language such as Python or Java
+could have worked. In this case, the most efficient decision was to
+stick to R, a computational statistics language that provides a set of
+functions, ideal for this goal, ready to be adapted and build on top.
+The deal breaker to decide in favor of R is that it features the
+\texttt{tidyverse} (Wickham et al. 2019), a set of functions built on
+top of R which facilitate statistical analysis and developing new
+statistical tools. In addition, R features a large and inclusive
+community organized around different organized groups such as R Users
+Group and R-Ladies who constantly organize open and free training
+activities.
+
+\hypertarget{ultimate-result-of-service}{%
+\section{Ultimate result of service}\label{ultimate-result-of-service}}
+
+The project started in September, 2020 and was completed in June, 2021.
+The \emph{first stage} of the project consisted in fitting all the
+models from Yotov et al. (2016) by using R. This implementation, which
+required a combination of different existing tools, was organized into
+an R package, \texttt{tradepolicy} (Vargas 2021b), with the goal of not
+just making the code organized, but also to ease reproducibility and
+providing users moving from Excel or Stata from R, which is known for
+being a flexible tool but with a steep learning curve.
+
+All of this code effort, which involved, among other challenges,
+providing user-friendly functions to obtain clustered standard errors
+for regression summaries and methods to obtain a pseudo-\(R^2\) in
+Generalized Linear Models (GLMs) that were not readily available in R,
+led to a \emph{second stage} that consisted in providing extensive
+details to explain the data manipulation and model creation from the
+first stage. This was organized in the ebook Vargas (2021a), which
+provides a comprehensive step-by-step guide to start from zero in the R
+programming language and guides the users towards enabling them at
+fitting their own general equilibrium models, which can be used to
+simulate, for example, the overall impact of a new tariff to imported
+goods, and the crossed effects that it introduces in the economy.
+
+The \emph{third stage} consisted in delivering live online training to
+ARTNeT members in December, 2020. This constituted a great opportunity
+to test both the ebook, which was greatly improved from participant's
+feedback. The developed R code was presented in support of parallel
+sessions of structural gravity training using STATA.
+
+A test bank for the solutions manual was also created. Eighty multiple
+choice questions in digital format are available to test knowledge of
+ESCAP training participants. Only forty questions are used in the test,
+so many tests can be generated via loops with different randomization
+parameters.
+
+The \emph{fourth stage} of the project consisted in implementing clever
+fitting methods to avoid bottlenecks. GLMs in R (and also Python) tend
+to be 6 to 10 times slower than Stata when using Quasi-Poisson link,
+which is what is used in International Economy as a remedial method for
+overdisperssion. This constitutes a barrier for users who plan to adopt
+R and come from Stata, and this is also a problem for building
+interactive dashboards, which require immediateness.
+
+Fitting general equilibrium models that are, by definition, slow to fit,
+is not a trivial task. This motivated the creation of \texttt{eflm},
+which stands for Efficient Fitting of Linear Models, an R package that
+re-implements base R functions for LMs and GLMs. This effort, which
+required linking R, C and FORTRAN code, implements a weak formulation
+that reduces the model design matrix from \(N\times P\) into
+\(P\times P\) and therefore offers large time improvements that match
+Stata times.
+
+A \emph{fifth stage}, not initially included, was to build an
+interactive dashboard to simulate decision making by applying all the
+previous stages of this project. COMPLETAR.
+
+Vargas (2021a) had two releases during this project. A first version
+delivered in December, 2020 and a second version delivered in June, 2021
+with corrections and the inclusion of \texttt{eflm} to make R a
+competitive tool for economic analysis.
+
+\chapter{Replication of `An Advanced Guide To Trade Policy Analysis'}
+
+\hypertarget{gravity-models-review}{%
+\section{Gravity models review}\label{gravity-models-review}}
+
+\hypertarget{simple-gravity-model}{%
+\subsection{Simple gravity model}\label{simple-gravity-model}}
+
+The main reference for this section is Woelwer et al. (2018) and the
+references therein. Gravity models in their traditional form are
+inspired by Newton law of gravitation \begin{equation}
+F_{ij}=G\frac{M_{i}M_{j}}{D^{2}_{ij}}.
+\end{equation}
+
+The force \(F\) between two bodies \(i\) and \(j\) with \(i \neq j\) is
+proportional to the masses \(M\) of these bodies and inversely
+proportional to the square of their geographical distance \(D\). \(G\)
+is a constant and as such of no major concern. The underlying idea of a
+traditional gravity model, shown for international trade, is equally
+simple \begin{equation}
+X_{ij}=G\frac{Y_{i}^{\beta_{1}}Y_{j}^{\beta_{2}}}{D_{ij}^{\beta_{3}}}.
+\end{equation}
+
+The trade flow \(X\) is explained by \(Y_{i}\) and \(Y_{j}\) that are
+the masses of the exporting and importing country (e.g.~the GDP) and
+\(D_{ij}\) that is the distance between the countries. This is also used
+to study urban policies and migration flows.
+
+Dummy variables such as common borders \(contig\) or regional trade
+agreements \(rta\) can be added to the model. Let \(t_{ij}\) be the
+transaction cost defined as
+\(t_{ij}= D_{ij} \exp(contig_{ij} + rta_{ij})\), therefore the model
+with frictions can be expressed as a log-linear model to use a standard
+estimation methods such as OLS \begin{align}
+X_{ij} =& G\frac{Y_{i}^{\beta_{1}}Y_{j}^{\beta_{2}}}{t_{ij}^{\beta_{3}}} \\
+\implies \log X_{ij} =& \beta_{0}\log G +\beta_{1}\log Y_{i}+\beta_{2}\log Y_{j}+\beta_{3}\log D_{ij}\\
+&+ \beta_{4}contig_{ij}+\beta_{5}rta_{ij}.
+\end{align}
+
+\hypertarget{trade-barriers-model}{%
+\subsection{Trade barriers model}\label{trade-barriers-model}}
+
+Basically the model proposes that the exports \(X_{ij}\) from \(i\) to
+\(j\) are determined by the supply factors in \(i\), \(Y_{i}\), and the
+demand factors in \(j\), \(Y_{j}\), as well as the transaction costs
+\(t_{ij}\).
+
+Next to information on bilateral partners \(i\) and \(j\), information
+on the rest of the world is included in the gravity model in the
+equation \(Y=\sum_{i} Y_{i}= \sum_{j} Y_{j}\) that represents the
+worldwide sum of incomes (e.g.~the world's GDP).
+
+A key assumption is to take a fixed value \(\sigma > 1\) in order to
+account for the preference for a variation of goods (e.g.~in this model
+goods can be replaced for other similar goods).
+
+The Multilateral Resistance terms are included via the terms \(P\),
+Inward Multilateral Resistance, and \(\Pi\), Outward Multilateral
+Resistance. The Inward Multilateral Resistance \(P_i\) is a function of
+the transaction costs of \(i\) to all trade partners \(j\). The Outward
+Multilateral Resistance \(\Pi_{j}\) is a function of the transaction
+costs of \(j\) to all trade partners \(i\) and their demand. The
+Multilateral Resistance terms dependent on each other. Hence, the
+estimation of structural gravity models becomes complex.
+
+The econometric literature proposes the Multilateral Resistance model
+defined by the equations \begin{align}
+X_{ij} =& \frac{Y_{i}Y_{j}}{Y}\frac{t_{ij}^{1-\sigma}}{P_{j}^{1-\sigma}\Pi_{i}^{1-\sigma}}\\
+P_{i}^{1-\sigma} \text{ }& \sum_{j}\frac{t_{ij}^{1-\sigma}}{\Pi_{j}^{1-\sigma}}\frac{Y_{j}}{Y};\:\Pi_{j}^{1-\sigma}=\sum_{i}\frac{t_{ij}^{1-\sigma}}{P_{i}^{1-\sigma}}\frac{Y_{i}}{Y}
+\end{align}
+
+\hypertarget{model-estimation}{%
+\subsection{Model estimation}\label{model-estimation}}
+
+To estimate gravity equations you need a square dataset including
+bilateral flows defined by the argument \texttt{dependent\_variable}, a
+distance measure defined by the argument \texttt{distance} that is the
+key regressor, and other potential influences (e.g.~contiguity and
+common currency) given as a vector in \texttt{additional\_regressors}
+are required.
+
+Some estimation methods require ISO codes or similar of type character
+variables to compute particular country effects, and the rule of thumb
+for independent variables consists in that all dummy variables should be
+of type numeric (0/1) and f an independent variable is defined as a
+ratio, it should be logged.
+
+\hypertarget{models-replication}{%
+\section{Models replication}\label{models-replication}}
+
+\hypertarget{work-organization}{%
+\subsection{Work organization}\label{work-organization}}
+
+The R package \texttt{tradepolicy} (Vargas 2021b) allows easy summaries
+for partial and general equilibrium models. The detailed model
+replication is available from my ebook
+\href{https://r.tiid.org/R_structural_gravity/}{Solutions Manual for An
+Advanced Guide to Trade Policy Analysis} published by UN ESCAP, and it's
+a material intended to provide a comprehensive explanation to reproduce
+the results from Yotov et al. (2016) in R. This ebook is not an attempt
+to give a thorough discussion of the theory behind gravity models, the
+references cited through the chapters shall fill those details.
+
+From the considerations from Chapter 1, I had two audiences in mind:
+People who know R and are interested in learning about gravity models
+and people with no R knowledge who know gravity models theory. This
+assumes that the readers are familiar with linear regression, and that
+they shall read Yotov et al. (2016) and Wickham and Grolemund (2016)
+alongside this material.
+
+\hypertarget{previous-and-side-work}{%
+\subsection{Previous and side work}\label{previous-and-side-work}}
+
+A previous work, \texttt{gravity} (Woelwer et al. 2018), intented for
+general gravity models estimation in R, provides a wrapper of different
+standard estimation methods for gravity models. This facilitates
+estimation of both log-log and multiplicative models.
+
+In addition, \texttt{cepiigeodist} (Vargas 2020) eases gravity modelling
+in R as it provides data on countries and their main city or
+agglomeration and the different distance measures and dummy variables
+indicating whether two countries are contiguous, share a common language
+or a colonial relationship. The reference article for these datasets is
+Mayer and Zignago (2011).
+
+\hypertarget{partial-equilibrium-estimation}{%
+\subsection{Partial equilibrium
+estimation}\label{partial-equilibrium-estimation}}
+
+\hypertarget{traditional-gravity-estimates}{%
+\subsubsection{Traditional gravity
+estimates}\label{traditional-gravity-estimates}}
+
+The most simple model considered in \texttt{tradepolicy} is an OLS
+estimation ignoring multilateral resistance terms \begin{align}
+\log X_{ij,t} =& \:\beta_0 + \beta_1 DIST_{i,j} + \beta_2 CNTG_{i,j} + \beta_3 LANG_{i,j}\\ 
+\text{ }& + \beta_4 CLNY_{i,j} + \beta_5 \log Y_{i,t} + \beta_6 \log E_{j,t} + \varepsilon_{ij,t}.
+\end{align}
+
+The model can be summarised in the exact way as reported in Yotov et al.
+(2016). The first challenge was to obtain country pair clustered
+standard errors for the estimated coefficients (\(\hat{\beta}\)), to
+provide an \(R^2\) or pseudo-\(R^2\) metric, alongside Ramsey Regression
+Equation Specification Error Test (RESET) test p-value. This mimics
+Stata regression output which is different from R results presentation.
+All of this is readily available in the \texttt{tp\_summary\_app1()}
+function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tp\_summary\_app1}\NormalTok{(}
+  \AttributeTok{formula =} \StringTok{"log\_trade \textasciitilde{} log\_dist + cntg + lang + clny + log\_y + log\_e"}\NormalTok{,}
+  \AttributeTok{data =} \FunctionTok{filter}\NormalTok{(ch1\_application1, trade }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{),}
+  \AttributeTok{method =} \StringTok{"lm"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+$tidy_coefficients
+         term    estimate   std.error  statistic       p.value
+1 (Intercept) -11.2830801 0.295827386 -38.140756 1.166148e-309
+2    log_dist  -1.0016075 0.027339986 -36.635259 1.846524e-286
+3        cntg   0.5738051 0.184709829   3.106522  1.895086e-03
+4        lang   0.8015482 0.082101741   9.762864  1.778135e-22
+5        clny   0.7348535 0.144192917   5.096321  3.487706e-07
+6       log_y   1.1902357 0.009455951 125.871603  0.000000e+00
+7       log_e   0.9075884 0.009909837  91.584590  0.000000e+00
+
+$nobs
+[1] 25689
+
+$rsquared
+[1] 0.7585251
+
+$etfe
+[1] FALSE
+
+$itfe
+[1] FALSE
+
+$reset_pval
+[1] 4.346285e-15
+\end{verbatim}
+
+The package documentation covers all the details on each of the function
+arguments and the output, but here it is important to mention that
+clustered standard errors are not econometricians's sophistication.
+Estimations are clustered by trading pair in order to account for any
+intra-cluster correlations at the trading pair level. While important
+bilateral time-varying effects are controlled for with explanatory
+variables, such as RTAs, and any bilateral time-invariant effects are
+taken into account with fixed effects, some correlation pattern between
+pairs of countries over time may still be present in the error term.
+This correlation pattern is captured by clustering the errors over
+country-pairs Yotov et al. (2016).
+
+OLS estimation controlling with remote indexes and fixed effects are
+quite similar to this model, both don't pass the RESET test as the
+simple OLS model just shown. It is Pseudo-Poisson Maximum Likelihood
+(PPML) estimation the one that is interesting both statistically and
+economically. PPML proposes a multiplicative model that passes RESET
+test, and it requires to be estimated by using a Quasi-Poisson GLM.
+
+PPML is defined as \begin{align}
+X_{ij,t} =& \:\exp\left[\pi_{i,t} + \chi_{i,t} + \beta_1 \log(DIST)_{i,j} + \beta_2 CNTG_{i,j} +\right.\\
+\text{ }& \:\left.\beta_3 LANG_{i,j} + \beta_4 CLNY_{i,j}\right] \times \varepsilon_{ij,t}.
+\end{align}
+
+Where the added terms, with respect to the OLS model, are \(\pi_{i,t}\)
+and \(\chi_{i,t}\) that account for exporter-time and importer-time
+fixed effects respectively.
+
+The reason to compute this model even in spite of speed is that PPML is
+the only estimator that is perfectly consistent with the theoretical
+gravity model. By estimating with PPML the fixed effects correspond
+exactly to the corresponding theoretical terms.
+
+And starting with this model, \texttt{tradepolicy} starts to show some
+advantages over fitting the models from scratch by using the
+\texttt{glm()} function. The pseudo-\(R^2\) for this model needs to be
+computed after estimating the model because there is no \(R^2\) for
+these models in R. The pseudo-\(R^2\) is obtained as a function of the
+Kendall correlation between the observed and predicted values (Silva and
+Tenreyro 2006).
+
+The summary output is (with hidden fixed effects)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tp\_summary\_app1}\NormalTok{(}
+  \AttributeTok{formula =} \StringTok{"trade \textasciitilde{} log\_dist + cntg + lang + clny + exp\_year + imp\_year"}\NormalTok{,}
+  \AttributeTok{data =}\NormalTok{ ch1\_application1,}
+  \AttributeTok{method =} \StringTok{"glm"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+$tidy_coefficients
+         term   estimate  std.error  statistic       p.value
+1 (Intercept) 10.4208437 0.45247237  23.030895 2.286192e-117
+2    log_dist -0.8409273 0.03165752 -26.563274 1.804353e-155
+3        cntg  0.4374432 0.08315983   5.260271  1.438433e-07
+4        lang  0.2474765 0.07653876   3.233349  1.223481e-03
+5        clny -0.2224899 0.11624416  -1.913987  5.562177e-02
+
+$nobs
+[1] 28152
+
+$rsquared
+[1] 0.5859927
+
+$etfe
+[1] TRUE
+
+$itfe
+[1] TRUE
+
+$reset_pval
+[1] 0.6416118
+\end{verbatim}
+
+\chapter{Efficient Fitting of Linear Models}
+
+COMPLETAR
+
+\chapter*{REFERENCES}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\hypertarget{ref-malexander19}{}%
+Alexander, Monica. 2019. \emph{Reproducibility in Demographic Research}.
+\url{https://www.monicaalexander.com/posts/2019-10-20-reproducibility/}.
+
+\leavevmode\hypertarget{ref-CEPII201125}{}%
+Mayer, Thierry, and Soledad Zignago. 2011. {``Notes on CEPII's Distances
+Measures: The GeoDist Database.''} Working Papers 2011-25. CEPII.
+\url{http://www.cepii.fr/CEPII/en/publications/wp/abstract.asp?NoDoc=3877}.
+
+\leavevmode\hypertarget{ref-silva2006log}{}%
+Silva, JMC Santos, and Silvana Tenreyro. 2006. {``The Log of Gravity.''}
+\emph{The Review of Economics and Statistics} 88 (4): 641--58.
+
+\leavevmode\hypertarget{ref-cepiigeodist}{}%
+Vargas, Mauricio. 2020. \emph{Cepiigeodist: CEPII's GeoDist Datasets}.
+\url{https://CRAN.R-project.org/package=cepiigeodist}.
+
+\leavevmode\hypertarget{ref-solutionsagtpa}{}%
+---------. 2021a. \emph{Solutions Manual for an Advanced Guide to Trade
+Policy Analysis in r}. 2nd ed. UN ESCAP.
+\url{https://r.tiid.org/R_structural_gravity/}.
+
+\leavevmode\hypertarget{ref-tradepolicy}{}%
+---------. 2021b. \emph{Tradepolicy: Replication of 'an Advanced Guide
+to Trade Policy Analysis'}.
+\url{https://r.tiid.org/R_structural_gravity/}.
+
+\leavevmode\hypertarget{ref-tidyverse}{}%
+Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy
+D'Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019.
+{``Welcome to the {tidyverse}.''} \emph{Journal of Open Source Software}
+4 (43): 1686. \url{https://doi.org/10.21105/joss.01686}.
+
+\leavevmode\hypertarget{ref-wickham2016r}{}%
+Wickham, Hadley, and Garrett Grolemund. 2016. \emph{R for Data Science:
+Import, Tidy, Transform, Visualize, and Model Data}. "OŔeilly Media,
+Inc.".
+
+\leavevmode\hypertarget{ref-Woelver2018}{}%
+Woelwer, Anna Lenna, Jan Pablo Burgard, Joshua Kunst, and Mauricio
+Vargas. 2018. {``Gravity: Estimation Methods for Gravity Models in r.''}
+\emph{Journal of Open Source Software} 31 (3): 1038.
+\url{https://doi.org/10.21105/joss.01038}.
+
+\leavevmode\hypertarget{ref-yotov2016advanced}{}%
+Yotov, Yoto V, Roberta Piermartini, José-Antonio Monteiro, and Mario
+Larch. 2016. \emph{An Advanced Guide to Trade Policy Analysis: The
+Structural Gravity Model}. World Trade Organization Geneva.
+
+\end{CSLReferences}
+
+\end{document}
