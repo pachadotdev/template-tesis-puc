@@ -853,7 +853,7 @@ output and expenditures in each country.
 Under Anderson's fundamental model, consumer's maximize their utility
 under budget constraints, which means to solve the next optimization
 problem \begin{equation*}
-\max \left\{ \sum_{i\in I} \beta_i^{(1 - \sigma) / \sigma} c_{ij}^{(\sigma - 1) / \sigma} \right\}^{(\sigma - 1) / \sigma} \quad \text{s.t.} \quad \sum_{i \in I} p_{ij} c_{ij} = E_j = Y_j
+\max \left\{ \sum_{i\in I} \beta_i^{\frac{1 - \sigma}{\sigma}} c_{ij}^{\frac{\sigma - 1}{\sigma}} \right\}^{\frac{\sigma - 1}{\sigma}} \quad \text{s.t.} \quad \sum_{i \in I} p_{ij} c_{ij} = E_j = Y_j.
 \end{equation*}
 
 Where
@@ -881,6 +881,76 @@ Where
   \(Y_j = p_j Q_j\) is the total income at \(j\), where \(Q_j\) is the
   endowment
 \end{itemize}
+
+The target function can be maximized via Karush-Kuhn-Tucker algorithm
+with a restriction of the form \(k - g(x) \geq 0\) for multiplier
+interpretation as shadow-price \begin{equation*}
+L = \left\{ \sum_{i\in I} \beta_i^{\frac{1 - \sigma}{\sigma}} c_{ij}^{\frac{\sigma - 1}{\sigma}} \right\}^{\frac{\sigma - 1}{\sigma}} + \mu \left( Y_j - \sum_{i \in I} p_{ij} c_{ij} \right).
+\end{equation*}
+
+Applying chain rule to obtain First Order Conditions (FOCs) with respect
+to \(c_{ij}\) \begin{equation*}
+\left\{ \sum_{i\in I} \beta_i^{\frac{1 - \sigma}{\sigma} - 1} c_{ij}^{\frac{\sigma - 1}{\sigma}} \right\}^{\frac{\sigma - 1}{\sigma}} \beta_i^{\frac{1 - \sigma}{\sigma} - 1} c_{ij}^{\frac{\sigma - 1}{\sigma} - 1} = \mu p_{ij}.
+\end{equation*}
+
+Repeating for consumption from \(k\) , \(c_{kj}\) , and then taking
+ratio of FOCs \begin{equation*}
+\frac{\beta_i}{\beta_k}^{\frac{1 - \sigma}{\sigma} - 1} \frac{c_{ij}}{c_{kj}}^{\frac{\sigma - 1}{\sigma} - 1} = \frac{p_{ij}}{p_{kj}}.
+\end{equation*}
+
+Solving for \(c_kj\) in terms of \(c_ij\), for any country \(k\), and
+then replacing the solutions for all countries in the budget constraint
+and solving for \(c_{ij}\), the solution to the consumer's problem is
+\begin{align*}
+c_{ij} &= p_{ij}^{-\sigma} \left( \frac{\beta_i}{P_j} \right)^{1 - \sigma} E_j \\
+P_j &= \left\{\sum_{i \in I} (\beta_i p_{ij})^{1 - \sigma} \right\}^{\frac{1}{1 - \sigma}}.
+\end{align*}
+
+Multiplying by \(p_{ij}\) to get nominal demand \(X_{ij}\) and defining
+\(p_{ij} = p_i t_{ij}\) \begin{align*}
+X_{ij} &= \left( \frac{\beta_i p_i t_{ij}}{P_j} \right)^{1 - \sigma} E_j \\
+P_j &= \left\{\sum_{i \in I} (\beta_i p_{i} t_{ij})^{1 - \sigma} \right\}^{\frac{1}{1 - \sigma}}.
+\end{align*}
+
+Imposing market clearance condition \begin{equation*}
+Y_i = \sum_{i \in I} X_{ij},\: \forall i \implies Y_i = \sum_{i \in I} \left( \frac{\beta_i p_i t_{ij}}{P_j} \right)^{1 - \sigma} E_j,\: \forall i
+\end{equation*}
+
+Dividing both sides by world income \(Y\) and defining \(\Pi\) as
+follows \begin{align*}
+\frac{Y_i}{Y} &= \sum_{i \in I} \left( \frac{\beta_i p_i t_{ij}}{P_j} \right)^{1 - \sigma} \frac{E_j}{Y},\: \forall i \\
+\Pi^{1 - \sigma} &= \sum_{j \in J} \left(\frac{t_{ij}}{P_j}\right)^{1 - \sigma} \frac{E_j}{Y} \\
+\implies \frac{Y_i}{Y} &= (\beta_i p_i \Pi_i)^{1 - \sigma},\: \forall i \\
+\implies (\beta_i p_i)^{1 - \sigma} &= \frac{Y_i}{Y \Pi_i^{1 - \sigma}},\: \forall i
+\end{align*}
+
+This final term can be replaced in the expressions for \(P_j\) and
+\(X_{ij}\) to obtain the structural gravity system which can be
+estimated with GLMs even under market-clearing conditions \begin{align*}
+X_{ij} &= \frac{E_j Y_i}{Y} \left( \frac{t_{ij}}{P_j \Pi_i} \right)^{1 - \sigma} \\
+P_j^{1 - \sigma} &= \sum_{i \in I} \frac{Y_i}{Y} \left( \frac{t_{ij}}{\Pi_i} \right)^{1 - \sigma} \\
+\Pi_i^{1 - \sigma} &= \sum_{j \in I} \frac{E_j}{Y} \left( \frac{t_{ij}}{P_j} \right)^{1 - \sigma} \\
+E_j &= Y_j = Q_j p_j \\
+Y_j &= \sum_{i \in I} X_{ij}.
+\end{align*}
+
+In this model, \(X_{ij}\) is the structural gravity equation, \(P_j\) is
+the inward multilateral resistance, \(\Pi_i\) is the outward
+multilateral resistance, \(E_j\) is the expenditure/income/GDP and
+\(Y_j\) defines the market clearance condition.
+
+Most of newer articles build on this model. For example, Anderson and
+Van Wincoop (2003), another cornerstone article in gravity literature,
+builds up from this model.
+
+For the purpose of estimation, the structural gravity system can be
+expressed as \begin{align*}
+X_{ij} &= \frac{E_j Y_i}{Y} \left( \frac{t_{ij}}{P_j \Pi_i} \right)^{1 - \sigma} \label{eq:1}\\
+P_j^{1 - \sigma} &= \sum_{i \in I} \frac{Y_i}{Y} \left( \frac{t_{ij}}{\Pi_i} \right)^{1 - \sigma} \\
+\Pi_i^{1 - \sigma} &= \sum_{j \in I} \frac{E_j}{Y} \left( \frac{t_{ij}}{P_j} \right)^{1 - \sigma} \\
+E_j &= Y_j = Q_j p_j \\
+p_j &= \frac{(Y_j / Y)^{\frac{1}{1 - \sigma}}}{\beta_j \Pi_j}.
+\end{align*}
 
 \hypertarget{bottlenecks}{%
 \subsection{Bottlenecks}\label{bottlenecks}}
@@ -911,6 +981,11 @@ Alexander, Monica. 2019. \emph{Reproducibility in Demographic Research}.
 \leavevmode\hypertarget{ref-anderson1979theoretical}{}%
 Anderson, James E. 1979. {``A Theoretical Foundation for the Gravity
 Equation.''} \emph{The American Economic Review} 69 (1): 106--16.
+
+\leavevmode\hypertarget{ref-anderson2003gravity}{}%
+Anderson, James E, and Eric Van Wincoop. 2003. {``Gravity with Gravitas:
+A Solution to the Border Puzzle.''} \emph{American Economic Review} 93
+(1): 170--92.
 
 \leavevmode\hypertarget{ref-CEPII201125}{}%
 Mayer, Thierry, and Soledad Zignago. 2011. {``Notes on CEPII's Distances
