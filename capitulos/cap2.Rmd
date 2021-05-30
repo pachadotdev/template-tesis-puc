@@ -1,27 +1,51 @@
 \chapter{Replication of `An Advanced Guide To Trade Policy Analysis'}
 
+# Motivation
+
+Despite solid theory and remarkable empirical success, the gravity equation is often applied a-theoretically and without account for estimation challenges that may render estimates biased/inconsistent.
+
+Much of gravity models found in the literature fall under this quote from Leonardo da Vinci: *"He who loves practice without theory is like the sailor who boards ship without
+a rudder and compass and never knows where he may cast."*
+
+Traditionally, trade theory and trade policy analysis are performed in a general equilibrium setting. However, doing competent general equilibrium analysis is not a trivial task.
+
+Modelers must know general-equilibrium theory so that their models have a sound theoretical basis; they must know how to solve their models; they need to be able to program (or at least communicate with programmers); they have to know about data sources and all their associated problems; and they have to be conversant with relevant
+literature, especially that on elasticities [@shoven1984applied].
+
+The gravity model has established itself as the ‘workhorse’ model in international trade, and thousands of papers have used it to study the effects of various determinants of trade.
+
+Traditional determinants of trade flows are: Geography, Preferential Trade Agreements, Tariffs, Export Subsidies,
+Non-tariff Measures, World Trade Organization Membership, Common Currency and Currency Unions, Foreign Direct
+Investment, Immigration, Cultural Ties, Language, Colonial Ties.
+
+Exotic determinants of trade flows are: Institutional Quality, Foreign Aid, Trust, Reputation for People, Reputation for Products, Export Promotion, Taxes, Mega Sporting Events (Olympic Games and World Cup), Embargoes, Other Trade Sanctions, Conflict, Wars, Piracy, and Ice Cap Melting.
+
+The gravity model can simultaneously accommodate multiple countries and multiple sectors (and even firms). As such, the gravity framework can be used to capture the possibility that markets (sectors, countries, etc.) are linked and that trade policy changes in one market will trigger ripple effects in the rest of the world.
+
+Structural Gravity translates the effects of the universe of bilateral trade policies to the country level and decomposes their incidence on producers and consumers in the world. Thus, the trade gravity model can be conveniently integrated within a wide class of broader general equilibrium models to study the links between trade, labor markets, investment, the environment, etc., while preserving tractability.
+
 # Gravity models review
 
 ## Simple gravity model
 
 The main reference for this section is @Woelver2018 and the references therein. Gravity models in their traditional form are inspired by Newton law of gravitation
-\begin{equation}
+\begin{equation*}
 F_{ij}=G\frac{M_{i}M_{j}}{D^{2}_{ij}}.
-\end{equation}
+\end{equation*}
 
 The force $F$ between two bodies $i$ and $j$ with $i \neq j$ is proportional to the masses $M$ of these bodies and inversely proportional to the square of their geographical distance $D$. $G$ is a constant and as such of no major concern. The underlying idea of a traditional gravity model, shown for international trade, is equally simple
-\begin{equation}
+\begin{equation*}
 X_{ij}=G\frac{Y_{i}^{\beta_{1}}Y_{j}^{\beta_{2}}}{D_{ij}^{\beta_{3}}}.
-\end{equation}
+\end{equation*}
 
 The trade flow $X$ is explained by $Y_{i}$ and $Y_{j}$ that are the masses of the exporting and importing country (e.g. the GDP) and $D_{ij}$ that is the distance between the countries. This is also used to study urban policies and migration flows.
 
-Dummy variables such as common borders $contig$ or regional trade agreements $rta$ can be added to the model. Let $t_{ij}$ be the transaction cost defined as $t_{ij}= D_{ij} \exp(contig_{ij} + rta_{ij})$, therefore the model with frictions can be expressed as a log-linear model to use a standard estimation methods such as OLS
-\begin{align}
+Dummy variables such as common borders $contig$ or regional trade agreements $rta$ can be added to the model. Let $t_{ij}$ be the transaction cost defined as $t_{ij}= D_{ij} \exp(CONTIG_{ij} + RTA_{ij})$, therefore the model with frictions can be expressed as a log-linear model to use a standard estimation methods such as OLS
+\begin{align*}
 X_{ij} =& G\frac{Y_{i}^{\beta_{1}}Y_{j}^{\beta_{2}}}{t_{ij}^{\beta_{3}}} \\
 \implies \log X_{ij} =& \beta_{0}\log G +\beta_{1}\log Y_{i}+\beta_{2}\log Y_{j}+\beta_{3}\log D_{ij}\\
-&+ \beta_{4}contig_{ij}+\beta_{5}rta_{ij}.
-\end{align}
+&+ \beta_{4}CONTIG_{ij}+\beta_{5}RTA_{ij}.
+\end{align*}
 
 ## Trade barriers model
 
@@ -35,10 +59,10 @@ The Multilateral Resistance terms are included via the terms $P$, Inward Multila
 The Multilateral Resistance terms dependent on each other. Hence, the estimation of structural gravity models becomes complex.
 
 The econometric literature proposes the Multilateral Resistance model defined by the equations
-\begin{align}
+\begin{align*}
 X_{ij} =& \frac{Y_{i}Y_{j}}{Y}\frac{t_{ij}^{1-\sigma}}{P_{j}^{1-\sigma}\Pi_{i}^{1-\sigma}}\\
 P_{i}^{1-\sigma} \text{ }& \sum_{j}\frac{t_{ij}^{1-\sigma}}{\Pi_{j}^{1-\sigma}}\frac{Y_{j}}{Y};\:\Pi_{j}^{1-\sigma}=\sum_{i}\frac{t_{ij}^{1-\sigma}}{P_{i}^{1-\sigma}}\frac{Y_{i}}{Y}
-\end{align}
+\end{align*}
 
 ## Model estimation
 
@@ -65,10 +89,10 @@ In addition, `cepiigeodist` [@cepiigeodist] eases gravity modelling in R as it p
 ### Traditional gravity estimates
 
 The most simple model considered in `tradepolicy` is an OLS estimation ignoring multilateral resistance terms
-\begin{align}
-\log X_{ij,t} =& \:\beta_0 + \beta_1 DIST_{i,j} + \beta_2 CNTG_{i,j} + \beta_3 LANG_{i,j}\\ 
+\begin{align*}
+\log X_{ij,t} =& \beta_0 + \beta_1 DIST_{i,j} + \beta_2 CNTG_{i,j} + \beta_3 LANG_{i,j}\\ 
 \text{ }& + \beta_4 CLNY_{i,j} + \beta_5 \log Y_{i,t} + \beta_6 \log E_{j,t} + \varepsilon_{ij,t}.
-\end{align}
+\end{align*}
 
 The model can be summarised in the exact way as reported in @yotov2016advanced. The first challenge was to obtain country pair clustered standard errors for the estimated coefficients ($\hat{\beta}$), to provide an $R^2$ or pseudo-$R^2$ metric, alongside Ramsey Regression Equation Specification Error Test (RESET) test p-value. This mimics Stata regression output which is different from R results presentation. All of this is readily available in the `tp_summary_app1()` function.
 
@@ -85,15 +109,17 @@ load("~/tesis-magister/data/01-chapter1-traditional-gravity.RData")
 ch1_app1_ols
 ```
 
+In this output `etfe`/`itfe` refers to the presence of Exporter/Importer time fixed effects in the model and `nobs` is the number of rows used for the estimation after discarding unusable cases.
+
 The package documentation covers all the details on each of the function arguments and the output, but here it is important to mention that clustered standard errors are not econometricians's sophistication. Estimations are clustered by trading pair in order to account for any intra-cluster correlations at the trading pair level. While important bilateral time-varying effects are controlled for with explanatory variables, such as RTAs, and any bilateral time-invariant effects are taken into account with fixed effects, some correlation pattern between pairs of countries over time may still be present in the error term. This correlation pattern is captured by clustering the errors over country-pairs @yotov2016advanced.
 
 OLS estimation controlling with remote indexes and fixed effects are quite similar to this model, both don't pass the RESET test as the simple OLS model just shown. It is Pseudo-Poisson Maximum Likelihood (PPML) estimation the one that is interesting both statistically and economically. PPML proposes a multiplicative model that passes RESET test, and it requires to be estimated by using a Quasi-Poisson GLM.
 
-PPML is defined as
-\begin{align}
-X_{ij,t} =& \:\exp\left[\pi_{i,t} + \chi_{i,t} + \beta_1 \log(DIST)_{i,j} + \beta_2 CNTG_{i,j} +\right.\\
-\text{ }& \:\left.\beta_3 LANG_{i,j} + \beta_4 CLNY_{i,j}\right] \times \varepsilon_{ij,t}.
-\end{align}
+PPML gravity model is defined as
+\begin{align*}
+X_{ij,t} =& \exp\left[\pi_{i,t} + \chi_{i,t} + \beta_1 \log(DIST)_{i,j} + \beta_2 CNTG_{i,j} +\right.\\
+\text{ }& \left.\beta_3 LANG_{i,j} + \beta_4 CLNY_{i,j}\right] \times \varepsilon_{ij,t}.
+\end{align*}
 
 Where the added terms, with respect to the OLS model, are $\pi_{i,t}$ and $\chi_{i,t}$ that
 account for exporter-time and importer-time fixed effects respectively.
@@ -102,9 +128,9 @@ The reason to compute this model even in spite of speed is that PPML is the only
 
 And starting with this model, `tradepolicy` starts to show some advantages over fitting the models from scratch by using the `glm()` function. The pseudo-$R^2$ for this model needs to be computed after estimating the model because there is no $R^2$ for these models in R. The pseudo-$R^2$ is obtained as a function of the Kendall correlation between the observed and predicted values [@silva2006log].
 
-The summary output is (with hidden fixed effects)
+The summary output, with hidden fixed effects, is 
 
-```{r ch1_ppml_1, eval = FALSE}
+```{r c2_ppml_1, eval = FALSE}
 tp_summary_app1(
   formula = "trade ~ log_dist + cntg + lang + clny + exp_year + imp_year",
   data = ch1_application1,
@@ -112,6 +138,127 @@ tp_summary_app1(
 )
 ```
 
-```{r ch1_ppml_2, echo=FALSE, comment=NA}
+```{r c2_ppml_2, echo=FALSE, comment=NA}
 ch1_app1_ppml
+rm(list = ls())
 ```
+
+### The distance puzzle
+
+The distance puzzle models accounts for a separation of the `log_dist` variable into multiple columns that account for discrete time effects. This is the model specification
+\begin{align*}
+X_{ij,t} =& \exp\left[\pi_{i,t} + \chi_{i,t} + \beta_1 \log(DIST)_{i,j} + \beta_2 CNTG_{i,j} + \beta_3 LANG_{i,j}\right]\times\\
+\text{ }& \exp\left[\beta_4 CLNY_{i,j} + \beta_5 \log(DIST\_INTRA_{i,i})\right] \times \varepsilon_{ij,t}.
+\end{align*}
+
+The distance puzzle can be estimated via OLS or PPML. For OLS you need to exclude zero flows and loops in country pairs.
+
+```{r ch2_dp_1, eval=FALSE}
+tp_summary_app2(
+  formula = "log_trade ~ 0 + log_dist_1986 + log_dist_1990 + log_dist_1994 +
+    log_dist_1998 + log_dist_2002 + log_dist_2006 + cntg +
+    lang + clny + exp_year + imp_year",
+  data = filter(ch1_application2, importer != exporter, trade > 0),
+  method = "lm"
+)
+```
+
+```{r ch2_dp_2, echo=FALSE, comment=NA}
+load("~/tesis-magister/data/02-chapter1-distance-puzzle.RData")
+ch1_app2_ols
+```
+
+A useful metric for the decomposition of `log_dist` here is `pct_chg_log_dist`, which is the percentage change of the log distance coefficients as a time-varying effect. This is obtained by implementing the delta method on the distance coefficients weighted by the country pair clustered variance-covariance matrix.
+
+Por PPML you only need to exclude loops, but keeping zerop flows. 
+```{r, ch2_dp_3, eval=FALSE}
+tp_summary_app2(
+  formula = "trade ~ 0 + log_dist_1986 + log_dist_1990 +
+    log_dist_1994 + log_dist_1998 + log_dist_2002 + log_dist_2006 +
+    cntg + lang + clny + exp_year + imp_year",
+  data = filter(ch1_application2, importer != exporter),
+  method = "glm"
+)
+```
+
+```{r ch2_dp_4, echo=FALSE, comment=NA}
+ch1_app2_ppml
+```
+
+Other model variations, such as internal distance solution for the "distance puzzle", internal distance and home bias solution for the "distance puzzle" and the fixed effects solution for the "distance puzzle" are very similar to this approach.
+
+### Regional trade agreements effects
+
+This model specification includes gravity covariates, including both importer and exporter time fixed effects, and is a refinement over traditional gravity estimates model
+\begin{align*}
+X_{ij,t} =& \:\exp\left[\pi_{i,t} + \chi_{i,t} + \beta_1 \log(DIST)_{i,j} + \beta_2 CNTG_{i,j} + \beta_3 LANG_{i,j} +\right.\\
+\text{ }& \:\left.\beta_4 CLNY_{i,j} + \beta_5 RTA_{ij,t}\right] \times \varepsilon_{ij,t}.
+\end{align*}
+
+The distance puzzle can be estimated via OLS or PPML, but based on the similarity with the previous models, you can go right into PPML model fitting starting with the most simplified case
+
+```{r ch2_rta_1, eval=FALSE}
+tp_summary_app3(
+  formula = "trade ~ 0 + log_dist + cntg + lang + clny +
+    rta + exp_year + imp_year",
+  data = filter(ch1_application3, importer != exporter),
+  method = "glm"
+)
+```
+
+```{r ch2_rta_2, echo=FALSE, comment=NA}
+load("~/tesis-magister/data/03-chapter1-regional-trade-agreements.RData")
+ch1_app3_ppml
+```
+
+In this model summary we can see the same output as the previous model, with the addition of `total_rta_effect` which is just the sum of RTAs estimated coefficients and standard erro obtained with the Delta method. This model does not feature intra-national distance effects (`intr`).
+
+Addressing for potential domestic trade diversion requires the inclusion of an international borders (`intl_brdr`) variable, a factor-type variable which starts to make the estimation slow and from here model estimation is computationally costly because of the number of estimated parameters, but this does not include general equilibrium effects yet.
+
+```{r ch2_rta_3, eval=FALSE}
+tp_summary_app3(
+  formula = "trade ~ 0 + log_dist + cntg + lang + clny +
+    rta + exp_year + imp_year + intl_brdr",
+  data = ch1_application3,
+  method = "glm"
+)
+```
+
+```{r ch2_rta_4, echo=FALSE, comment=NA}
+ch1_app3_intra
+rm(list = ls())
+```
+
+These models constitute the basis for testing for potential "reverse causality" between trade and RTAs and addressing potential non-linear and phasing-in effects of RTAs.
+
+## General equilibrium estimation
+
+The gravity model can simultaneously accommodate multiple countries and multiple sectors (and even firms). As such, the gravity framework can be used to capture the possibility that markets (sectors, countries, etc.) are linked and that trade policy changes in one market will trigger ripple effects in the rest of the world.
+
+Structural Gravity translates the effects of the universe of bilateral trade policies to the country level and decomposes their incidence on producers and consumers in the world.
+
+Some may argue that the great predictive power of the empirical gravity model is due to the use of a rich set of fixed effects $N \times T \times 2$, where $N$ denotes countries and $T$ denotes years. It's possible to replace the $N \times T \times 2$ dummies by two indexes to produce exactly the same results and fit. Thus, the predictive power of the empirical gravity model is indeed unprecedented.
+
+The foundational stone of the structural gravity model is @anderson1979theoretical, which assumes that product differentiation exists by place of origin, that consumers globally have preferences that are truthfully represented by a Constant Elasticity of Substitution (CES) utility function, and that the equilibrium condition is a budget equilibrium. In this model, budgeting is defined in two stages, the lower level determines bilateral allocation and the upper level determines aggregate output and expenditures in each country.
+
+Under Anderson's fundamental model, consumer's maximize their utility under budget constraints, which means to solve the next optimization problem
+\begin{equation*}
+\max \left\{ \sum_{i\in I} \beta_i^{(1 - \sigma) / \sigma} c_{ij}^{(\sigma - 1) / \sigma} \right\}^{(\sigma - 1) / \sigma} \quad \text{s.t.} \quad \sum_{i \in I} p_{ij} c_{ij} = E_j = Y_j
+\end{equation*}
+
+Where
+
+* $c_{ij}$ is consumption in destination $j$ of goods from source $i$
+* $\sigma > 1$ is the elasticity of substitution across varieties/sources
+* $\beta_i$ is a CES share parameter
+* $p_{ij} = p_i t_{ij}$ is the price at destination $j$
+* $p_i$ is the factory-gate/mill price at source $i$
+* $t_ij > 1$ denotes trade frictions for shipping goods from $i$ to $j$
+* $E_j$ is the total expenditure at destination $j$
+* $Y_j = p_j Q_j$ is the total income at $j$, where $Q_j$ is the endowment
+
+## Bottlenecks
+
+Besides the classic estimation problem of linear dependence when using fixed effects, which leads to `NA` estimated country-time specific coefficients, the estimation of relevant effects such as RTAs over time constitutes itself a bottle neck which is not solved necessarily by scaling hardware.
+
+Certainly, more powerful processors allow a faster estimation for some statistical models, but what motivates the next chapter is that fitting times are very consistent on scaled hardware, so a solution for competitive fitting times is related to a different fitting algorithm.

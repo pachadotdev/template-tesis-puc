@@ -9,7 +9,6 @@ miembrocomite2: Yoto V Yotov (Drexel University)
 fecha: June 2021
 anioromano: MMXXI
 dedicatoria: To my family, friends, and all the valuable people from PUC.
-resumen: Un resumen breve
 output: 
   pdf_document:
     latex_engine: pdflatex

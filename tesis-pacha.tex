@@ -49,6 +49,9 @@
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+  
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
 %\usepackage[latin1]{inputenc}
@@ -123,8 +126,9 @@ Miguel Torres Torriti. Los agradecimientos se editan directamente en formato-puc
 \listoftables           
 \cleardoublepage
 
-\chapter*{RESUMEN}
-Un resumen breve
+\chapter*{DISCLAIMER}
+
+The views and opinions expressed in this thesis project are solely those of the author and do not necessarily reflect the official position of any unit of the World Trade Organization, the United Nations Conference on Trade and Development, the United States International Trade Commission nor the Pontifical Catholic University of Chile.
 
 \cleardoublepage % In double-sided printing style makes the next page 
                  % a right-hand page, (i.e. a truly odd-numbered page 
@@ -280,6 +284,58 @@ competitive tool for economic analysis.
 
 \chapter{Replication of `An Advanced Guide To Trade Policy Analysis'}
 
+\hypertarget{motivation}{%
+\section{Motivation}\label{motivation}}
+
+Despite solid theory and remarkable empirical success, the gravity
+equation is often applied a-theoretically and without account for
+estimation challenges that may render estimates biased/inconsistent.
+
+Much of gravity models found in the literature fall under this quote
+from Leonardo da Vinci: \emph{``He who loves practice without theory is
+like the sailor who boards ship without a rudder and compass and never
+knows where he may cast.''}
+
+Traditionally, trade theory and trade policy analysis are performed in a
+general equilibrium setting. However, doing competent general
+equilibrium analysis is not a trivial task.
+
+Modelers must know general-equilibrium theory so that their models have
+a sound theoretical basis; they must know how to solve their models;
+they need to be able to program (or at least communicate with
+programmers); they have to know about data sources and all their
+associated problems; and they have to be conversant with relevant
+literature, especially that on elasticities (Shoven and Whalley 1984).
+
+The gravity model has established itself as the `workhorse' model in
+international trade, and thousands of papers have used it to study the
+effects of various determinants of trade.
+
+Traditional determinants of trade flows are: Geography, Preferential
+Trade Agreements, Tariffs, Export Subsidies, Non-tariff Measures, World
+Trade Organization Membership, Common Currency and Currency Unions,
+Foreign Direct Investment, Immigration, Cultural Ties, Language,
+Colonial Ties.
+
+Exotic determinants of trade flows are: Institutional Quality, Foreign
+Aid, Trust, Reputation for People, Reputation for Products, Export
+Promotion, Taxes, Mega Sporting Events (Olympic Games and World Cup),
+Embargoes, Other Trade Sanctions, Conflict, Wars, Piracy, and Ice Cap
+Melting.
+
+The gravity model can simultaneously accommodate multiple countries and
+multiple sectors (and even firms). As such, the gravity framework can be
+used to capture the possibility that markets (sectors, countries, etc.)
+are linked and that trade policy changes in one market will trigger
+ripple effects in the rest of the world.
+
+Structural Gravity translates the effects of the universe of bilateral
+trade policies to the country level and decomposes their incidence on
+producers and consumers in the world. Thus, the trade gravity model can
+be conveniently integrated within a wide class of broader general
+equilibrium models to study the links between trade, labor markets,
+investment, the environment, etc., while preserving tractability.
+
 \hypertarget{gravity-models-review}{%
 \section{Gravity models review}\label{gravity-models-review}}
 
@@ -288,18 +344,18 @@ competitive tool for economic analysis.
 
 The main reference for this section is Woelwer et al. (2018) and the
 references therein. Gravity models in their traditional form are
-inspired by Newton law of gravitation \begin{equation}
+inspired by Newton law of gravitation \begin{equation*}
 F_{ij}=G\frac{M_{i}M_{j}}{D^{2}_{ij}}.
-\end{equation}
+\end{equation*}
 
 The force \(F\) between two bodies \(i\) and \(j\) with \(i \neq j\) is
 proportional to the masses \(M\) of these bodies and inversely
 proportional to the square of their geographical distance \(D\). \(G\)
 is a constant and as such of no major concern. The underlying idea of a
 traditional gravity model, shown for international trade, is equally
-simple \begin{equation}
+simple \begin{equation*}
 X_{ij}=G\frac{Y_{i}^{\beta_{1}}Y_{j}^{\beta_{2}}}{D_{ij}^{\beta_{3}}}.
-\end{equation}
+\end{equation*}
 
 The trade flow \(X\) is explained by \(Y_{i}\) and \(Y_{j}\) that are
 the masses of the exporting and importing country (e.g.~the GDP) and
@@ -309,13 +365,13 @@ to study urban policies and migration flows.
 Dummy variables such as common borders \(contig\) or regional trade
 agreements \(rta\) can be added to the model. Let \(t_{ij}\) be the
 transaction cost defined as
-\(t_{ij}= D_{ij} \exp(contig_{ij} + rta_{ij})\), therefore the model
+\(t_{ij}= D_{ij} \exp(CONTIG_{ij} + RTA_{ij})\), therefore the model
 with frictions can be expressed as a log-linear model to use a standard
-estimation methods such as OLS \begin{align}
+estimation methods such as OLS \begin{align*}
 X_{ij} =& G\frac{Y_{i}^{\beta_{1}}Y_{j}^{\beta_{2}}}{t_{ij}^{\beta_{3}}} \\
 \implies \log X_{ij} =& \beta_{0}\log G +\beta_{1}\log Y_{i}+\beta_{2}\log Y_{j}+\beta_{3}\log D_{ij}\\
-&+ \beta_{4}contig_{ij}+\beta_{5}rta_{ij}.
-\end{align}
+&+ \beta_{4}CONTIG_{ij}+\beta_{5}RTA_{ij}.
+\end{align*}
 
 \hypertarget{trade-barriers-model}{%
 \subsection{Trade barriers model}\label{trade-barriers-model}}
@@ -344,10 +400,10 @@ Multilateral Resistance terms dependent on each other. Hence, the
 estimation of structural gravity models becomes complex.
 
 The econometric literature proposes the Multilateral Resistance model
-defined by the equations \begin{align}
+defined by the equations \begin{align*}
 X_{ij} =& \frac{Y_{i}Y_{j}}{Y}\frac{t_{ij}^{1-\sigma}}{P_{j}^{1-\sigma}\Pi_{i}^{1-\sigma}}\\
 P_{i}^{1-\sigma} \text{ }& \sum_{j}\frac{t_{ij}^{1-\sigma}}{\Pi_{j}^{1-\sigma}}\frac{Y_{j}}{Y};\:\Pi_{j}^{1-\sigma}=\sum_{i}\frac{t_{ij}^{1-\sigma}}{P_{i}^{1-\sigma}}\frac{Y_{i}}{Y}
-\end{align}
+\end{align*}
 
 \hypertarget{model-estimation}{%
 \subsection{Model estimation}\label{model-estimation}}
@@ -412,10 +468,10 @@ estimation}\label{partial-equilibrium-estimation}}
 estimates}\label{traditional-gravity-estimates}}
 
 The most simple model considered in \texttt{tradepolicy} is an OLS
-estimation ignoring multilateral resistance terms \begin{align}
-\log X_{ij,t} =& \:\beta_0 + \beta_1 DIST_{i,j} + \beta_2 CNTG_{i,j} + \beta_3 LANG_{i,j}\\ 
+estimation ignoring multilateral resistance terms \begin{align*}
+\log X_{ij,t} =& \beta_0 + \beta_1 DIST_{i,j} + \beta_2 CNTG_{i,j} + \beta_3 LANG_{i,j}\\ 
 \text{ }& + \beta_4 CLNY_{i,j} + \beta_5 \log Y_{i,t} + \beta_6 \log E_{j,t} + \varepsilon_{ij,t}.
-\end{align}
+\end{align*}
 
 The model can be summarised in the exact way as reported in Yotov et al.
 (2016). The first challenge was to obtain country pair clustered
@@ -463,6 +519,11 @@ $reset_pval
 [1] 4.346285e-15
 \end{verbatim}
 
+In this output \texttt{etfe}/\texttt{itfe} refers to the presence of
+Exporter/Importer time fixed effects in the model and \texttt{nobs} is
+the number of rows used for the estimation after discarding unusable
+cases.
+
 The package documentation covers all the details on each of the function
 arguments and the output, but here it is important to mention that
 clustered standard errors are not econometricians's sophistication.
@@ -482,10 +543,10 @@ simple OLS model just shown. It is Pseudo-Poisson Maximum Likelihood
 economically. PPML proposes a multiplicative model that passes RESET
 test, and it requires to be estimated by using a Quasi-Poisson GLM.
 
-PPML is defined as \begin{align}
-X_{ij,t} =& \:\exp\left[\pi_{i,t} + \chi_{i,t} + \beta_1 \log(DIST)_{i,j} + \beta_2 CNTG_{i,j} +\right.\\
-\text{ }& \:\left.\beta_3 LANG_{i,j} + \beta_4 CLNY_{i,j}\right] \times \varepsilon_{ij,t}.
-\end{align}
+PPML gravity model is defined as \begin{align*}
+X_{ij,t} =& \exp\left[\pi_{i,t} + \chi_{i,t} + \beta_1 \log(DIST)_{i,j} + \beta_2 CNTG_{i,j} +\right.\\
+\text{ }& \left.\beta_3 LANG_{i,j} + \beta_4 CLNY_{i,j}\right] \times \varepsilon_{ij,t}.
+\end{align*}
 
 Where the added terms, with respect to the OLS model, are \(\pi_{i,t}\)
 and \(\chi_{i,t}\) that account for exporter-time and importer-time
@@ -504,7 +565,7 @@ these models in R. The pseudo-\(R^2\) is obtained as a function of the
 Kendall correlation between the observed and predicted values (Silva and
 Tenreyro 2006).
 
-The summary output is (with hidden fixed effects)
+The summary output, with hidden fixed effects, is
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -541,6 +602,300 @@ $reset_pval
 [1] 0.6416118
 \end{verbatim}
 
+\hypertarget{the-distance-puzzle}{%
+\subsubsection{The distance puzzle}\label{the-distance-puzzle}}
+
+The distance puzzle models accounts for a separation of the
+\texttt{log\_dist} variable into multiple columns that account for
+discrete time effects. This is the model specification \begin{align*}
+X_{ij,t} =& \exp\left[\pi_{i,t} + \chi_{i,t} + \beta_1 \log(DIST)_{i,j} + \beta_2 CNTG_{i,j} + \beta_3 LANG_{i,j}\right]\times\\
+\text{ }& \exp\left[\beta_4 CLNY_{i,j} + \beta_5 \log(DIST\_INTRA_{i,i})\right] \times \varepsilon_{ij,t}.
+\end{align*}
+
+The distance puzzle can be estimated via OLS or PPML. For OLS you need
+to exclude zero flows and loops in country pairs.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tp\_summary\_app2}\NormalTok{(}
+  \AttributeTok{formula =} \StringTok{"log\_trade \textasciitilde{} 0 + log\_dist\_1986 + log\_dist\_1990 + log\_dist\_1994 +}
+\StringTok{    log\_dist\_1998 + log\_dist\_2002 + log\_dist\_2006 + cntg +}
+\StringTok{    lang + clny + exp\_year + imp\_year"}\NormalTok{,}
+  \AttributeTok{data =} \FunctionTok{filter}\NormalTok{(ch1\_application2, importer }\SpecialCharTok{!=}\NormalTok{ exporter, trade }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{),}
+  \AttributeTok{method =} \StringTok{"lm"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+$tidy_coefficients
+           term   estimate  std.error  statistic       p.value
+1 log_dist_1986 -1.1684531 0.04363399 -26.778505 9.325153e-156
+2 log_dist_1990 -1.1550748 0.04231426 -27.297527 1.099308e-161
+3 log_dist_1994 -1.2106102 0.04567133 -26.507006 1.067066e-152
+4 log_dist_1998 -1.2481058 0.04276937 -29.182237 4.144438e-184
+5 log_dist_2002 -1.2412640 0.04410183 -28.145410 1.338245e-171
+6 log_dist_2006 -1.2613469 0.04371249 -28.855528 4.024394e-180
+7          cntg  0.2230169 0.20264840   1.100511  2.711201e-01
+8          lang  0.6610527 0.08205221   8.056488  8.201583e-16
+9          clny  0.6701682 0.14934810   4.487290  7.245824e-06
+
+$nobs
+[1] 25689
+
+$pct_chg_log_dist
+[1] 7.950156
+
+$pcld_std_err
+[1] 3.75886
+
+$pcld_std_err_pval
+[1] 0.03442616
+
+$intr
+[1] FALSE
+
+$csfe
+[1] FALSE
+\end{verbatim}
+
+A useful metric for the decomposition of \texttt{log\_dist} here is
+\texttt{pct\_chg\_log\_dist}, which is the percentage change of the log
+distance coefficients as a time-varying effect. This is obtained by
+implementing the delta method on the distance coefficients weighted by
+the country pair clustered variance-covariance matrix.
+
+Por PPML you only need to exclude loops, but keeping zerop flows.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tp\_summary\_app2}\NormalTok{(}
+  \AttributeTok{formula =} \StringTok{"trade \textasciitilde{} 0 + log\_dist\_1986 + log\_dist\_1990 +}
+\StringTok{    log\_dist\_1994 + log\_dist\_1998 + log\_dist\_2002 + log\_dist\_2006 +}
+\StringTok{    cntg + lang + clny + exp\_year + imp\_year"}\NormalTok{,}
+  \AttributeTok{data =} \FunctionTok{filter}\NormalTok{(ch1\_application2, importer }\SpecialCharTok{!=}\NormalTok{ exporter),}
+  \AttributeTok{method =} \StringTok{"glm"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+$tidy_coefficients
+           term   estimate  std.error  statistic       p.value
+1 log_dist_1986 -0.8592828 0.03704565 -23.195240 5.085841e-119
+2 log_dist_1990 -0.8340696 0.03767893 -22.136234 1.415844e-108
+3 log_dist_1994 -0.8347594 0.03508642 -23.791525 4.087453e-125
+4 log_dist_1998 -0.8469160 0.03536313 -23.949124 9.436433e-127
+5 log_dist_2002 -0.8484432 0.03164978 -26.807236 2.660817e-158
+6 log_dist_2006 -0.8356495 0.03124859 -26.741992 1.530152e-157
+7          cntg  0.4371622 0.08315103   5.257448  1.460684e-07
+8          lang  0.2475083 0.07654488   3.233506  1.222807e-03
+9          clny -0.2222794 0.11630737  -1.911138  5.598685e-02
+
+$nobs
+[1] 28152
+
+$pct_chg_log_dist
+[1] -2.750345
+
+$pcld_std_err
+[1] 3.003899
+
+$pcld_std_err_pval
+[1] 0.3598811
+
+$intr
+[1] FALSE
+
+$csfe
+[1] FALSE
+\end{verbatim}
+
+Other model variations, such as internal distance solution for the
+``distance puzzle,'' internal distance and home bias solution for the
+``distance puzzle'' and the fixed effects solution for the ``distance
+puzzle'' are very similar to this approach.
+
+\hypertarget{regional-trade-agreements-effects}{%
+\subsubsection{Regional trade agreements
+effects}\label{regional-trade-agreements-effects}}
+
+This model specification includes gravity covariates, including both
+importer and exporter time fixed effects, and is a refinement over
+traditional gravity estimates model \begin{align*}
+X_{ij,t} =& \:\exp\left[\pi_{i,t} + \chi_{i,t} + \beta_1 \log(DIST)_{i,j} + \beta_2 CNTG_{i,j} + \beta_3 LANG_{i,j} +\right.\\
+\text{ }& \:\left.\beta_4 CLNY_{i,j} + \beta_5 RTA_{ij,t}\right] \times \varepsilon_{ij,t}.
+\end{align*}
+
+The distance puzzle can be estimated via OLS or PPML, but based on the
+similarity with the previous models, you can go right into PPML model
+fitting starting with the most simplified case
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tp\_summary\_app3}\NormalTok{(}
+  \AttributeTok{formula =} \StringTok{"trade \textasciitilde{} 0 + log\_dist + cntg + lang + clny +}
+\StringTok{    rta + exp\_year + imp\_year"}\NormalTok{,}
+  \AttributeTok{data =} \FunctionTok{filter}\NormalTok{(ch1\_application3, importer }\SpecialCharTok{!=}\NormalTok{ exporter),}
+  \AttributeTok{method =} \StringTok{"glm"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+$tidy_coefficients
+      term   estimate  std.error  statistic       p.value
+1 log_dist -0.8215699 0.03098053 -26.518912 5.866536e-155
+2     cntg  0.4155278 0.08279314   5.018867  5.197709e-07
+3     lang  0.2498665 0.07666664   3.259129  1.117547e-03
+4     clny -0.2054377 0.11431208  -1.797166  7.230934e-02
+5      rta  0.1907176 0.06579676   2.898586  3.748494e-03
+
+$nobs
+[1] 28152
+
+$total_rta_effect
+[1] 0.1907176
+
+$trta_std_err
+[1] 0.06579676
+
+$trta_std_err_pval
+[1] 0.003748494
+
+$intr
+[1] FALSE
+\end{verbatim}
+
+In this model summary we can see the same output as the previous model,
+with the addition of \texttt{total\_rta\_effect} which is just the sum
+of RTAs estimated coefficients and standard erro obtained with the Delta
+method. This model does not feature intra-national distance effects
+(\texttt{intr}).
+
+Addressing for potential domestic trade diversion requires the inclusion
+of an international borders (\texttt{intl\_brdr}) variable, a
+factor-type variable which starts to make the estimation slow and from
+here model estimation is computationally costly because of the number of
+estimated parameters, but this does not include general equilibrium
+effects yet.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tp\_summary\_app3}\NormalTok{(}
+  \AttributeTok{formula =} \StringTok{"trade \textasciitilde{} 0 + log\_dist + cntg + lang + clny +}
+\StringTok{    rta + exp\_year + imp\_year + intl\_brdr"}\NormalTok{,}
+  \AttributeTok{data =}\NormalTok{ ch1\_application3,}
+  \AttributeTok{method =} \StringTok{"glm"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+$tidy_coefficients
+      term   estimate  std.error  statistic       p.value
+1 log_dist -0.8003039 0.03026340 -26.444613 4.208257e-154
+2     cntg  0.3931604 0.07886403   4.985294  6.186778e-07
+3     lang  0.2436938 0.07708076   3.161539  1.569377e-03
+4     clny -0.1821577 0.11341918  -1.606057  1.082613e-01
+5      rta  0.4085219 0.06882661   5.935523  2.929108e-09
+
+$nobs
+[1] 28566
+
+$total_rta_effect
+[1] 0.4085219
+
+$trta_std_err
+[1] 0.06882661
+
+$trta_std_err_pval
+[1] 2.929108e-09
+
+$intr
+[1] TRUE
+\end{verbatim}
+
+These models constitute the basis for testing for potential ``reverse
+causality'' between trade and RTAs and addressing potential non-linear
+and phasing-in effects of RTAs.
+
+\hypertarget{general-equilibrium-estimation}{%
+\subsection{General equilibrium
+estimation}\label{general-equilibrium-estimation}}
+
+The gravity model can simultaneously accommodate multiple countries and
+multiple sectors (and even firms). As such, the gravity framework can be
+used to capture the possibility that markets (sectors, countries, etc.)
+are linked and that trade policy changes in one market will trigger
+ripple effects in the rest of the world.
+
+Structural Gravity translates the effects of the universe of bilateral
+trade policies to the country level and decomposes their incidence on
+producers and consumers in the world.
+
+Some may argue that the great predictive power of the empirical gravity
+model is due to the use of a rich set of fixed effects
+\(N \times T \times 2\), where \(N\) denotes countries and \(T\) denotes
+years. It's possible to replace the \(N \times T \times 2\) dummies by
+two indexes to produce exactly the same results and fit. Thus, the
+predictive power of the empirical gravity model is indeed unprecedented.
+
+The foundational stone of the structural gravity model is Anderson
+(1979), which assumes that product differentiation exists by place of
+origin, that consumers globally have preferences that are truthfully
+represented by a Constant Elasticity of Substitution (CES) utility
+function, and that the equilibrium condition is a budget equilibrium. In
+this model, budgeting is defined in two stages, the lower level
+determines bilateral allocation and the upper level determines aggregate
+output and expenditures in each country.
+
+Under Anderson's fundamental model, consumer's maximize their utility
+under budget constraints, which means to solve the next optimization
+problem \begin{equation*}
+\max \left\{ \sum_{i\in I} \beta_i^{(1 - \sigma) / \sigma} c_{ij}^{(\sigma - 1) / \sigma} \right\}^{(\sigma - 1) / \sigma} \quad \text{s.t.} \quad \sum_{i \in I} p_{ij} c_{ij} = E_j = Y_j
+\end{equation*}
+
+Where
+
+\begin{itemize}
+\tightlist
+\item
+  \(c_{ij}\) is consumption in destination \(j\) of goods from source
+  \(i\)
+\item
+  \(\sigma > 1\) is the elasticity of substitution across
+  varieties/sources
+\item
+  \(\beta_i\) is a CES share parameter
+\item
+  \(p_{ij} = p_i t_{ij}\) is the price at destination \(j\)
+\item
+  \(p_i\) is the factory-gate/mill price at source \(i\)
+\item
+  \(t_ij > 1\) denotes trade frictions for shipping goods from \(i\) to
+  \(j\)
+\item
+  \(E_j\) is the total expenditure at destination \(j\)
+\item
+  \(Y_j = p_j Q_j\) is the total income at \(j\), where \(Q_j\) is the
+  endowment
+\end{itemize}
+
+\hypertarget{bottlenecks}{%
+\subsection{Bottlenecks}\label{bottlenecks}}
+
+Besides the classic estimation problem of linear dependence when using
+fixed effects, which leads to \texttt{NA} estimated country-time
+specific coefficients, the estimation of relevant effects such as RTAs
+over time constitutes itself a bottle neck which is not solved
+necessarily by scaling hardware.
+
+Certainly, more powerful processors allow a faster estimation for some
+statistical models, but what motivates the next chapter is that fitting
+times are very consistent on scaled hardware, so a solution for
+competitive fitting times is related to a different fitting algorithm.
+
 \chapter{Efficient Fitting of Linear Models}
 
 COMPLETAR
@@ -553,10 +908,19 @@ COMPLETAR
 Alexander, Monica. 2019. \emph{Reproducibility in Demographic Research}.
 \url{https://www.monicaalexander.com/posts/2019-10-20-reproducibility/}.
 
+\leavevmode\hypertarget{ref-anderson1979theoretical}{}%
+Anderson, James E. 1979. {``A Theoretical Foundation for the Gravity
+Equation.''} \emph{The American Economic Review} 69 (1): 106--16.
+
 \leavevmode\hypertarget{ref-CEPII201125}{}%
 Mayer, Thierry, and Soledad Zignago. 2011. {``Notes on CEPII's Distances
 Measures: The GeoDist Database.''} Working Papers 2011-25. CEPII.
 \url{http://www.cepii.fr/CEPII/en/publications/wp/abstract.asp?NoDoc=3877}.
+
+\leavevmode\hypertarget{ref-shoven1984applied}{}%
+Shoven, John B, and John Whalley. 1984. {``Applied General-Equilibrium
+Models of Taxation and International Trade: An Introduction and
+Survey.''} \emph{Journal of Economic Literature} 22 (3): 1007--51.
 
 \leavevmode\hypertarget{ref-silva2006log}{}%
 Silva, JMC Santos, and Silvana Tenreyro. 2006. {``The Log of Gravity.''}

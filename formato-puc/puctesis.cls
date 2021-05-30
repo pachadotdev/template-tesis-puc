@@ -440,7 +440,7 @@
       \hspace{100pt}
       \parbox[t]{.75\textwidth}{
       \noindent
-      Profesor Supervisor:\\
+      Advisor:\\
       {
       \ifx\@empty\@advisor {.........}\else{\uppercase\@advisor}\fi}}
       }
@@ -531,7 +531,7 @@
       \hspace{100pt}
       \parbox[t]{.75\textwidth}{
       \noindent
-      Miembros de la comisi\'on:\\
+      Committee members:\\
       {
       \ifx\@empty\@advisor {.........}\else{\uppercase\@advisor}\fi\\
       \ifx\@empty\@committeememberA {.........}\else{\uppercase\@committeememberA}\fi\\
