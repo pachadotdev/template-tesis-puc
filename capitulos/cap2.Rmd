@@ -233,11 +233,13 @@ These models constitute the basis for testing for potential "reverse causality" 
 
 ## General equilibrium estimation
 
+### Core CES model
+
 The gravity model can simultaneously accommodate multiple countries and multiple sectors (and even firms). As such, the gravity framework can be used to capture the possibility that markets (sectors, countries, etc.) are linked and that trade policy changes in one market will trigger ripple effects in the rest of the world.
 
 Structural Gravity translates the effects of the universe of bilateral trade policies to the country level and decomposes their incidence on producers and consumers in the world.
 
-Some may argue that the great predictive power of the empirical gravity model is due to the use of a rich set of fixed effects $N \times T \times 2$, where $N$ denotes countries and $T$ denotes years. It's possible to replace the $N \times T \times 2$ dummies by two indexes to produce exactly the same results and fit. Thus, the predictive power of the empirical gravity model is indeed unprecedented.
+Some may argue that the great predictive power of the empirical gravity model is due to the use of a rich set of fixed effects $N \times T \times 2$, where $N$ denotes countries and $T$ denotes years. It's possible to replace the $N \times T \times 2$ dummies by two remoteness indexes to produce exactly the same results and fit [@wei1996intra, @baier2009estimating]. Thus, the predictive power of the empirical gravity model is indeed unprecedented.
 
 The foundational stone of the structural gravity model is @anderson1979theoretical, which assumes that product differentiation exists by place of origin, that consumers globally have preferences that are truthfully represented by a Constant Elasticity of Substitution (CES) utility function, and that the equilibrium condition is a budget equilibrium. In this model, budgeting is defined in two stages, the lower level determines bilateral allocation and the upper level determines aggregate output and expenditures in each country.
 
@@ -319,8 +321,226 @@ E_j &= Y_j = Q_j p_j \\
 p_j &= \frac{(Y_j / Y)^{\frac{1}{1 - \sigma}}}{\beta_j \Pi_j}.
 \end{align*}
 
+### General equilibrium PPML model
+
+From the core model, it is possible to estimate a General Equilibrium PPML (GEPPML) model [@yotov2016advanced]. There are four sequential steps that define an 'auction' or 'russian doll' process.
+
+**Step 1: Solve the Baseline Gravity Model**
+
+Step 1A is to obtain estimates of trade costs and trade elasticities. This is done by using PPML, panel data with intervals, exporter-time fixed effects, importer-time fixed effects, and pair fixed effects to estimate
+\begin{equation*}
+X_{ij,t} = \exp[T_{ij,t}\beta + \pi_{i,t} + \xi_{j,t}] \times \varepsilon_{ij,t}.
+\end{equation*}
+
+Accounting for perfect collinearity, imposing a normalization for the MRs, and estimating structural gravity without a constant implies: $\pi_{i,t} = Y_{i,t} / (\Pi^{1-\sigma}_{i,t} Y_t)$ and $\xi_{0,t} = E_{0,t}$, where $\xi_{0,t} = E_{0,t}$ is the dropped fixed effect.
+
+For this step it is crucial to select a country with good data, since it shall be the reference factor for the model. It is also important to select a country that is ‘remote’ from the counterfactual. The estimation can be done with any method from the literature, such as the tetrads method already implemented in R [@Woelver2018].
+
+Step 1B is to construct baseline indexes. This is done by using the estimates of the gravity fixed effects together with data on output and expenditure to construct the multilateral resistances
+\begin{align*}
+\Pi^{1-\sigma}_{1,t} &= \frac{Y_{i,t}}{\exp(\hat{\pi}_{i,t})} \times \frac{E_{0,t}}{Y_t} \\
+P^{1-\sigma}_{j,t} &= \frac{E_{j,t}}{\exp(\hat{\xi}_{j,t})} \times \frac{1}{E_{0,t}}.
+\end{align*}
+
+Where, by construction, $Y_{i,t} = \sum_j X_{ij,t}$ and $E_{j,t} = \sum_i X_{ij,t}$. Any other baseline GE index can be constructed, being it real consumption, terms of trade or others.
+
+A starting point, based on partial equilibrium results, is to fit the model
+\begin{align*}
+X_{ij,t} =& \:\exp\left[\pi_{i,t} + \chi_{i,t} + \beta_1 \log(DIST)_{i,j} + \beta_2 CNTG_{i,j} + \beta_3 INTL_{i,j}\right] \times \varepsilon_{ij,t}.
+\end{align*}
+
+The code for this model is straightforward.
+
+```{r ch2_app1_baseline_1, eval = FALSE}
+fit_baseline_app1 <- glm(
+  trade ~ 0 + log_dist + cntg + intl + exporter + importer,
+  family = quasipoisson(link = "log"),
+  data = ch2_application1
+)
+```
+
+One challenge inR is to extract the estimated fixed effects coefficients in order to construct the variables for export and import fixed effects. This was done by implementing the `tp_fixed_effects()` function.
+
+```{r ch2_app1_baseline_3, eval = FALSE}
+ch2_application1 <- ch2_application1 %>%
+  left_join(
+    tp_fixed_effects(fit_baseline_app1),
+    c("exporter", "importer")
+  )
+```
+
+After performing the steps to obtain both OMRs and IMRS, to complete this stage of the estimation, I had to create a column with the estimated international trade for given output and expenditures. This starts by adding a column, `tradehat_bln`, with the regression output, and then grouping by exporter and summarising to obtain the required column `xi_bln`.
+
+**Step 2: Define a counterfactual experiment**
+
+Consists in defining the policy experiment by changing the definition of the policy variables in vector $T_{ij,t}. Alternatively, one may change the values for the trade cost elasticities, the $\beta$'s.
+
+On the one hand, one alternative is to eliminate the border variable and then generate the logged trade costs used in the constraint.
+
+```{r ch2_app1_counterfactual_1, eval = FALSE}
+ch2_application1 <- ch2_application1 %>%
+  mutate(
+    tij_cfl = exp(fit_baseline_app1$coefficients["log_dist"] * log_dist +
+                  fit_baseline_app1$coefficients["cntg"] * cntg),
+    log_tij_cfl = log(tij_cfl)
+  )
+```
+
+On the other, a second alternative is to define a new counterfactual border variable.
+
+```{r ch2_app1_counterfactual_2, eval = FALSE}
+ch2_application1 <- ch2_application1 %>%
+  mutate(
+    intl_cfl = 0,
+    tij_bln = exp(fit_baseline_app1$coefficients["log_dist"] * log_dist +
+                  fit_baseline_app1$coefficients["cntg"] * cntg +
+                  fit_baseline_app1$coefficients["intl"] * intl_cfl),
+    log_tij_cfl = log(tij_cfl)
+  )
+```
+
+**Step 3: Solve the counterfactual model**
+
+Step 3A is to obtain conditional GE effects
+\begin{equation*}
+X_{ij,t} = \exp[T_{ij,t}^{CFL}\bar{\beta} + \pi_{i,t}^{CFT} + \xi_{j,t}^{CFT}] \times \varepsilon_{ij,t}^{CFT}.
+\end{equation*}
+
+Where, the bar symbol is used to capture the fact that certain coefficients are constrained to be equal to their estimated counterparts from the equation in step 1 or to their new values as defined in step 2.
+
+This step is completed by repeating step 1A with the new gravity fixed effects estimates and the original data on output and expenditure to construct the conditional GE estimates of the MRs and construct any other GE indexes of interest.
+
+Step 3B is to estimate the full endowment gravity model. This step delivers estimates of the fixed effects that
+correspond to the full endowment scenario. This step is performed in a loop with four stages: (i) Allow for changes in factory-gate prices; (ii) Allow for endogenous income, expenditure, and trade; (iii) Estimate the full endowment model; (iv) Construct full endowment GE Effects.
+
+In practice, this steps is a recursion by fitting a model similar to the model from step 1, the constrained gravity model, where $\pi_{j,t}$ and $\chi_{j,t}$ are altered
+\begin{align*}
+X_{ij,t} =& \:\exp\left[\pi_{i,t}^{CFL} + \chi_{i,t}^{CFL} + \beta_1 \log(DIST)_{i,j} + \beta_2 CNTG_{i,j} + \beta_3 INTL_{i,j}\right] \times \varepsilon_{ij,t}.
+\end{align*}
+
+A large advantage from R is to have the `offset()` function, which makes this estimation of a counterfactual model very straightforward.
+
+```{r ch2_app1_counterfactual_3, eval = FALSE}
+fit_counterfactual_app1 <- glm(
+  trade ~ 0 + exporter + importer + offset(log_tij_cfl),
+  family = quasipoisson(link = "log"),
+  data = ch2_application1
+)
+```
+
+From this, it's direct to compute the conditional general equilibrium effects of trade, as this is a repetition of step 1. The problem is to construct the loop with an iterative procedure to converge to full endowment general equilibrium effects, this is the 'auction' process implicit in GE. 
+
+Taking the elasticities of substitution from the literature, and building the price changes in a counterfactual scenario, the problem reduces to run the mentioned loop of $N$ steps, which cannot be divided into smaller pieces because the step $N$ depends on the step $N-1$.
+
+```{r ch2_app1_counterfactual_11, eval = FALSE}
+# set parameters
+max_dif <- 1; sd_dif <- 1; change_price_i_old <- 0
+
+i <- 1
+while(sd_dif > 1e-5 | max_dif > 1e-5) {
+  ch2_application1 <- ch2_application1 %>%
+    mutate(trade_1 = tradehat_0 * change_p_i_0 * change_p_j_0 / 
+             (change_omr_full_0 * change_imr_full_0))
+
+  # repeat the counterfactual model
+  fit_counterfactual_app1_2 <- glm(
+    trade_1 ~ 0 + exporter + importer + offset(log_tij_cfl)
+    ...
+  )
+  ...
+
+  # compute the conditional general equilibrium effects of trade
+  ch2_application1 <- ch2_application1 %>%
+    mutate(tradehat_1 = predict(fit_counterfactual_app1_2, 
+                                ch2_application1, "response"))
+  ...
+
+  # update the differences
+  max_dif <- abs(max(ch2_application1$change_p_i_0 - change_price_i_old))
+  sd_dif <- sd(ch2_application1$change_p_i_0 - change_price_i_old)
+  change_price_i_old <- ch2_application1$change_p_i_0
+
+  # compute changes in outward and inward multilateral resistance
+  ch2_application1 <- ch2_application1 %>%
+    mutate(
+      change_omr_full_1 = omr_cfl_1 / omr_cfl_0,
+      omr_cfl_0 = omr_cfl_1,
+      ...
+    )
+
+  i <- i + 1
+}
+```
+
+The rest of the step consists in computing the full endowment general equilibrium of trade. This short, but exhaustive summary, should have made clear that taking GLM's output as inputs for more GLM models is computationally costly
+
+**Step 4: Collect, construct and report indexes of interest**
+
+This step is direct. It consists in computing the change in full endowment general equilibrium factory-gate price on export side (`change_price_full`), the change in conditional and full general equilibrium outward multilateral resistances (`change_omr_*`), and the change in conditional and full general equilibrium international trade (`change_xi_*`).
+
+In particular, the first GE model from @yotov2016advanced results, converges after 28 iterations, resulting in full replication of the book's figures and models output.
+
+```{r ge_plot, echo=FALSE, fig.height=3.5, fig.width=5, message=FALSE, warning=FALSE, dpi=300}
+load("~/tesis-magister/data/04-chapter2-trade-without-borders.RData")
+
+library(tradepolicy)
+
+ggplot(data = ch2_application1 %>%
+         filter(exporter != "HKG")) +
+  geom_point(aes(x = log_y, y = change_xi_cfl, color = "1")) +
+  geom_point(aes(x = log_y, y = change_xi_full, color = "2")) +
+  labs(
+    x = "Log value of output",
+    y = "Percent change of exports",
+    title = "Effects of abolishing international borders on exports",
+    caption = "Source: Authors' calculations",
+    color = ""
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom") +
+  scale_color_manual(
+    labels = c(
+      "Conditional general equilibrium",
+      "Full endowment general equilibrium"
+    ),
+    values = c("#b6b8dd","#232958")
+  )
+```
+
+```{r ge_plot2, echo=FALSE, fig.height=3.5, fig.width=5, message=FALSE, warning=FALSE, dpi=300}
+ggplot(data = ch2_application1 %>% filter(exporter != "HKG")) +
+  geom_point(aes(x = log_y, y = change_imr_full, color = "1")) +
+  geom_point(aes(x = log_y, y = change_price_full, color = "2")) +
+  geom_point(aes(x = log_y, y = rgdp, color = "3")) +
+  labs(
+    x = "Log value of output",
+    y = "Percent changes",
+    title = "Effects of abolishing international borders on real GDP",
+    caption = "Note: The inward multilateral resistances have been reformulated\nby multiplying their value by minus one.\nSource: Authors' calculations",
+    color = ""
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom") +
+  scale_color_manual(
+    labels = c(
+      "-(inward multilateral resistances)",
+      "Factory-gate price",
+      "Real GDP"
+    ),
+    values = c("#3bade3", "#b6b8dd", "#232958")
+  )
+
+rm(list = ls())
+```
+
 ## Bottlenecks
 
 Besides the classic estimation problem of linear dependence when using fixed effects, which leads to `NA` estimated country-time specific coefficients, the estimation of relevant effects such as RTAs over time constitutes itself a bottle neck which is not solved necessarily by scaling hardware.
 
 Certainly, more powerful processors allow a faster estimation for some statistical models, but what motivates the next chapter is that fitting times are very consistent on scaled hardware, so a solution for competitive fitting times is related to a different fitting algorithm.
+
+## Findings
+
+It was possible to fully replicate each model, figure and summary from @yotov2016advanced. The solely differences were model intercepts because of how Stata and R differ at some steps of GLMs fitting, but the slopes, standard errors and every model assessment metric could be fully replicated.
+
+The replication work was somewhat straightforward because of the availability if: (i) code and datasets, both documented; (ii) comprehensive explanations of the theory, which allowed to provide a meaningful translation from Stata to R, even when the translation was not 1:1 because of difference on how both languages deal with categorical variables; (iii) direct communication with the principal author, who replied all of my questions about the data cleaning steps.

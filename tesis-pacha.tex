@@ -824,6 +824,9 @@ and phasing-in effects of RTAs.
 \subsection{General equilibrium
 estimation}\label{general-equilibrium-estimation}}
 
+\hypertarget{core-ces-model}{%
+\subsubsection{Core CES model}\label{core-ces-model}}
+
 The gravity model can simultaneously accommodate multiple countries and
 multiple sectors (and even firms). As such, the gravity framework can be
 used to capture the possibility that markets (sectors, countries, etc.)
@@ -838,8 +841,9 @@ Some may argue that the great predictive power of the empirical gravity
 model is due to the use of a rich set of fixed effects
 \(N \times T \times 2\), where \(N\) denotes countries and \(T\) denotes
 years. It's possible to replace the \(N \times T \times 2\) dummies by
-two indexes to produce exactly the same results and fit. Thus, the
-predictive power of the empirical gravity model is indeed unprecedented.
+two remoteness indexes to produce exactly the same results and fit Baier
+and Bergstrand (2009). Thus, the predictive power of the empirical
+gravity model is indeed unprecedented.
 
 The foundational stone of the structural gravity model is Anderson
 (1979), which assumes that product differentiation exists by place of
@@ -952,6 +956,239 @@ E_j &= Y_j = Q_j p_j \\
 p_j &= \frac{(Y_j / Y)^{\frac{1}{1 - \sigma}}}{\beta_j \Pi_j}.
 \end{align*}
 
+\hypertarget{general-equilibrium-ppml-model}{%
+\subsubsection{General equilibrium PPML
+model}\label{general-equilibrium-ppml-model}}
+
+From the core model, it is possible to estimate a General Equilibrium
+PPML (GEPPML) model (Yotov et al. 2016). There are four sequential steps
+that define an `auction' or `russian doll' process.
+
+\textbf{Step 1: Solve the Baseline Gravity Model}
+
+Step 1A is to obtain estimates of trade costs and trade elasticities.
+This is done by using PPML, panel data with intervals, exporter-time
+fixed effects, importer-time fixed effects, and pair fixed effects to
+estimate \begin{equation*}
+X_{ij,t} = \exp[T_{ij,t}\beta + \pi_{i,t} + \xi_{j,t}] \times \varepsilon_{ij,t}.
+\end{equation*}
+
+Accounting for perfect collinearity, imposing a normalization for the
+MRs, and estimating structural gravity without a constant implies:
+\(\pi_{i,t} = Y_{i,t} / (\Pi^{1-\sigma}_{i,t} Y_t)\) and
+\(\xi_{0,t} = E_{0,t}\), where \(\xi_{0,t} = E_{0,t}\) is the dropped
+fixed effect.
+
+For this step it is crucial to select a country with good data, since it
+shall be the reference factor for the model. It is also important to
+select a country that is `remote' from the counterfactual. The
+estimation can be done with any method from the literature, such as the
+tetrads method already implemented in R (Woelwer et al. 2018).
+
+Step 1B is to construct baseline indexes. This is done by using the
+estimates of the gravity fixed effects together with data on output and
+expenditure to construct the multilateral resistances \begin{align*}
+\Pi^{1-\sigma}_{1,t} &= \frac{Y_{i,t}}{\exp(\hat{\pi}_{i,t})} \times \frac{E_{0,t}}{Y_t} \\
+P^{1-\sigma}_{j,t} &= \frac{E_{j,t}}{\exp(\hat{\xi}_{j,t})} \times \frac{1}{E_{0,t}}.
+\end{align*}
+
+Where, by construction, \(Y_{i,t} = \sum_j X_{ij,t}\) and
+\(E_{j,t} = \sum_i X_{ij,t}\). Any other baseline GE index can be
+constructed, being it real consumption, terms of trade or others.
+
+A starting point, based on partial equilibrium results, is to fit the
+model \begin{align*}
+X_{ij,t} =& \:\exp\left[\pi_{i,t} + \chi_{i,t} + \beta_1 \log(DIST)_{i,j} + \beta_2 CNTG_{i,j} + \beta_3 INTL_{i,j}\right] \times \varepsilon_{ij,t}.
+\end{align*}
+
+The code for this model is straightforward.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit\_baseline\_app1 }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(}
+\NormalTok{  trade }\SpecialCharTok{\textasciitilde{}} \DecValTok{0} \SpecialCharTok{+}\NormalTok{ log\_dist }\SpecialCharTok{+}\NormalTok{ cntg }\SpecialCharTok{+}\NormalTok{ intl }\SpecialCharTok{+}\NormalTok{ exporter }\SpecialCharTok{+}\NormalTok{ importer,}
+  \AttributeTok{family =} \FunctionTok{quasipoisson}\NormalTok{(}\AttributeTok{link =} \StringTok{"log"}\NormalTok{),}
+  \AttributeTok{data =}\NormalTok{ ch2\_application1}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+One challenge inR is to extract the estimated fixed effects coefficients
+in order to construct the variables for export and import fixed effects.
+This was done by implementing the \texttt{tp\_fixed\_effects()}
+function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ch2\_application1 }\OtherTok{\textless{}{-}}\NormalTok{ ch2\_application1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{left\_join}\NormalTok{(}
+    \FunctionTok{tp\_fixed\_effects}\NormalTok{(fit\_baseline\_app1),}
+    \FunctionTok{c}\NormalTok{(}\StringTok{"exporter"}\NormalTok{, }\StringTok{"importer"}\NormalTok{)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+After performing the steps to obtain both OMRs and IMRS, to complete
+this stage of the estimation, I had to create a column with the
+estimated international trade for given output and expenditures. This
+starts by adding a column, \texttt{tradehat\_bln}, with the regression
+output, and then grouping by exporter and summarising to obtain the
+required column \texttt{xi\_bln}.
+
+\textbf{Step 2: Define a counterfactual experiment}
+
+Consists in defining the policy experiment by changing the definition of
+the policy variables in vector \$T\_\{ij,t\}. Alternatively, one may
+change the values for the trade cost elasticities, the \(\beta\)'s.
+
+On the one hand, one alternative is to eliminate the border variable and
+then generate the logged trade costs used in the constraint.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ch2\_application1 }\OtherTok{\textless{}{-}}\NormalTok{ ch2\_application1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{tij\_cfl =} \FunctionTok{exp}\NormalTok{(fit\_baseline\_app1}\SpecialCharTok{$}\NormalTok{coefficients[}\StringTok{"log\_dist"}\NormalTok{] }\SpecialCharTok{*}\NormalTok{ log\_dist }\SpecialCharTok{+}
+\NormalTok{                  fit\_baseline\_app1}\SpecialCharTok{$}\NormalTok{coefficients[}\StringTok{"cntg"}\NormalTok{] }\SpecialCharTok{*}\NormalTok{ cntg),}
+    \AttributeTok{log\_tij\_cfl =} \FunctionTok{log}\NormalTok{(tij\_cfl)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+On the other, a second alternative is to define a new counterfactual
+border variable.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ch2\_application1 }\OtherTok{\textless{}{-}}\NormalTok{ ch2\_application1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{intl\_cfl =} \DecValTok{0}\NormalTok{,}
+    \AttributeTok{tij\_bln =} \FunctionTok{exp}\NormalTok{(fit\_baseline\_app1}\SpecialCharTok{$}\NormalTok{coefficients[}\StringTok{"log\_dist"}\NormalTok{] }\SpecialCharTok{*}\NormalTok{ log\_dist }\SpecialCharTok{+}
+\NormalTok{                  fit\_baseline\_app1}\SpecialCharTok{$}\NormalTok{coefficients[}\StringTok{"cntg"}\NormalTok{] }\SpecialCharTok{*}\NormalTok{ cntg }\SpecialCharTok{+}
+\NormalTok{                  fit\_baseline\_app1}\SpecialCharTok{$}\NormalTok{coefficients[}\StringTok{"intl"}\NormalTok{] }\SpecialCharTok{*}\NormalTok{ intl\_cfl),}
+    \AttributeTok{log\_tij\_cfl =} \FunctionTok{log}\NormalTok{(tij\_cfl)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Step 3: Solve the counterfactual model}
+
+Step 3A is to obtain conditional GE effects \begin{equation*}
+X_{ij,t} = \exp[T_{ij,t}^{CFL}\bar{\beta} + \pi_{i,t}^{CFT} + \xi_{j,t}^{CFT}] \times \varepsilon_{ij,t}^{CFT}.
+\end{equation*}
+
+Where, the bar symbol is used to capture the fact that certain
+coefficients are constrained to be equal to their estimated counterparts
+from the equation in step 1 or to their new values as defined in step 2.
+
+This step is completed by repeating step 1A with the new gravity fixed
+effects estimates and the original data on output and expenditure to
+construct the conditional GE estimates of the MRs and construct any
+other GE indexes of interest.
+
+Step 3B is to estimate the full endowment gravity model. This step
+delivers estimates of the fixed effects that correspond to the full
+endowment scenario. This step is performed in a loop with four stages:
+(i) Allow for changes in factory-gate prices; (ii) Allow for endogenous
+income, expenditure, and trade; (iii) Estimate the full endowment model;
+(iv) Construct full endowment GE Effects.
+
+In practice, this steps is a recursion by fitting a model similar to the
+model from step 1, the constrained gravity model, where \(\pi_{j,t}\)
+and \(\chi_{j,t}\) are altered \begin{align*}
+X_{ij,t} =& \:\exp\left[\pi_{i,t}^{CFL} + \chi_{i,t}^{CFL} + \beta_1 \log(DIST)_{i,j} + \beta_2 CNTG_{i,j} + \beta_3 INTL_{i,j}\right] \times \varepsilon_{ij,t}.
+\end{align*}
+
+A large advantage from R is to have the \texttt{offset()} function,
+which makes this estimation of a counterfactual model very
+straightforward.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit\_counterfactual\_app1 }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(}
+\NormalTok{  trade }\SpecialCharTok{\textasciitilde{}} \DecValTok{0} \SpecialCharTok{+}\NormalTok{ exporter }\SpecialCharTok{+}\NormalTok{ importer }\SpecialCharTok{+} \FunctionTok{offset}\NormalTok{(log\_tij\_cfl),}
+  \AttributeTok{family =} \FunctionTok{quasipoisson}\NormalTok{(}\AttributeTok{link =} \StringTok{"log"}\NormalTok{),}
+  \AttributeTok{data =}\NormalTok{ ch2\_application1}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+From this, it's direct to compute the conditional general equilibrium
+effects of trade, as this is a repetition of step 1. The problem is to
+construct the loop with an iterative procedure to converge to full
+endowment general equilibrium effects, this is the `auction' process
+implicit in GE.
+
+Taking the elasticities of substitution from the literature, and
+building the price changes in a counterfactual scenario, the problem
+reduces to run the mentioned loop of \(N\) steps, which cannot be
+divided into smaller pieces because the step \(N\) depends on the step
+\(N-1\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# set parameters}
+\NormalTok{max\_dif }\OtherTok{\textless{}{-}} \DecValTok{1}\NormalTok{; sd\_dif }\OtherTok{\textless{}{-}} \DecValTok{1}\NormalTok{; change\_price\_i\_old }\OtherTok{\textless{}{-}} \DecValTok{0}
+
+\NormalTok{i }\OtherTok{\textless{}{-}} \DecValTok{1}
+\ControlFlowTok{while}\NormalTok{(sd\_dif }\SpecialCharTok{\textgreater{}} \FloatTok{1e{-}5} \SpecialCharTok{|}\NormalTok{ max\_dif }\SpecialCharTok{\textgreater{}} \FloatTok{1e{-}5}\NormalTok{) \{}
+\NormalTok{  ch2\_application1 }\OtherTok{\textless{}{-}}\NormalTok{ ch2\_application1 }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{trade\_1 =}\NormalTok{ tradehat\_0 }\SpecialCharTok{*}\NormalTok{ change\_p\_i\_0 }\SpecialCharTok{*}\NormalTok{ change\_p\_j\_0 }\SpecialCharTok{/} 
+\NormalTok{             (change\_omr\_full\_0 }\SpecialCharTok{*}\NormalTok{ change\_imr\_full\_0))}
+
+  \CommentTok{\# repeat the counterfactual model}
+\NormalTok{  fit\_counterfactual\_app1\_2 }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(}
+\NormalTok{    trade\_1 }\SpecialCharTok{\textasciitilde{}} \DecValTok{0} \SpecialCharTok{+}\NormalTok{ exporter }\SpecialCharTok{+}\NormalTok{ importer }\SpecialCharTok{+} \FunctionTok{offset}\NormalTok{(log\_tij\_cfl)}
+\NormalTok{    ...}
+\NormalTok{  )}
+\NormalTok{  ...}
+
+  \CommentTok{\# compute the conditional general equilibrium effects of trade}
+\NormalTok{  ch2\_application1 }\OtherTok{\textless{}{-}}\NormalTok{ ch2\_application1 }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{tradehat\_1 =} \FunctionTok{predict}\NormalTok{(fit\_counterfactual\_app1\_2, }
+\NormalTok{                                ch2\_application1, }\StringTok{"response"}\NormalTok{))}
+\NormalTok{  ...}
+
+  \CommentTok{\# update the differences}
+\NormalTok{  max\_dif }\OtherTok{\textless{}{-}} \FunctionTok{abs}\NormalTok{(}\FunctionTok{max}\NormalTok{(ch2\_application1}\SpecialCharTok{$}\NormalTok{change\_p\_i\_0 }\SpecialCharTok{{-}}\NormalTok{ change\_price\_i\_old))}
+\NormalTok{  sd\_dif }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(ch2\_application1}\SpecialCharTok{$}\NormalTok{change\_p\_i\_0 }\SpecialCharTok{{-}}\NormalTok{ change\_price\_i\_old)}
+\NormalTok{  change\_price\_i\_old }\OtherTok{\textless{}{-}}\NormalTok{ ch2\_application1}\SpecialCharTok{$}\NormalTok{change\_p\_i\_0}
+
+  \CommentTok{\# compute changes in outward and inward multilateral resistance}
+\NormalTok{  ch2\_application1 }\OtherTok{\textless{}{-}}\NormalTok{ ch2\_application1 }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}
+      \AttributeTok{change\_omr\_full\_1 =}\NormalTok{ omr\_cfl\_1 }\SpecialCharTok{/}\NormalTok{ omr\_cfl\_0,}
+      \AttributeTok{omr\_cfl\_0 =}\NormalTok{ omr\_cfl\_1,}
+\NormalTok{      ...}
+\NormalTok{    )}
+
+\NormalTok{  i }\OtherTok{\textless{}{-}}\NormalTok{ i }\SpecialCharTok{+} \DecValTok{1}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The rest of the step consists in computing the full endowment general
+equilibrium of trade. This short, but exhaustive summary, should have
+made clear that taking GLM's output as inputs for more GLM models is
+computationally costly
+
+\textbf{Step 4: Collect, construct and report indexes of interest}
+
+This step is direct. It consists in computing the change in full
+endowment general equilibrium factory-gate price on export side
+(\texttt{change\_price\_full}), the change in conditional and full
+general equilibrium outward multilateral resistances
+(\texttt{change\_omr\_*}), and the change in conditional and full
+general equilibrium international trade (\texttt{change\_xi\_*}).
+
+In particular, the first GE model from Yotov et al. (2016) results,
+converges after 28 iterations, resulting in full replication of the
+book's figures and models output.
+
+\includegraphics{tesis-pacha_files/figure-latex/ge_plot-1.pdf}
+
+\includegraphics{tesis-pacha_files/figure-latex/ge_plot2-1.pdf}
+
 \hypertarget{bottlenecks}{%
 \subsection{Bottlenecks}\label{bottlenecks}}
 
@@ -965,6 +1202,23 @@ Certainly, more powerful processors allow a faster estimation for some
 statistical models, but what motivates the next chapter is that fitting
 times are very consistent on scaled hardware, so a solution for
 competitive fitting times is related to a different fitting algorithm.
+
+\hypertarget{findings}{%
+\subsection{Findings}\label{findings}}
+
+It was possible to fully replicate each model, figure and summary from
+Yotov et al. (2016). The solely differences were model intercepts
+because of how Stata and R differ at some steps of GLMs fitting, but the
+slopes, standard errors and every model assessment metric could be fully
+replicated.
+
+The replication work was somewhat straightforward because of the
+availability if: (i) code and datasets, both documented; (ii)
+comprehensive explanations of the theory, which allowed to provide a
+meaningful translation from Stata to R, even when the translation was
+not 1:1 because of difference on how both languages deal with
+categorical variables; (iii) direct communication with the principal
+author, who replied all of my questions about the data cleaning steps.
 
 \chapter{Efficient Fitting of Linear Models}
 
@@ -986,6 +1240,12 @@ Equation.''} \emph{The American Economic Review} 69 (1): 106--16.
 Anderson, James E, and Eric Van Wincoop. 2003. {``Gravity with Gravitas:
 A Solution to the Border Puzzle.''} \emph{American Economic Review} 93
 (1): 170--92.
+
+\leavevmode\hypertarget{ref-baier2009estimating}{}%
+Baier, Scott L, and Jeffrey H Bergstrand. 2009. {``Estimating the
+Effects of Free Trade Agreements on International Trade Flows Using
+Matching Econometrics.''} \emph{Journal of International Economics} 77
+(1): 63--76.
 
 \leavevmode\hypertarget{ref-CEPII201125}{}%
 Mayer, Thierry, and Soledad Zignago. 2011. {``Notes on CEPII's Distances
@@ -1014,6 +1274,11 @@ Policy Analysis in r}. 2nd ed. UN ESCAP.
 ---------. 2021b. \emph{Tradepolicy: Replication of 'an Advanced Guide
 to Trade Policy Analysis'}.
 \url{https://r.tiid.org/R_structural_gravity/}.
+
+\leavevmode\hypertarget{ref-wei1996intra}{}%
+Wei, Shang-Jin. 1996. {``Intra-National Versus International Trade: How
+Stubborn Are Nations in Global Integration?''} National Bureau of
+Economic Research.
 
 \leavevmode\hypertarget{ref-tidyverse}{}%
 Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy
