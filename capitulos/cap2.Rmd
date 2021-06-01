@@ -442,19 +442,13 @@ while(sd_dif > 1e-5 | max_dif > 1e-5) {
     mutate(trade_1 = tradehat_0 * change_p_i_0 * change_p_j_0 / 
              (change_omr_full_0 * change_imr_full_0))
 
-  # repeat the counterfactual model
-  fit_counterfactual_app1_2 <- glm(
-    trade_1 ~ 0 + exporter + importer + offset(log_tij_cfl)
-    ...
-  )
-  ...
-
+  # repeat the counterfactual model +
   # compute the conditional general equilibrium effects of trade
-  ch2_application1 <- ch2_application1 %>%
-    mutate(tradehat_1 = predict(fit_counterfactual_app1_2, 
-                                ch2_application1, "response"))
+  # compute the change in prices for exporters and importers +
+  # compute both outward and inward multilateral resistance +
+  # compute the conditional general equilibrium effects of trade
   ...
-
+  
   # update the differences
   max_dif <- abs(max(ch2_application1$change_p_i_0 - change_price_i_old))
   sd_dif <- sd(ch2_application1$change_p_i_0 - change_price_i_old)
@@ -482,8 +476,6 @@ In particular, the first GE model from @yotov2016advanced results, converges aft
 
 ```{r ge_plot, echo=FALSE, fig.height=3.5, fig.width=5, message=FALSE, warning=FALSE, dpi=300}
 load("~/tesis-magister/data/04-chapter2-trade-without-borders.RData")
-
-library(tradepolicy)
 
 ggplot(data = ch2_application1 %>%
          filter(exporter != "HKG")) +
@@ -532,12 +524,6 @@ ggplot(data = ch2_application1 %>% filter(exporter != "HKG")) +
 
 rm(list = ls())
 ```
-
-## Bottlenecks
-
-Besides the classic estimation problem of linear dependence when using fixed effects, which leads to `NA` estimated country-time specific coefficients, the estimation of relevant effects such as RTAs over time constitutes itself a bottle neck which is not solved necessarily by scaling hardware.
-
-Certainly, more powerful processors allow a faster estimation for some statistical models, but what motivates the next chapter is that fitting times are very consistent on scaled hardware, so a solution for competitive fitting times is related to a different fitting algorithm.
 
 ## Findings
 

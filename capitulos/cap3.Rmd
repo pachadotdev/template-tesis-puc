@@ -1,3 +1,63 @@
 \chapter{Efficient Fitting of Linear Models}
 
-COMPLETAR
+# Bottlenecks in GLM estimation
+
+Besides the classic estimation problem of linear dependence when using fixed effects, which leads to `NA` estimated country-time specific coefficients, the estimation of relevant effects such as RTAs over time constitutes itself a bottle neck which is not solved necessarily by scaling hardware.
+
+Certainly, more powerful processors allow a faster estimation for some statistical models, but fitting times are very consistent on scaled hardware, so a solution for competitive fitting times is related to a different fitting algorithm.
+
+Reproducing the traditional gravity estimates PPML model from Chapter 1 in @yotov2016advanced was already discussed in the previous chapter of this thesis, the model consists in a country-time fixed effects GLM with Quasi-Poisson link
+\begin{align*}
+X_{ij,t} =& \:\exp\left[\pi_{i,t} + \chi_{i,t} + \beta_1 \log(DIST)_{i,j} + \beta_2 CNTG_{i,j} +\right.\\
+\text{ }& \:\left.\beta_3 LANG_{i,j} + \beta_4 CLNY_{i,j}\right] \times \varepsilon_{ij,t}
+\end{align*}
+
+To compare GLM vs the proposed Efficient-GLM (EGLM) function, I conducted a test with 500 repetitions on different dedicated CPUs DigitalOcean droplets (cloud virtual machines).
+
+```{r, echo=FALSE, fig.height=3.5, fig.width=5, message=FALSE, warning=FALSE, dpi=75}
+tidy_benchmarks <- read_excel("../data/tidy benchmarks.xlsx") %>%
+  select(-expr, -neval) %>%
+  gather(Statistic, `Time (Seconds)`, -Hardware, -Function) %>%
+  filter(!grepl("2 dedicated|SSD", Hardware)) %>% 
+  mutate(
+    Hardware = gsub(", NVMe disk| dedicated", "", Hardware),
+    Statistic = as_factor(Statistic),
+    Statistic = fct_relevel(Statistic, "Min", "LQ", "Median",
+                            "Mean", "UQ", "Max")
+  )
+
+ggplot(tidy_benchmarks) +
+  geom_col(aes(x = Function, y = `Time (Seconds)`, fill = Hardware), position = "dodge2") +
+  facet_wrap(~Statistic) +
+  scale_fill_manual(values = c("#73ADF2", "#1F58A3", "#C6DEFF", "#1c1e1f")) +
+  labs(title = "R Fitting Time - Benchmark Results by Hardware") +
+  theme_minimal()
+```
+
+The results were very consistent across different hardware not included in the chart, such as 2 CPUs and testing with SSD or NVMe disks. Surprisingly enough, more CPUs don't reduce the median fitting time. Therefore, the median time of these results can be compared against local Stata 13 median times on the same statistical model.
+
+```{r, echo=FALSE, fig.height=3.5, fig.width=5, message=FALSE, warning=FALSE, dpi=75}
+tidy_benchmarks <- tidy_benchmarks %>% 
+  filter(Hardware == "8 CPUs, 16 GB RAM", Statistic == "Median") %>% 
+  select(Function, `Time (Seconds)`) %>% 
+  mutate(Software = "R")
+
+stata_bench <- read_excel("../data/stata_bench.xlsx") %>% 
+  group_by(command) %>% 
+  filter(Obs == max(Obs)) %>% 
+  mutate(Function = ifelse(grepl("glm", command), "Stata REG", "Stata GLM")) %>% 
+  rename(`Time (Seconds)` =  Time) %>% 
+  ungroup() %>% 
+  select(Function, `Time (Seconds)`) %>% 
+  mutate(Software = "Stata")
+
+tidy_benchmarks2 <- bind_rows(tidy_benchmarks, stata_bench)
+
+ggplot(tidy_benchmarks2) +
+  geom_col(aes(x = Function, y = `Time (Seconds)`, fill = Software), position = "dodge2") +
+  scale_fill_manual(values = c("#73ADF2", "#1F58A3", "#C6DEFF", "#1c1e1f")) +
+  labs(title = "R vs Stata Fitting Time - Benchmark Results") +
+  theme_minimal() + 
+  theme(legend.position = "none")
+```
+

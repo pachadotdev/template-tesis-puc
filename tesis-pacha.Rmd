@@ -19,6 +19,9 @@ bibliography: bibliografia.bib
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tradepolicy)
+library(readxl)
+library(forcats)
 ```
 
 ```{r child = 'capitulos/cap1.Rmd', eval = T}

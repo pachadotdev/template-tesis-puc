@@ -494,14 +494,16 @@ function.
 
 \begin{verbatim}
 $tidy_coefficients
-         term    estimate   std.error  statistic       p.value
-1 (Intercept) -11.2830801 0.295827386 -38.140756 1.166148e-309
-2    log_dist  -1.0016075 0.027339986 -36.635259 1.846524e-286
-3        cntg   0.5738051 0.184709829   3.106522  1.895086e-03
-4        lang   0.8015482 0.082101741   9.762864  1.778135e-22
-5        clny   0.7348535 0.144192917   5.096321  3.487706e-07
-6       log_y   1.1902357 0.009455951 125.871603  0.000000e+00
-7       log_e   0.9075884 0.009909837  91.584590  0.000000e+00
+# A tibble: 7 x 5
+  term        estimate std.error statistic   p.value
+  <chr>          <dbl>     <dbl>     <dbl>     <dbl>
+1 (Intercept)  -11.3     0.296      -38.1  1.17e-309
+2 log_dist      -1.00    0.0273     -36.6  1.85e-286
+3 cntg           0.574   0.185        3.11 1.90e-  3
+4 lang           0.802   0.0821       9.76 1.78e- 22
+5 clny           0.735   0.144        5.10 3.49e-  7
+6 log_y          1.19    0.00946    126.   0        
+7 log_e          0.908   0.00991     91.6  0        
 
 $nobs
 [1] 25689
@@ -579,12 +581,14 @@ The summary output, with hidden fixed effects, is
 
 \begin{verbatim}
 $tidy_coefficients
-         term   estimate  std.error  statistic       p.value
-1 (Intercept) 10.4208437 0.45247237  23.030895 2.286192e-117
-2    log_dist -0.8409273 0.03165752 -26.563274 1.804353e-155
-3        cntg  0.4374432 0.08315983   5.260271  1.438433e-07
-4        lang  0.2474765 0.07653876   3.233349  1.223481e-03
-5        clny -0.2224899 0.11624416  -1.913987  5.562177e-02
+# A tibble: 5 x 5
+  term        estimate std.error statistic   p.value
+  <chr>          <dbl>     <dbl>     <dbl>     <dbl>
+1 (Intercept)   10.4      0.452      23.0  2.29e-117
+2 log_dist      -0.841    0.0317    -26.6  1.80e-155
+3 cntg           0.437    0.0832      5.26 1.44e-  7
+4 lang           0.247    0.0765      3.23 1.22e-  3
+5 clny          -0.222    0.116      -1.91 5.56e-  2
 
 $nobs
 [1] 28152
@@ -629,16 +633,18 @@ to exclude zero flows and loops in country pairs.
 
 \begin{verbatim}
 $tidy_coefficients
-           term   estimate  std.error  statistic       p.value
-1 log_dist_1986 -1.1684531 0.04363399 -26.778505 9.325153e-156
-2 log_dist_1990 -1.1550748 0.04231426 -27.297527 1.099308e-161
-3 log_dist_1994 -1.2106102 0.04567133 -26.507006 1.067066e-152
-4 log_dist_1998 -1.2481058 0.04276937 -29.182237 4.144438e-184
-5 log_dist_2002 -1.2412640 0.04410183 -28.145410 1.338245e-171
-6 log_dist_2006 -1.2613469 0.04371249 -28.855528 4.024394e-180
-7          cntg  0.2230169 0.20264840   1.100511  2.711201e-01
-8          lang  0.6610527 0.08205221   8.056488  8.201583e-16
-9          clny  0.6701682 0.14934810   4.487290  7.245824e-06
+# A tibble: 9 x 5
+  term          estimate std.error statistic   p.value
+  <chr>            <dbl>     <dbl>     <dbl>     <dbl>
+1 log_dist_1986   -1.17     0.0436    -26.8  9.33e-156
+2 log_dist_1990   -1.16     0.0423    -27.3  1.10e-161
+3 log_dist_1994   -1.21     0.0457    -26.5  1.07e-152
+4 log_dist_1998   -1.25     0.0428    -29.2  4.14e-184
+5 log_dist_2002   -1.24     0.0441    -28.1  1.34e-171
+6 log_dist_2006   -1.26     0.0437    -28.9  4.02e-180
+7 cntg             0.223    0.203       1.10 2.71e-  1
+8 lang             0.661    0.0821      8.06 8.20e- 16
+9 clny             0.670    0.149       4.49 7.25e-  6
 
 $nobs
 [1] 25689
@@ -681,16 +687,18 @@ Por PPML you only need to exclude loops, but keeping zerop flows.
 
 \begin{verbatim}
 $tidy_coefficients
-           term   estimate  std.error  statistic       p.value
-1 log_dist_1986 -0.8592828 0.03704565 -23.195240 5.085841e-119
-2 log_dist_1990 -0.8340696 0.03767893 -22.136234 1.415844e-108
-3 log_dist_1994 -0.8347594 0.03508642 -23.791525 4.087453e-125
-4 log_dist_1998 -0.8469160 0.03536313 -23.949124 9.436433e-127
-5 log_dist_2002 -0.8484432 0.03164978 -26.807236 2.660817e-158
-6 log_dist_2006 -0.8356495 0.03124859 -26.741992 1.530152e-157
-7          cntg  0.4371622 0.08315103   5.257448  1.460684e-07
-8          lang  0.2475083 0.07654488   3.233506  1.222807e-03
-9          clny -0.2222794 0.11630737  -1.911138  5.598685e-02
+# A tibble: 9 x 5
+  term          estimate std.error statistic   p.value
+  <chr>            <dbl>     <dbl>     <dbl>     <dbl>
+1 log_dist_1986   -0.859    0.0370    -23.2  5.09e-119
+2 log_dist_1990   -0.834    0.0377    -22.1  1.42e-108
+3 log_dist_1994   -0.835    0.0351    -23.8  4.09e-125
+4 log_dist_1998   -0.847    0.0354    -23.9  9.44e-127
+5 log_dist_2002   -0.848    0.0316    -26.8  2.66e-158
+6 log_dist_2006   -0.836    0.0312    -26.7  1.53e-157
+7 cntg             0.437    0.0832      5.26 1.46e-  7
+8 lang             0.248    0.0765      3.23 1.22e-  3
+9 clny            -0.222    0.116      -1.91 5.60e-  2
 
 $nobs
 [1] 28152
@@ -744,12 +752,14 @@ fitting starting with the most simplified case
 
 \begin{verbatim}
 $tidy_coefficients
-      term   estimate  std.error  statistic       p.value
-1 log_dist -0.8215699 0.03098053 -26.518912 5.866536e-155
-2     cntg  0.4155278 0.08279314   5.018867  5.197709e-07
-3     lang  0.2498665 0.07666664   3.259129  1.117547e-03
-4     clny -0.2054377 0.11431208  -1.797166  7.230934e-02
-5      rta  0.1907176 0.06579676   2.898586  3.748494e-03
+# A tibble: 5 x 5
+  term     estimate std.error statistic   p.value
+  <chr>       <dbl>     <dbl>     <dbl>     <dbl>
+1 log_dist   -0.822    0.0310    -26.5  5.87e-155
+2 cntg        0.416    0.0828      5.02 5.20e-  7
+3 lang        0.250    0.0767      3.26 1.12e-  3
+4 clny       -0.205    0.114      -1.80 7.23e-  2
+5 rta         0.191    0.0658      2.90 3.75e-  3
 
 $nobs
 [1] 28152
@@ -793,12 +803,14 @@ effects yet.
 
 \begin{verbatim}
 $tidy_coefficients
-      term   estimate  std.error  statistic       p.value
-1 log_dist -0.8003039 0.03026340 -26.444613 4.208257e-154
-2     cntg  0.3931604 0.07886403   4.985294  6.186778e-07
-3     lang  0.2436938 0.07708076   3.161539  1.569377e-03
-4     clny -0.1821577 0.11341918  -1.606057  1.082613e-01
-5      rta  0.4085219 0.06882661   5.935523  2.929108e-09
+# A tibble: 5 x 5
+  term     estimate std.error statistic   p.value
+  <chr>       <dbl>     <dbl>     <dbl>     <dbl>
+1 log_dist   -0.800    0.0303    -26.4  4.21e-154
+2 cntg        0.393    0.0789      4.99 6.19e-  7
+3 lang        0.244    0.0771      3.16 1.57e-  3
+4 clny       -0.182    0.113      -1.61 1.08e-  1
+5 rta         0.409    0.0688      5.94 2.93e-  9
 
 $nobs
 [1] 28566
@@ -1136,19 +1148,13 @@ divided into smaller pieces because the step \(N\) depends on the step
     \FunctionTok{mutate}\NormalTok{(}\AttributeTok{trade\_1 =}\NormalTok{ tradehat\_0 }\SpecialCharTok{*}\NormalTok{ change\_p\_i\_0 }\SpecialCharTok{*}\NormalTok{ change\_p\_j\_0 }\SpecialCharTok{/} 
 \NormalTok{             (change\_omr\_full\_0 }\SpecialCharTok{*}\NormalTok{ change\_imr\_full\_0))}
 
-  \CommentTok{\# repeat the counterfactual model}
-\NormalTok{  fit\_counterfactual\_app1\_2 }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(}
-\NormalTok{    trade\_1 }\SpecialCharTok{\textasciitilde{}} \DecValTok{0} \SpecialCharTok{+}\NormalTok{ exporter }\SpecialCharTok{+}\NormalTok{ importer }\SpecialCharTok{+} \FunctionTok{offset}\NormalTok{(log\_tij\_cfl)}
-\NormalTok{    ...}
-\NormalTok{  )}
-\NormalTok{  ...}
-
+  \CommentTok{\# repeat the counterfactual model +}
   \CommentTok{\# compute the conditional general equilibrium effects of trade}
-\NormalTok{  ch2\_application1 }\OtherTok{\textless{}{-}}\NormalTok{ ch2\_application1 }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{tradehat\_1 =} \FunctionTok{predict}\NormalTok{(fit\_counterfactual\_app1\_2, }
-\NormalTok{                                ch2\_application1, }\StringTok{"response"}\NormalTok{))}
+  \CommentTok{\# compute the change in prices for exporters and importers +}
+  \CommentTok{\# compute both outward and inward multilateral resistance +}
+  \CommentTok{\# compute the conditional general equilibrium effects of trade}
 \NormalTok{  ...}
-
+  
   \CommentTok{\# update the differences}
 \NormalTok{  max\_dif }\OtherTok{\textless{}{-}} \FunctionTok{abs}\NormalTok{(}\FunctionTok{max}\NormalTok{(ch2\_application1}\SpecialCharTok{$}\NormalTok{change\_p\_i\_0 }\SpecialCharTok{{-}}\NormalTok{ change\_price\_i\_old))}
 \NormalTok{  sd\_dif }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(ch2\_application1}\SpecialCharTok{$}\NormalTok{change\_p\_i\_0 }\SpecialCharTok{{-}}\NormalTok{ change\_price\_i\_old)}
@@ -1189,20 +1195,6 @@ book's figures and models output.
 
 \includegraphics{tesis-pacha_files/figure-latex/ge_plot2-1.pdf}
 
-\hypertarget{bottlenecks}{%
-\subsection{Bottlenecks}\label{bottlenecks}}
-
-Besides the classic estimation problem of linear dependence when using
-fixed effects, which leads to \texttt{NA} estimated country-time
-specific coefficients, the estimation of relevant effects such as RTAs
-over time constitutes itself a bottle neck which is not solved
-necessarily by scaling hardware.
-
-Certainly, more powerful processors allow a faster estimation for some
-statistical models, but what motivates the next chapter is that fitting
-times are very consistent on scaled hardware, so a solution for
-competitive fitting times is related to a different fitting algorithm.
-
 \hypertarget{findings}{%
 \subsection{Findings}\label{findings}}
 
@@ -1222,7 +1214,42 @@ author, who replied all of my questions about the data cleaning steps.
 
 \chapter{Efficient Fitting of Linear Models}
 
-COMPLETAR
+\hypertarget{bottlenecks-in-glm-estimation}{%
+\section{Bottlenecks in GLM
+estimation}\label{bottlenecks-in-glm-estimation}}
+
+Besides the classic estimation problem of linear dependence when using
+fixed effects, which leads to \texttt{NA} estimated country-time
+specific coefficients, the estimation of relevant effects such as RTAs
+over time constitutes itself a bottle neck which is not solved
+necessarily by scaling hardware.
+
+Certainly, more powerful processors allow a faster estimation for some
+statistical models, but fitting times are very consistent on scaled
+hardware, so a solution for competitive fitting times is related to a
+different fitting algorithm.
+
+Reproducing the traditional gravity estimates PPML model from Chapter 1
+in Yotov et al. (2016) was already discussed in the previous chapter of
+this thesis, the model consists in a country-time fixed effects GLM with
+Quasi-Poisson link \begin{align*}
+X_{ij,t} =& \:\exp\left[\pi_{i,t} + \chi_{i,t} + \beta_1 \log(DIST)_{i,j} + \beta_2 CNTG_{i,j} +\right.\\
+\text{ }& \:\left.\beta_3 LANG_{i,j} + \beta_4 CLNY_{i,j}\right] \times \varepsilon_{ij,t}
+\end{align*}
+
+To compare GLM vs the proposed Efficient-GLM (EGLM) function, I
+conducted a test with 500 repetitions on different dedicated CPUs
+DigitalOcean droplets (cloud virtual machines).
+
+\includegraphics{tesis-pacha_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+The results were very consistent across different hardware not included
+in the chart, such as 2 CPUs and testing with SSD or NVMe disks.
+Surprisingly enough, more CPUs don't reduce the median fitting time.
+Therefore, the median time of these results can be compared against
+local Stata 13 median times on the same statistical model.
+
+\includegraphics{tesis-pacha_files/figure-latex/unnamed-chunk-5-1.pdf}
 
 \chapter*{REFERENCES}
 
