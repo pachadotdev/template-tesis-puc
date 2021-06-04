@@ -139,7 +139,7 @@ The views and opinions expressed in this thesis project are solely those of the 
                                % primera pagina de cada capitulo
 \pagenumbering{arabic}
 
-\chapter{Duties and Responsibilities}
+\chapter{Purpose, Objective and Deliverables}
 
 \hypertarget{purpose}{%
 \section{Purpose}\label{purpose}}
@@ -149,120 +149,151 @@ credited with lifting hundreds of millions above the poverty line. There
 is substantial room in the region to further reap benefits offered by
 international trade through regional integration and complementary trade
 policies. Exploiting this could support many developing countries in the
-region to get back on track to achieving the Sustainable Development
-Goals (SDGs).
+region to get back on track to achieving the SDGs.
 
 To take full advantage of this potential, requires concerted efforts by
 member States to enhance regional trade cooperation and direct it
 towards coordination and integration. This dynamics is further
 increasingly complicated by the recent rise of protectionism,
-uncertainty with the future of the World Trade Organization (WTO) and
-global trade regime, rising significance of digital trade, Least
-Developed Countries (LDC) graduations, increasing complexity of the
-regional trade agreements and non-tariff trade policies.
+uncertainty with the future of the WTO and global trade regime, rising
+significance of digital trade, LDC graduations, increasing complexity of
+the regional trade agreements and non-tariff trade policies.
 
 However, ESCAP member States, particularly LDCs, often lack the required
 analytical capacity to formulate evidence-based policies and assess
 their impacts, and are continuously making requests for technical
-assistance for developing such capacity.
-
-The consultant work was conducted in support of the regular programme of
-technical cooperation project titled, ``Strengthening analytical
-capacity of ESCAP members States to conduct analysis of impact of trade
-policy towards sustainable development'' (project code RB23).
+assistance for developing such capacity. The consultant work was
+conducted in support of the regular programme of technical cooperation
+project titled, ``Strengthening analytical capacity of ESCAP members
+States to conduct analysis of impact of trade policy towards sustainable
+development'' (project code RB23).
 
 \hypertarget{objective}{%
 \section{Objective}\label{objective}}
 
-The final goal of this consultancy project was to provided a set of open
-source tools that facilitates statistical modeling for better decision
-making in international trade and regional integration. This tool can be
-used by economists, lawyers, and different professionals who work for
-the RTAs (Regional Trade Agreements) negotiation teams or similar units
-in LDCs, so this was created with a specific user in mind, who tends to
-be more acquainted with Excel and SPSS than with a command line tools.
+This work aims at obtaining a reproduction of Yotov et al. (2016), a
+cornerstone book in gravity models literature, and provide an efficient
+and easy to use open source tool for estimating gravity models. Both
+results can be used a a basis to simulate, for example, the overall
+impact of a new tariff to imported goods, and the crossed effects that
+it introduces in the economy. Improving computational and usage aspects
+of gravity models facilitates statistical modeling for better decision
+making in international trade and regional integration, besides other
+areas of applications which are not the focus of this work.
+
+Scientific analysis involves decisions and steps that ideally should be
+reproducible (Alexander 2019). Reproducibility is ethically desirable
+when tax payers money is being used to build models that support
+decisions that affect them, it also fosters new research, and sheds
+light from formulating hypotheses to dissemination of scientific
+results.
+
+The results and tools created in this work are accessible for all
+professionals who work for the RTAs negotiation teams or similar units
+in LDCs, and who are not necessarily expert programmers.
 
 The need to use open source is that there is an obvious saving in
-software licenses, but it also eases reproducing studies, as most open
-source tools run on different platforms, scale easily and perform well
-with limited hardware resources. My solution can be run with zero direct
-monetary cost in a Windows/Mac laptop for reporting, a Linux/Unix server
-for large scale models or a combination of both.
-
-Reproducibility is not just ethically desirable when tax payers money is
-being used to build models that support decisions that affect them, but
-it also fosters new research. Reproducibility is not just publishing
-your analysis code. The entire workflow of a research project --from
-formulating hypotheses to dissemination of your results-- has decisions
-and steps that ideally should be reproducible (Alexander 2019).
-
-A side consequence of open source solutions is that these rely on open
-source, well established open formats, which can be read with zero
-compatibility problems with both open source software (e.g.~Python) and
-closed source software (e.g.~Stata or SPSS). Closed source formats are
-not fully retro compatible or cross plaform compatible, a good example
-is the impossibility of importing Stata files created with recent
-versions with older Stata editions, and the same happens with well
-extended propietary software such as Microsoft Excel. Open source
-formats such as the brand new Apache Arrow or classic fully specified
-formats such as CSV, XML or JSON lack the retro compatibility problem.
+software licenses, but it also eases reproducing studies and scales
+well. Most open source tools run on different platforms, scale easily
+and perform well with limited hardware resources. My solution just works
+with zero direct monetary cost in a Windows/Mac laptop for reporting, a
+Linux/Unix server for large models or simulations, or a combination of
+both.
 
 Any general open source programming language such as Python or Java
-could have worked. In this case, the most efficient decision was to
-stick to R, a computational statistics language that provides a set of
-functions, ideal for this goal, ready to be adapted and build on top.
-The deal breaker to decide in favor of R is that it features the
-\texttt{tidyverse} (Wickham et al. 2019), a set of functions built on
-top of R which facilitate statistical analysis and developing new
-statistical tools. In addition, R features a large and inclusive
-community organized around different organized groups such as R Users
-Group and R-Ladies who constantly organize open and free training
-activities.
+could have served this purpose. R was purposely designed to make data
+analysis and statistics easier, not to be fast (Wickham 2019). For the
+goal of reproducing results, R is perfect as it includes many
+statistical functions to build on top. While R is slow compared to other
+programming languages, for most purposes, it's fast enough, but not at
+GLMs, which can constitute an adoption barrier for people work in
+finance and economics, as they tend to use Stata which is faster at
+this. Therefore, making R competitive at fitting GLMs is a technically
+desirable goal.
 
-\hypertarget{ultimate-result-of-service}{%
-\section{Ultimate result of service}\label{ultimate-result-of-service}}
+\hypertarget{deliverables}{%
+\section{Deliverables}\label{deliverables}}
 
-The project started in September, 2020 and was completed in June, 2021.
-The \emph{first stage} of the project consisted in fitting all the
-models from Yotov et al. (2016) by using R. This implementation, which
-required a combination of different existing tools, was organized into
-an R package, \texttt{tradepolicy} (Vargas 2021b), with the goal of not
-just making the code organized, but also to ease reproducibility and
-providing users moving from Excel or Stata from R, which is known for
-being a flexible tool but with a steep learning curve.
+\hypertarget{first-stage}{%
+\subsection{First stage}\label{first-stage}}
 
-All of this code effort, which involved, among other challenges,
-providing user-friendly functions to obtain clustered standard errors
-for regression summaries and methods to obtain a pseudo-\(R^2\) in
-Generalized Linear Models (GLMs) that were not readily available in R,
-led to a \emph{second stage} that consisted in providing extensive
-details to explain the data manipulation and model creation from the
-first stage. This was organized in the ebook Vargas (2021a), which
-provides a comprehensive step-by-step guide to start from zero in the R
-programming language and guides the users towards enabling them at
-fitting their own general equilibrium models, which can be used to
-simulate, for example, the overall impact of a new tariff to imported
-goods, and the crossed effects that it introduces in the economy.
+Implementing all the models from Yotov et al. (2016) by using R. This
+implementation, which required a combination of different existing
+tools, was organized into an R package, \texttt{tradepolicy} (Vargas
+2021b), with the goal of making the code organized with the new
+functions to obtain model metrics. This effort involved providing:
 
-The \emph{third stage} consisted in delivering live online training to
-ARTNeT members in December, 2020. This constituted a great opportunity
-to test both the ebook, which was greatly improved from participant's
-feedback. The developed R code was presented in support of parallel
-sessions of structural gravity training using STATA.
+\begin{itemize}
+\tightlist
+\item
+  User-friendly functions to obtain clustered standard errors for
+  regression summaries, something not easily done with R.
+\item
+  A pseudo-\(R^2\) for Generalized Linear Models (GLMs) that didn't
+  exist in R, which is based on Silva and Tenreyro (2006).
+\end{itemize}
 
-A test bank for the solutions manual was also created. Eighty multiple
-choice questions in digital format are available to test knowledge of
-ESCAP training participants. Only forty questions are used in the test,
-so many tests can be generated via loops with different randomization
-parameters.
+\hypertarget{second-stage}{%
+\subsection{Second stage}\label{second-stage}}
 
-The \emph{fourth stage} of the project consisted in implementing clever
-fitting methods to avoid bottlenecks. GLMs in R (and also Python) tend
-to be 6 to 10 times slower than Stata when using Quasi-Poisson link,
-which is what is used in International Economy as a remedial method for
-overdisperssion. This constitutes a barrier for users who plan to adopt
-R and come from Stata, and this is also a problem for building
-interactive dashboards, which require immediateness.
+Documenting the results in the ebook Vargas (2021a), which provides a
+comprehensive step-by-step guide to start from zero in the R programming
+language and guides the users towards enabling them at fitting their own
+general equilibrium models.
+
+At this point all the fitted models could be reproduced, including
+figures and summaries from Yotov et al. (2016). The solely differences
+were model intercepts because of how Stata and R differ at some steps of
+GLMs fitting, but the slopes, standard errors and every model assessment
+metric could be fully replicated.
+
+The replication work was somewhat straightforward because of the
+availability of:
+
+\begin{itemize}
+\tightlist
+\item
+  Code and datasets, both documented.
+\item
+  Comprehensive explanations from theory, which allowed to provide a
+  meaningful translation from Stata to R, even when the translation was
+  not 1:1 because of difference on how both languages deal with
+  categorical variables.
+\item
+  Direct communication with the principal author, who replied all of my
+  questions about the data cleaning steps.
+\end{itemize}
+
+\hypertarget{third-stage}{%
+\subsection{Third stage}\label{third-stage}}
+
+Delivering live online training to ARTNeT members in December, 2020.
+This constituted a great opportunity to test both the ebook, which was
+greatly improved from participant's feedback. The developed R code was
+presented in support of parallel sessions of structural gravity training
+using STATA, and helped to improve the explanations contained in the
+ebook. Vargas (2021a) had two releases during this project. A first
+version delivered in December, 2020 and a second version delivered in
+June, 2021 with corrections and the inclusion of \texttt{eflm} to make R
+a competitive tool for economic analysis.
+
+A test bank for the solutions manual was also created as a part of this
+stage. Eighty multiple choice questions in digital format are available
+to test knowledge of ESCAP training participants. Only forty questions
+are used in the test, so many tests can be generated via loops with
+different randomization parameters.
+
+\hypertarget{fourth-stage}{%
+\subsection{Fourth stage}\label{fourth-stage}}
+
+Implementing clever fitting methods to avoid bottlenecks. GLMs in R (and
+also Python) tend to be at least 3 times slower than Stata depending on
+the employed link function and the number of categorial variables. For
+the case of gravity models, it was of central interest to optimize the
+fitting process for the Quasi-Poisson family, which is what is used in
+International Economy as a remedial method for over-disperssion. The
+need of speed is about being able to build interactive dashboards to
+simulate the impact of policy decisions.
 
 Fitting general equilibrium models that are, by definition, slow to fit,
 is not a trivial task. This motivated the creation of \texttt{eflm},
@@ -273,14 +304,10 @@ that reduces the model design matrix from \(N\times P\) into
 \(P\times P\) and therefore offers large time improvements that match
 Stata times.
 
-A \emph{fifth stage}, not initially included, was to build an
-interactive dashboard to simulate decision making by applying all the
-previous stages of this project. COMPLETAR.
+\hypertarget{fifth-stage}{%
+\subsection{Fifth stage}\label{fifth-stage}}
 
-Vargas (2021a) had two releases during this project. A first version
-delivered in December, 2020 and a second version delivered in June, 2021
-with corrections and the inclusion of \texttt{eflm} to make R a
-competitive tool for economic analysis.
+EL DASHBOARD
 
 \chapter{Replication of `An Advanced Guide To Trade Policy Analysis'}
 
@@ -1195,23 +1222,6 @@ book's figures and models output.
 
 \includegraphics{tesis-pacha_files/figure-latex/ge_plot2-1.pdf}
 
-\hypertarget{findings}{%
-\subsection{Findings}\label{findings}}
-
-It was possible to fully replicate each model, figure and summary from
-Yotov et al. (2016). The solely differences were model intercepts
-because of how Stata and R differ at some steps of GLMs fitting, but the
-slopes, standard errors and every model assessment metric could be fully
-replicated.
-
-The replication work was somewhat straightforward because of the
-availability if: (i) code and datasets, both documented; (ii)
-comprehensive explanations of the theory, which allowed to provide a
-meaningful translation from Stata to R, even when the translation was
-not 1:1 because of difference on how both languages deal with
-categorical variables; (iii) direct communication with the principal
-author, who replied all of my questions about the data cleaning steps.
-
 \chapter{Efficient Fitting of Linear Models}
 
 \hypertarget{bottlenecks-in-glm-estimation}{%
@@ -1224,34 +1234,37 @@ specific coefficients, the estimation of relevant effects such as RTAs
 over time constitutes itself a bottle neck which is not solved
 necessarily by scaling hardware.
 
-Certainly, more powerful processors allow a faster estimation for some
-statistical models, but fitting times are very consistent on scaled
-hardware, so a solution for competitive fitting times is related to a
-different fitting algorithm.
-
 Reproducing the traditional gravity estimates PPML model from Chapter 1
 in Yotov et al. (2016) was already discussed in the previous chapter of
-this thesis, the model consists in a country-time fixed effects GLM with
-Quasi-Poisson link \begin{align*}
+this thesis, and an interesting model with country-time fixed effects
+and Quasi-Poisson link is \begin{align*}
 X_{ij,t} =& \:\exp\left[\pi_{i,t} + \chi_{i,t} + \beta_1 \log(DIST)_{i,j} + \beta_2 CNTG_{i,j} +\right.\\
 \text{ }& \:\left.\beta_3 LANG_{i,j} + \beta_4 CLNY_{i,j}\right] \times \varepsilon_{ij,t}
 \end{align*}
 
 To compare GLM vs the proposed Efficient-GLM (EGLM) function, I
-conducted a test with 500 repetitions on different dedicated CPUs
-DigitalOcean droplets (cloud virtual machines).
+conducted a test with 500 repetitions locally.
 
 \includegraphics{tesis-pacha_files/figure-latex/unnamed-chunk-4-1.pdf}
 
-The results were very consistent across different hardware not included
-in the chart, such as 2 CPUs and testing with SSD or NVMe disks.
-Surprisingly enough, more CPUs don't reduce the median fitting time.
-Therefore, the median time of these results can be compared against
-local Stata 13 median times on the same statistical model.
-
-\includegraphics{tesis-pacha_files/figure-latex/unnamed-chunk-5-1.pdf}
-
 \chapter*{REFERENCES}
+
+\appendix
+
+\chapter{List of abbreviations}
+
+\textbf{ESCAP}: United Nations Economic and Social Commission for Asia
+and the Pacific
+
+\textbf{GLMs}: Generalized Linear Models
+
+\textbf{LDC}: Least Developed Countries
+
+\textbf{RTAs}: Regional Trade Agreements
+
+\textbf{SDGs}: Sustainable Development Goals
+
+\textbf{WTO}: World Trade Organization
 
 \hypertarget{refs}{}
 \begin{CSLReferences}{1}{0}
@@ -1307,11 +1320,8 @@ Wei, Shang-Jin. 1996. {``Intra-National Versus International Trade: How
 Stubborn Are Nations in Global Integration?''} National Bureau of
 Economic Research.
 
-\leavevmode\hypertarget{ref-tidyverse}{}%
-Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy
-D'Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019.
-{``Welcome to the {tidyverse}.''} \emph{Journal of Open Source Software}
-4 (43): 1686. \url{https://doi.org/10.21105/joss.01686}.
+\leavevmode\hypertarget{ref-wickham2019advanced}{}%
+Wickham, Hadley. 2019. \emph{Advanced r}. CRC press.
 
 \leavevmode\hypertarget{ref-wickham2016r}{}%
 Wickham, Hadley, and Garrett Grolemund. 2016. \emph{R for Data Science:

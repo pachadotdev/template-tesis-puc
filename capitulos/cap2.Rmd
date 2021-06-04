@@ -524,9 +524,3 @@ ggplot(data = ch2_application1 %>% filter(exporter != "HKG")) +
 
 rm(list = ls())
 ```
-
-## Findings
-
-It was possible to fully replicate each model, figure and summary from @yotov2016advanced. The solely differences were model intercepts because of how Stata and R differ at some steps of GLMs fitting, but the slopes, standard errors and every model assessment metric could be fully replicated.
-
-The replication work was somewhat straightforward because of the availability if: (i) code and datasets, both documented; (ii) comprehensive explanations of the theory, which allowed to provide a meaningful translation from Stata to R, even when the translation was not 1:1 because of difference on how both languages deal with categorical variables; (iii) direct communication with the principal author, who replied all of my questions about the data cleaning steps.

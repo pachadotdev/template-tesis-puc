@@ -34,3 +34,19 @@ library(forcats)
 ```
 
 \chapter*{REFERENCES}
+
+\appendix
+
+\chapter{List of abbreviations}
+
+**ESCAP**: United Nations Economic and Social Commission for Asia and the Pacific
+
+**GLMs**: Generalized Linear Models
+
+**LDC**: Least Developed Countries
+
+**RTAs**: Regional Trade Agreements
+
+**SDGs**: Sustainable Development Goals
+
+**WTO**: World Trade Organization
